@@ -1,0 +1,24 @@
+digraph "ContextMapGraph" {
+graph ["imagepath"="/tmp/GraphvizJava"]
+"CallCenterContext" ["margin"="0.3","orientation"="174","shape"="egg","fontsize"="16","style"="bold","label"="CallCenterContext\n","fontname"="sans-serif"]
+"TransportContext" ["margin"="0.3","orientation"="50","shape"="egg","fontsize"="16","style"="bold","label"="TransportContext\n","fontname"="sans-serif"]
+"PatientContext" ["margin"="0.3","orientation"="110","shape"="egg","fontsize"="16","style"="bold","label"="PatientContext\n","fontname"="sans-serif"]
+"VehicleContext" ["margin"="0.3","orientation"="254","shape"="egg","fontsize"="16","style"="bold","label"="VehicleContext\n","fontname"="sans-serif"]
+"CallCenterContext" -> "TransportContext" ["headlabel"=<<table cellspacing="0" cellborder="1" border="0">
+<tr><td bgcolor="white" sides="r">D</td><td sides="trbl" bgcolor="white"><font>ACL</font></td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="                                        ","dir"="none","fontname"="sans-serif"]
+"CallCenterContext" -> "PatientContext" ["headlabel"=<<table cellspacing="0" cellborder="1" border="0">
+<tr><td bgcolor="white" sides="r">D</td><td sides="trbl" bgcolor="white"><font>ACL</font></td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="                                        ","dir"="none","fontname"="sans-serif"]
+"CallCenterContext" -> "VehicleContext" ["headlabel"=<<table cellspacing="0" cellborder="1" border="0">
+<tr><td bgcolor="white" sides="r">D</td><td sides="trbl" bgcolor="white"><font>ACL</font></td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="                                        ","dir"="none","fontname"="sans-serif"]
+"PatientContext" -> "TransportContext" ["fontsize"="12","style"="bold","label"="Partnership","dir"="none","fontname"="sans-serif"]
+"VehicleContext" -> "TransportContext" ["fontsize"="12","style"="bold","label"="Partnership","dir"="none","fontname"="sans-serif"]
+}
