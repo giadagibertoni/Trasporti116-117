@@ -8,12 +8,11 @@ ContextMap Trasporti116117 {
 
 	PatientContext [P] <-> [P] TransportContext
 	
-	CallCenterContext -> [ACL] TransportContext 
+	CallCenterContext [D,C] <- [U,S] TransportContext 
 	
-	CallCenterContext -> [ACL] PatientContext
+	CallCenterContext [D,C] <- [U,S] PatientContext
 	
-	CallCenterContext -> [ACL] VehicleContext
-
+	CallCenterContext [D,C] <- [U,S] VehicleContext
 }
 
 BoundedContext CallCenterContext implements CallCenter{
@@ -69,14 +68,11 @@ BoundedContext TransportContext implements Transport{
 	knowledgeLevel = CONCRETE
 	
 	Aggregate Transport{
-		ValueObject Phase{
-			Integer id
-		}		
-		ValueObject Scheduled extends Phase
 		
-		ValueObject InProgress extends Phase
-			
-		ValueObject Completed extends Phase
+		enum Phase {
+			aggregateLifecycle
+			Scheduled, InProgress, Completed
+		}
 		
 		ValueObject Itinerary {
 			Float longitude
@@ -103,17 +99,10 @@ BoundedContext VehicleContext implements Transport{
 			Float latitude
 		}
 		
-		ValueObject VeichleState{
-			Integer id
+		enum VeichleState {
+			aggregateLifecycle
+			Busy, Free, UnderMaintenance, Disused
 		}
-		
-		ValueObject Busy extends VeichleState
-		
-		ValueObject Free extends VeichleState
-		
-		ValueObject UnderMaintenance extends VeichleState
-		
-		ValueObject Disused extends VeichleState
 		
 		Entity Ambulance {
 			aggregateRoot
