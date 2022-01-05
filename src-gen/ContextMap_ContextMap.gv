@@ -1,0 +1,24 @@
+digraph "ContextMapGraph" {
+graph ["imagepath"="/tmp/GraphvizJava"]
+"CallCenterContext" ["margin"="0.3","orientation"="167","shape"="egg","fontsize"="16","style"="bold","label"="CallCenterContext\n","fontname"="sans-serif"]
+"PatientContext" ["margin"="0.3","orientation"="10","shape"="egg","fontsize"="16","style"="bold","label"="PatientContext\n","fontname"="sans-serif"]
+"TransportContext" ["margin"="0.3","orientation"="132","shape"="egg","fontsize"="16","style"="bold","label"="TransportContext\n","fontname"="sans-serif"]
+"VehicleContext" ["margin"="0.3","orientation"="169","shape"="egg","fontsize"="16","style"="bold","label"="VehicleContext\n","fontname"="sans-serif"]
+"PatientContext" -> "CallCenterContext" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"PatientContext" -> "TransportContext" ["fontsize"="12","style"="bold","label"="Partnership","dir"="none","fontname"="sans-serif"]
+"TransportContext" -> "CallCenterContext" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"VehicleContext" -> "CallCenterContext" ["headlabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">D</td></tr>
+</table>>,"labeldistance"="0","fontsize"="12","taillabel"=<<table cellspacing="0" cellborder="0" border="0">
+<tr><td bgcolor="white">U</td></tr>
+</table>>,"style"="bold","label"="Customer/Supplier","dir"="none","fontname"="sans-serif"]
+"VehicleContext" -> "TransportContext" ["fontsize"="12","style"="bold","label"="Partnership","dir"="none","fontname"="sans-serif"]
+}

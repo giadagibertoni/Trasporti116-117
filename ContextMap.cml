@@ -36,8 +36,8 @@ BoundedContext PatientContext implements Patient{
 		}
 		
 		ValueObject PatientPersonalData{
-			String nome
-			String cognome
+			String name
+			String surname
 			Date dateOfBirth
 			-PatientResidence residence
 		}
@@ -122,8 +122,8 @@ BoundedContext VehicleContext implements Transport{
 		}
 		
 		ValueObject TransportOperatorPersonalData{
-			String nome
-			String cognome
+			String name
+			String surname
 			Date dateOfBirth
 			-TransportOperatorResidence residence
 		}
