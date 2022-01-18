@@ -1,0 +1,154 @@
+ContextMap Trasporti116117 {
+	type = SYSTEM_LANDSCAPE
+	state = TO_BE
+	
+	contains CallCenterContext, PatientContext, TransportContext, VehicleContext
+
+	VehicleContext [P] <-> [P]TransportContext
+
+	PatientContext [P] <-> [P] TransportContext
+	
+	CallCenterContext [D,C] <- [U,S] TransportContext 
+	
+	CallCenterContext [D,C] <- [U,S] PatientContext
+	
+	CallCenterContext [D,C] <- [U,S] VehicleContext
+}
+
+BoundedContext CallCenterContext implements CallCenter{
+	type = SYSTEM
+	domainVisionStatement = "Handles calls. It also deals with the storage of new transports, vehicles and patients."
+	knowledgeLevel = META
+}
+
+BoundedContext PatientContext implements Patient{
+	type = FEATURE
+	domainVisionStatement = "Represents the patient to be transported"
+	knowledgeLevel = CONCRETE
+	
+	Aggregate Patient {
+		ValueObject PatientResidence{
+			String address
+			String number
+			String city
+			String district
+			Integer postalCode
+		}
+		
+		ValueObject PatientPersonalData{
+			String name
+			String surname
+			Date dateOfBirth
+			-PatientResidence residence
+		}
+	
+		ValueObject HealthState{
+			String description
+		}
+		
+		ValueObject Autonomy {
+			String description
+		}
+		
+    	Entity Patient {
+      		aggregateRoot
+      		Integer idPatient
+      		String firstname
+      		String lastname
+      		-PatientPersonalData personalData
+      		-HealthState healthState
+      		-Autonomy autonomy
+    	}	
+  	}
+}
+
+BoundedContext TransportContext implements Transport{
+	type = APPLICATION 
+	domainVisionStatement = "Represents all stages of transport. The life cycle of the transport begins with the booking of the same and ends with the arrival at the destination."
+	knowledgeLevel = CONCRETE
+	
+	Aggregate Transport{
+		
+		enum Phase {
+			aggregateLifecycle
+			Scheduled, InProgress, Completed
+		}
+		
+		ValueObject Itinerary {
+			Float longitude
+			Float latitude 
+		}
+		
+		Entity Tansport {
+			Integer idTransport
+			-Itinerary itinerary
+			-Phase phase
+		}
+	}
+}
+
+BoundedContext VehicleContext implements Transport{
+	type = FEATURE
+	domainVisionStatement = "Represents the vehicles and the operator who drives them"
+	knowledgeLevel = CONCRETE
+	
+	Aggregate Ambulance {
+		Entity GPS {
+			Integer idGPS
+			Float longitude
+			Float latitude
+		}
+		
+		enum VeichleState {
+			aggregateLifecycle
+			Busy, Free, UnderMaintenance, Disused
+		}
+		
+		Entity Ambulance {
+			aggregateRoot
+			Integer idAmbulance
+			-GPS gps
+			-VeichleState vehicleState
+		}
+	}
+	
+	Aggregate TransportOperator {
+		ValueObject TransportOperatorResidence{
+			String address
+			String number
+			String city
+			String district
+			Integer postalCode
+		}
+		
+		ValueObject TransportOperatorPersonalData{
+			String name
+			String surname
+			Date dateOfBirth
+			-TransportOperatorResidence residence
+		}
+		
+		Entity TransportOperator{
+			aggregateRoot
+			Integer idTransportOperator
+			-TransportOperatorPersonalData personalData
+		}
+
+	}
+}
+
+Domain Trasporti116117Domain{
+	Subdomain CallCenter{
+		type GENERIC_SUBDOMAIN
+	}
+
+	Subdomain Patient{
+		type SUPPORTING_DOMAIN
+	}
+
+	Subdomain Transport{
+		type CORE_DOMAIN
+	}
+
+}
+
