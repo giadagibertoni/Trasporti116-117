@@ -8,7 +8,6 @@ import domain.*;
 
 public class PatientResidence {
     private final Address address;
-    private final HouseNumber houseNumber;
     private final City city;
     private final District district;
     private final PostalCode postalCode;
@@ -17,15 +16,13 @@ public class PatientResidence {
      * Patient's residence
      *
      * @param a patient's address
-     * @param hn patient's house number
      * @param c patient's city
      * @param d patient's district
      * @param pc patient's postal code
      *
      */
-    public PatientResidence(final Address a, final HouseNumber hn, final City c, final District d, final PostalCode pc) {
+    public PatientResidence(final Address a, final City c, final District d, final PostalCode pc) {
         this.address = a;
-        this.houseNumber = hn;
         this.city = c;
         this.district = d;
         this.postalCode = pc;
@@ -36,13 +33,6 @@ public class PatientResidence {
      */
     public Address getAddress() {
         return address;
-    }
-
-    /**
-     * @return patient's house number
-     */
-    public HouseNumber getHouseNumber() {
-        return houseNumber;
     }
 
     /**

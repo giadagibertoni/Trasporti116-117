@@ -14,7 +14,6 @@ public class PatientPersonalData {
     private final String surname;
     private final LocalDate birthDate;
     private final PatientResidence residence;
-    private final PatientTelecom telecom;
 
     /**
      * Patient's personal data
@@ -23,14 +22,12 @@ public class PatientPersonalData {
      * @param s surname of patient
      * @param bd birth date of patient
      * @param r residence of patient
-     * @param t telecom of patient
      */
-    public PatientPersonalData(final String n, final String s, final LocalDate bd, final PatientResidence r, final PatientTelecom t) {
+    public PatientPersonalData(final String n, final String s, final LocalDate bd, final PatientResidence r) {
         this.name = n;
         this.surname = s;
         this.birthDate = bd;
         this.residence = r;
-        this.telecom = t;
     }
 
     /**
@@ -61,10 +58,4 @@ public class PatientPersonalData {
         return residence;
     }
 
-    /**
-     * @return email and telephone number of patient
-     */
-    public PatientTelecom getTelecom() {
-        return telecom;
-    }
 }

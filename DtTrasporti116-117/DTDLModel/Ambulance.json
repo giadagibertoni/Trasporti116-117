@@ -1,0 +1,81 @@
+[
+  {
+   "@id": "dtmi:num116117:ambulance;1",
+   "@type": "Interface",
+   "@context": [
+    "dtmi:dtdl:context;2"
+   ],
+   "displayName": "Ambulance",
+   "contents": [
+    {
+     "@type": "Property",
+     "name": "number",
+     "schema": "integer"
+    },
+    {
+     "@type": "Property",
+     "name": "state",
+     "schema": "dtmi:num116117:veichleState;1"
+    },
+    {
+     "@type": "Component",
+     "name": "gps",
+     "schema": "dtmi:num116117:gps;1"
+    },
+    {
+     "@type": "Relationship",
+     "name": "use",
+     "target": "dtmi:num116117:transport;1"
+    },
+    {
+     "@type": "Relationship",
+     "name": "drive",
+     "target": "dtmi:num116117:ambulanceOperator;1"
+    }],
+    "schemas": [
+     {
+       "@id": "dtmi:num116117:veichleState;1",
+       "@type": "Enum",
+       "valueSchema": "integer",
+       "enumValues": [
+       {
+        "name": "busy",
+        "displayName": "Busy",
+        "enumValue": 1
+       },
+       {
+        "name": "free",
+        "displayName": "Free",
+        "enumValue": 2
+       },
+       {
+        "name": "underMaintenance",
+        "displayName": "UnderMaintenance",
+        "enumValue": 3
+       },
+       {
+        "name": "disused",
+        "displayName": "Disused",
+        "enumValue": 4
+       }]
+     }]
+  },
+  {
+    "@context": "dtmi:dtdl:context;2",
+    "@id": "dtmi:num116117:gps;1",
+    "@type": "Interface",
+    "displayName": "GPS",
+    "contents": [
+      {
+        "@type": ["Property", "longitude"],
+        "name": "longitude",
+        "schema": "float"
+      },
+      {
+        "@type": ["Property", "latitude"],
+        "name": "latitude",
+        "schema": "float"
+      }
+    ]
+  }
+]

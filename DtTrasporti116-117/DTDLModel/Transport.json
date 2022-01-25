@@ -1,0 +1,154 @@
+{
+  "@id": "dtmi:num116117:transport;1",
+  "@type": "Interface",
+  "@context": [
+    "dtmi:dtdl:context;2"
+  ],
+  "displayName": "Transpor",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "route",
+      "schema": "dtmi:num116117:transportRoute;1"
+    },
+    {
+      "@type": "Property",
+      "name": "startDateTime",
+      "schema": "dateTime"
+    },
+    {
+      "@type": "Property",
+      "name": "endDateTime",
+      "schema": "dateTime"
+    },
+    {
+      "@type": "Property",
+      "name": "phase",
+      "schema": "dtmi:num116117:transportPhase;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "use",
+      "target": "dtmi:num116117:ambulance;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "transport",
+      "target": "dtmi:num116117:patient;1"
+    }
+  ],
+  "schemas": [
+    {
+      "@id": "dtmi:num116117:transportPhase;1",
+      "@type": "Enum",
+      "valueSchema": "integer",
+      "enumValues": [
+        {
+          "name": "scheduled",
+          "displayName": "Scheduled",
+          "enumValue": 1
+        },
+        {
+          "name": "inProgress",
+          "displayName": "InProgress",
+          "enumValue": 2
+        },
+        {
+          "name": "completed",
+          "displayName": "Completed",
+          "enumValue": 3
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportRoute;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "departure",
+          "schema": "dtmi:num116117:transportLocation;1"
+        },
+        {
+          "name": "destination",
+          "schema": "dtmi:num116117:transportLocation;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportLocation;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "dtmi:num116117:transportAddress;1"
+        },
+        {
+          "name": "houseNumber",
+          "schema": "dtmi:num116117:transportHouseNumber;1"
+        },
+        {
+          "name": "city",
+          "schema": "dtmi:num116117:transportCity;1"
+        },
+        {
+          "name": "district",
+          "schema": "dtmi:num116117:transportDistrict;1"
+        },
+        {
+          "name": "postalCode",
+          "schema": "dtmi:num116117:transportPostalCode;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportAddress;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportHouseNumber;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "houseNumber",
+          "schema": "integer"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportCity;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "city",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportPostalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "postalCode",
+          "schema": "integer"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportDistrict;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "district",
+          "schema": "string"
+        }
+      ]
+    }
+  ]
+}
