@@ -2,7 +2,7 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain.transport;
+package dtModel.transport;
 
 /**
  * Class that represents the transport identifier

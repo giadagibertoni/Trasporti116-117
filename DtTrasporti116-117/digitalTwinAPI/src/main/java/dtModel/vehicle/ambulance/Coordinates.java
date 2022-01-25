@@ -2,7 +2,7 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain.vehicle.ambulance;
+package dtModel.vehicle.ambulance;
 
 /**
  * Represents the earth's coordinates

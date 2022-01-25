@@ -2,7 +2,7 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain.vehicle.operator;
+package dtModel.vehicle.operator;
 
 
 import java.time.LocalDate;

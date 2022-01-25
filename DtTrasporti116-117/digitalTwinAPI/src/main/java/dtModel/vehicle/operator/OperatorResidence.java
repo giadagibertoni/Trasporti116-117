@@ -2,10 +2,10 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain.vehicle.operator;
+package dtModel.vehicle.operator;
 
 
-import domain.*;
+import dtModel.*;
 
 /**
  * Class that represents the operator residence
@@ -13,7 +13,6 @@ import domain.*;
 public class OperatorResidence {
 
     private final Address address;
-    private final HouseNumber houseNumber;
     private final City city;
     private final District district;
     private final PostalCode postalCode;
@@ -21,14 +20,12 @@ public class OperatorResidence {
     /**
      * Create operator residence
      * @param a operator residence address
-     * @param hn operator residence house number
      * @param c operator residence city
      * @param d operator residence district
      * @param pc operator residence postal code
      */
-    public OperatorResidence(final Address a, final HouseNumber hn, final City c, final District d, final PostalCode pc) {
+    public OperatorResidence(final Address a, final City c, final District d, final PostalCode pc) {
         this.address = a;
-        this.houseNumber = hn;
         this.city = c;
         this.district = d;
         this.postalCode = pc;
@@ -39,13 +36,6 @@ public class OperatorResidence {
      */
     public Address getAddress() {
         return address;
-    }
-
-    /**
-     * @return house number
-     */
-    public HouseNumber getHouseNumber() {
-        return houseNumber;
     }
 
     /**

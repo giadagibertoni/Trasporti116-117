@@ -2,13 +2,17 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain;
+package dtModel;
 
 /**
  * Class that represents an address
  */
 public class Address {
-    private final String address;
+    private String address;
+
+    public Address() {
+        super();
+    }
 
     /**
      * Create address

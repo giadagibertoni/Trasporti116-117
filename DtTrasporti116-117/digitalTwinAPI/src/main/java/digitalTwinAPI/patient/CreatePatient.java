@@ -7,11 +7,11 @@ package digitalTwinAPI.patient;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import digitalTwinAPI.connection.Client;
-import domain.Address;
-import domain.City;
-import domain.District;
-import domain.PostalCode;
-import domain.patient.*;
+import dtModel.Address;
+import dtModel.City;
+import dtModel.District;
+import dtModel.PostalCode;
+import dtModel.patient.*;
 import fhirParser.FHIRPatientResource;
 import org.hl7.fhir.r4.model.Condition;
 import org.hl7.fhir.r4.model.Patient;
@@ -43,6 +43,7 @@ public final class CreatePatient {
         );
 
         PatientPersonalData patientPersonalData = new PatientPersonalData(
+                fs,
                 patient.getNameFirstRep().getGivenAsSingleString(),
                 patient.getNameFirstRep().getFamily(),
                 patient.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),

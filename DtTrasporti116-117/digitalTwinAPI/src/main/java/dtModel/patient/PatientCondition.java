@@ -2,15 +2,18 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain.patient;
+package dtModel.patient;
 
 /**
  * Represents the patient's health state and autonomy
  */
 public class PatientCondition {
-    private final String system;
-    private final int code;
+    private String system;
+    private int code;
 
+    public PatientCondition(){
+        super();
+    }
     /**
      * Patient's PatientCondition
      *

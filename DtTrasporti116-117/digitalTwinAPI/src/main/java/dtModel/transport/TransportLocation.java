@@ -2,57 +2,60 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain.patient;
+package dtModel.transport;
 
-import domain.*;
+import dtModel.*;
 
-public class PatientResidence {
+/**
+ * Class that represents a transport location
+ */
+public class TransportLocation {
     private final Address address;
     private final City city;
     private final District district;
     private final PostalCode postalCode;
 
     /**
-     * Patient's residence
+     * Create transport location
      *
-     * @param a patient's address
-     * @param c patient's city
-     * @param d patient's district
-     * @param pc patient's postal code
-     *
+     * @param a location address
+     * @param c location city
+     * @param d location district
+     * @param pC location postal code
      */
-    public PatientResidence(final Address a, final City c, final District d, final PostalCode pc) {
+    public TransportLocation(final Address a, final City c, final District d, final PostalCode pC) {
         this.address = a;
         this.city = c;
         this.district = d;
-        this.postalCode = pc;
+        this.postalCode = pC;
     }
 
     /**
-     * @return patient's address
+     * @return address
      */
     public Address getAddress() {
         return address;
     }
 
     /**
-     * @return patient's city
+     * @return city
      */
     public City getCity() {
         return city;
     }
 
     /**
-     * @return patient's district
+     * @return district
      */
     public District getDistrict() {
         return district;
     }
 
     /**
-     * @return patient's postal code
+     * @return postal code
      */
     public PostalCode getPostalCode() {
         return postalCode;
     }
 }
+

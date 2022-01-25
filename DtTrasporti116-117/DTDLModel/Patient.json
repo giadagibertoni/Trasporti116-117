@@ -28,6 +28,10 @@
       "@type": "Object",
       "fields": [
         {
+          "name": "fiscalCode",
+          "schema": "dtmi:num116117:patientFiscalCode;1"
+        },
+        {
           "name": "name",
           "schema": "string"
         },
@@ -68,10 +72,6 @@
           "schema": "dtmi:num116117:patientAddress;1"
         },
         {
-          "name": "houseNumber",
-          "schema": "dtmi:num116117:patientHouseNumber;1"
-        },
-        {
           "name": "city",
           "schema": "dtmi:num116117:patientCity;1"
         },
@@ -86,22 +86,22 @@
       ]
     },
     {
+      "@id": "dtmi:num116117:patientFiscalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "fiscalCode",
+          "schema": "string"
+        }
+      ]
+    },
+    {
       "@id": "dtmi:num116117:patientAddress;1",
       "@type": "Object",
       "fields": [
         {
           "name": "address",
           "schema": "string"
-        }
-      ]
-    },
-    {
-      "@id": "dtmi:num116117:patientHouseNumber;1",
-      "@type": "Object",
-      "fields": [
-        {
-          "name": "houseNumber",
-          "schema": "integer"
         }
       ]
     },

@@ -2,14 +2,17 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain;
+package dtModel;
 
 /**
  * Class that represents postal code number
  */
 public class PostalCode {
-    private final int postalCode;
+    private int postalCode;
 
+    public PostalCode(){
+        super();
+    }
     /**
      * Create a new postal code number
      *

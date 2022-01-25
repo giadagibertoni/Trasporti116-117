@@ -2,13 +2,17 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain;
+package dtModel;
 
 /**
  * Class that represents a city
  */
 public class City {
-    private final String city;
+    private String city;
+
+    public City() {
+        super();
+    }
 
     /**
      * Create new DTDLCity

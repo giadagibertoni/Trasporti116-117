@@ -2,13 +2,17 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain;
+package dtModel;
 
 /**
  * Class that represents a district
  */
 public class District {
-    private final String district;
+    private String district;
+
+    public District() {
+        super();
+    }
 
     /**
      * Create new district

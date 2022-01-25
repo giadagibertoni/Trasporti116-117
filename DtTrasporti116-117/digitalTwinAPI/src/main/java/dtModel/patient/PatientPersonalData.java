@@ -2,7 +2,7 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain.patient;
+package dtModel.patient;
 
 import java.time.LocalDate;
 
@@ -10,11 +10,15 @@ import java.time.LocalDate;
  * Represents the patient's personal data
  */
 public class PatientPersonalData {
-    private final String name;
-    private final String surname;
-    private final LocalDate birthDate;
-    private final PatientResidence residence;
+    private PatientFiscalCode fiscalCode;
+    private String name;
+    private String surname;
+    private LocalDate birthDate;
+    private PatientResidence residence;
 
+    public PatientPersonalData(){
+        super();
+    }
     /**
      * Patient's personal data
      *
@@ -23,7 +27,8 @@ public class PatientPersonalData {
      * @param bd birth date of patient
      * @param r residence of patient
      */
-    public PatientPersonalData(final String n, final String s, final LocalDate bd, final PatientResidence r) {
+    public PatientPersonalData(final PatientFiscalCode fs, final String n, final String s, final LocalDate bd, final PatientResidence r) {
+        this.fiscalCode = fs;
         this.name = n;
         this.surname = s;
         this.birthDate = bd;
@@ -58,4 +63,7 @@ public class PatientPersonalData {
         return residence;
     }
 
+    public PatientFiscalCode getFiscalCode() {
+        return fiscalCode;
+    }
 }

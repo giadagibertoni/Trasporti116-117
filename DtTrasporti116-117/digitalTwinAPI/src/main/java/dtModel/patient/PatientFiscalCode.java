@@ -2,15 +2,18 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package domain.patient;
+package dtModel.patient;
 
 /**
  * Represents the patient's fiscal code
  */
 public class PatientFiscalCode {
 
-    private final String fiscalCode;
+    private String fiscalCode;
 
+    public PatientFiscalCode(){
+        super();
+    }
     /**
      * Patient's fiscal code
      *
