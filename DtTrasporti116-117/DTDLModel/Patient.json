@@ -15,11 +15,6 @@
       "@type": "Property",
       "name": "personalData",
       "schema": "dtmi:num116117:patientPersonalData;1"
-    },
-    {
-      "@type": "Relationship",
-      "name": "transport",
-      "target": "dtmi:num116117:transport;1"
     }
   ],
   "schemas": [

@@ -7,13 +7,14 @@ package fhirParser;
 import dtModel.patient.*;
 import org.hl7.fhir.r4.model.*;
 import org.hl7.fhir.r4.model.Condition;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.ZoneId;
 import java.util.Date;
 
 public class FHIRPatientResource {
 
-    public static String createFHIRResource(PatientDtModel dt){
+    public static String createFHIRResource(@NotNull PatientDtModel dt){
         // Create a resource instance
         Patient patient = new Patient();
         patient.addIdentifier(new Identifier().setValue(dt.getPersonalData().getFiscalCode().getFiscalCode()));
@@ -32,8 +33,6 @@ public class FHIRPatientResource {
     }
 
     public static Patient parseFHIRResource(String jsonResource){
-        Patient patient = FHIRParser.getParser().parseResource(Patient.class, jsonResource);
-
-        return patient;
+        return FHIRParser.getParser().parseResource(Patient.class, jsonResource);
     }
 }

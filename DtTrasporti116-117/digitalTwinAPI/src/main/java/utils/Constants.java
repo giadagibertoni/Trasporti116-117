@@ -50,5 +50,21 @@ public final class Constants {
      */
     public static final String TRANSPORT_MODEL_ID = "dtmi:num116117:transport;1";
 
+    /**
+     * Coding system SNOMED
+     */
+    public static final String SNOMED_SYSTEMS = "http://snomed.info/sct";
+
+    /**
+     * Ambulance device code in SNOMED
+     */
+    public static final String AMBULANCE_CODE = "465341007";
+
+    /**
+     * GPS code in SNOMED
+     */
+    public static final String GPS_CODE = "897293009";
+
+
 }
 

@@ -2,16 +2,10 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-import com.azure.core.http.rest.PagedIterable;
-import digitalTwinAPI.connection.Client;
-import dtModel.patient.PatientDtModel;
+import fhirParser.FHIRAmbulanceResource;
 import fhirParser.FHIRParser;
 import fhirParser.FHIRPatientResource;
 import org.junit.Test;
-import utils.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -22,6 +16,14 @@ public class FHIRResourceTest {
                 TestDataValue.PATIENT_DT_MODEL);
         System.out.println(patient);
         assertTrue(FHIRParser.inputJSONResourceIsCorrect(patient));
+    }
+
+    @Test
+    public void testCreateAmbulanceResource() {
+        String ambulance = FHIRAmbulanceResource.createFHIRResource(
+                TestDataValue.AMBULANCE_DT_MODEL);
+        System.out.println(ambulance);
+        assertTrue(FHIRParser.inputJSONResourceIsCorrect(ambulance));
     }
 
 }

@@ -4,26 +4,34 @@
 
 package dtModel.vehicle.ambulance;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum AmbulanceState {
     /**
      * Ambulance is busy
      */
+
     BUSY(1),
     /**
      * Ambulance is free
      */
+
     FREE(2),
     /**
      * Ambulance is under maintenance
      */
+
     UNDER_MAINTENANCE(3),
-    /**
+    /*
      * Ambulance is disused
      */
+
     DISUSED(4);
 
-    private final int value;
+    private int value;
 
+    AmbulanceState(){
+    }
     /**
      * Ambulance's state
      *

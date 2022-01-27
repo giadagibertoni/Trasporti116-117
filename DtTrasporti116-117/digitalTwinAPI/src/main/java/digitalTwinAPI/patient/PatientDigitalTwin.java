@@ -4,6 +4,7 @@
 
 package digitalTwinAPI.patient;
 
+import com.azure.core.http.rest.PagedIterable;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import digitalTwinAPI.connection.Client;
@@ -18,12 +19,14 @@ import org.hl7.fhir.r4.model.Patient;
 import utils.Constants;
 
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Contains create patient digital twin API
  */
-public final class CreatePatient {
-    private CreatePatient() { }
+public final class PatientDigitalTwin {
+    private PatientDigitalTwin() { }
 
     /**
      * Create a patient digital twin
@@ -50,8 +53,6 @@ public final class CreatePatient {
                 residence
         );
         Condition fhirCondition = (Condition) patient.getContained().get(0);
-        System.out.println("condition " + fhirCondition.getCode().getCodingFirstRep().getCode());
-
 
         PatientCondition condition = new PatientCondition(
                 Integer.parseInt(fhirCondition.getCode().getCodingFirstRep().getCode()),
@@ -67,5 +68,20 @@ public final class CreatePatient {
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(fs.getFiscalCode(), patientDT, BasicDigitalTwin.class);
 
         return basicTwinResponse.getId();
+    }
+
+    /**
+     * Get all patients
+     *
+     * @return List of patient resource
+     */
+    public static List<String> getPatients() {
+        List<String> patients = new ArrayList<>();
+        String query = "SELECT * FROM DIGITALTWINS WHERE IS_OF_MODEL('" + Constants.PATIENT_MODEL_ID + "')";
+        PagedIterable<PatientDtModel> pageableResponse = Client.getClient().query(query, PatientDtModel.class);
+
+        pageableResponse.forEach(dt -> patients.add(FHIRPatientResource.createFHIRResource(dt)));
+
+        return patients;
     }
 }

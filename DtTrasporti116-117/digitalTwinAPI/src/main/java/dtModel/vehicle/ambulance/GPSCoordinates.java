@@ -7,17 +7,20 @@ package dtModel.vehicle.ambulance;
 /**
  * Represents the earth's coordinates
  * */
-public class Coordinates {
-    private final double longitude;
-    private final double latitude;
+public class GPSCoordinates {
+    private double longitude;
+    private double latitude;
 
+    public GPSCoordinates() {
+        super();
+    }
     /**
      * Create the coordinates
      *
      * @param lat latitude of coordinates
      * @param lon longitude of coordinates
      */
-    public Coordinates(final double lon, final double lat) {
+    public GPSCoordinates(final double lon, final double lat) {
         this.longitude = lon;
         this.latitude = lat;
     }

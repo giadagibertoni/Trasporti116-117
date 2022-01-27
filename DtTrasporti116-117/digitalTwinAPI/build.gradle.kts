@@ -9,7 +9,6 @@ dependencies {
     implementation("org.apache.clerezza.ext:org.json.simple:0.4")
     implementation("ca.uhn.hapi.fhir:hapi-fhir:5.6.2")
     implementation("ca.uhn.hapi.fhir:hapi-fhir-base:5.6.2")
-    implementation("ca.uhn.hapi.fhir:hapi-fhir-structures-dstu3:5.6.2")
     implementation("ca.uhn.hapi.fhir:hapi-fhir-structures-r4:5.6.2")
     testImplementation("junit:junit:4.13")
 }

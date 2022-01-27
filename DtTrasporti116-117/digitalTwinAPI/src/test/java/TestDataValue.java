@@ -1,6 +1,10 @@
 import dtModel.*;
 import dtModel.patient.*;
 import dtModel.transport.TransportLocation;
+import dtModel.vehicle.ambulance.AmbulanceDtModel;
+import dtModel.vehicle.ambulance.AmbulanceId;
+import dtModel.vehicle.ambulance.AmbulanceState;
+import dtModel.vehicle.ambulance.GPSCoordinates;
 import dtModel.vehicle.operator.OperatorResidence;
 
 import java.time.LocalDate;
@@ -9,8 +13,10 @@ public final class TestDataValue {
 
     private TestDataValue() { }
     //Ambulance
-    public static final int AMBULANCE_NUMBER = 1111;
-
+    public static final AmbulanceId AMBULANCE_ID = new AmbulanceId("Ambulance1111");
+    public static final GPSCoordinates AMBULANCE_COORDINATES = new GPSCoordinates(1.11,1.11);
+    public static final String AMBULANCE_RESOURCE = "{\"resourceType\":\"Device\",\"contained\":[{\"resourceType\":\"Location\",\"id\":\"1\",\"physicalType\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"897293009\"}]},\"position\":{\"longitude\":1.11,\"latitude\":1.11}}],\"identifier\":[{\"value\":\"Ambulance1111\"}],\"status\":\"inactive\",\"type\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"465341007\"}]}}\n";
+    public static final AmbulanceDtModel AMBULANCE_DT_MODEL = new AmbulanceDtModel(AMBULANCE_ID, AmbulanceState.FREE, AMBULANCE_COORDINATES);
     //Patient
     public static final PatientFiscalCode PATIENT_FISCAL_CODE = new PatientFiscalCode("patientTest");
     public static final String PATIENT_NAME = "namePatient";
@@ -24,7 +30,7 @@ public final class TestDataValue {
     public static final PatientCondition PATIENT_CONDITION = new PatientCondition(160245001, "http://snomed.info/sct");
 
     public static final PatientPersonalData PATIENT_PERSONALDATA = new PatientPersonalData(PATIENT_FISCAL_CODE, PATIENT_NAME, PATIENT_SURNAME, PATIENT_BIRTHDAY, PATIENT_RESIDENCE);
-    public static final String PATIENT_RESOURCE = "{\"resourceType\":\"Patient\",\"contained\":[{\"resourceType\":\"Condition\",\"id\":\"1\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"160245001\"}]}}],\"identifier\":[{\"value\":\"patientTest\"}],\"name\":[{\"use\":\"official\",\"family\":\"surnamePatient\",\"given\":[\"namePatient\"]}],\"telecom\":[{\"system\":\"phone\",\"value\":\"3334455678\"}],\"birthDate\":\"1970-07-05\",\"address\":[{\"line\":[\"Ferrari\"],\"city\":\"Forlì\",\"district\":\"FC\",\"postalCode\":\"47722\"}]}";
+    public static final String PATIENT_RESOURCE = "{\"resourceType\":\"Patient\",\"contained\":[{\"resourceType\":\"Condition\",\"id\":\"1\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"160245001\"}]}}],\"identifier\":[{\"value\":\"patientTest\"}],\"name\":[{\"use\":\"official\",\"family\":\"surnamePatient\",\"given\":[\"namePatient\"]}],\"birthDate\":\"1970-07-05\",\"address\":[{\"line\":[\"Ferrari\"],\"city\":\"Forlì\",\"district\":\"FC\",\"postalCode\":\"47722\"}]}";
     public static final PatientDtModel PATIENT_DT_MODEL = new PatientDtModel(PATIENT_CONDITION, PATIENT_PERSONALDATA);
 
     //Operator
