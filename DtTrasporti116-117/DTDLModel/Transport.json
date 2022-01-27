@@ -41,22 +41,22 @@
     {
       "@id": "dtmi:num116117:transportPhase;1",
       "@type": "Enum",
-      "valueSchema": "integer",
+      "valueSchema": "string",
       "enumValues": [
         {
           "name": "scheduled",
           "displayName": "Scheduled",
-          "enumValue": 1
+          "enumValue": "scheduled"
         },
         {
           "name": "inProgress",
           "displayName": "InProgress",
-          "enumValue": 2
+          "enumValue": "inProgress"
         },
         {
           "name": "completed",
           "displayName": "Completed",
-          "enumValue": 3
+          "enumValue": "completed"
         }
       ]
     },

@@ -8,11 +8,6 @@
   "contents": [
     {
       "@type": "Property",
-      "name": "id",
-      "schema": "dtmi:num116117:ambulanceId;1"
-    },
-    {
-      "@type": "Property",
       "name": "state",
       "schema": "dtmi:num116117:veichleState;1"
     },
@@ -55,16 +50,6 @@
         {
           "name": "latitude",
           "schema": "double"
-        }
-      ]
-    },
-    {
-      "@id": "dtmi:num116117:ambulanceId;1",
-      "@type": "Object",
-      "fields": [
-        {
-          "name": "id",
-          "schema": "string"
         }
       ]
     }

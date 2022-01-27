@@ -9,7 +9,6 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import digitalTwinAPI.connection.Client;
 import dtModel.vehicle.ambulance.AmbulanceDtModel;
-import dtModel.vehicle.ambulance.AmbulanceId;
 import dtModel.vehicle.ambulance.AmbulanceState;
 import dtModel.vehicle.ambulance.GPSCoordinates;
 import fhirParser.FHIRAmbulanceResource;
@@ -29,26 +28,16 @@ public class AmbulanceDigitalTwin {
      */
     public static String createAmbulance(String resource) {
         Device ambulance = FHIRAmbulanceResource.parseFHIRResource(resource);
-        AmbulanceId id = new AmbulanceId().setId(ambulance.getIdentifierFirstRep().getValue());
+        String id = ambulance.getIdentifierFirstRep().getValue();
 
         AmbulanceState state;
         //System.out.println("IN CREATE DT ");
         switch(ambulance.getStatus()){
-            case ACTIVE -> {state = AmbulanceState.BUSY;
-                //System.out.println("BUSY");
-            }
-            case INACTIVE -> {
-                state = AmbulanceState.FREE;
-             //   System.out.println("FREE");
-            }
-            case ENTEREDINERROR -> {
+            case ACTIVE -> state = AmbulanceState.BUSY;
+            case INACTIVE -> state = AmbulanceState.FREE;
+            case ENTEREDINERROR ->
                 state = AmbulanceState.UNDER_MAINTENANCE;
-              //  System.out.println("UNDERMAN");
-            }
-            default -> {
-                state = AmbulanceState.DISUSED;
-                //System.out.println("DISUSED");
-            }
+            default -> state = AmbulanceState.DISUSED;
         }
 
         Location location = (Location) ambulance.getContained().get(0);
@@ -56,15 +45,14 @@ public class AmbulanceDigitalTwin {
                 .setLongitude(location.getPosition().getLongitude().doubleValue())
                 .setLatitude(location.getPosition().getLatitude().doubleValue());
 
-        BasicDigitalTwin ambulanceDT = new BasicDigitalTwin(id.getid())
+        BasicDigitalTwin ambulanceDT = new BasicDigitalTwin(id)
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.AMBULANCE_MODEL_ID)
                 )
-                .addToContents("id", id)
                 .addToContents("state", state.getValue())
                 .addToContents("coordinates", coordinates);
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(id.getid(), ambulanceDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(id, ambulanceDT, BasicDigitalTwin.class);
 
         return basicTwinResponse.getId();
     }

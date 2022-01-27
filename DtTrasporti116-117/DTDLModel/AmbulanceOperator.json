@@ -37,24 +37,6 @@
         {
           "name": "residence",
           "schema": "dtmi:num116117:operatorResidence;1"
-        },
-        {
-          "name": "telecom",
-          "schema": "dtmi:num116117:operatorTelecom;1"
-        }
-      ]
-    },
-    {
-      "@id": "dtmi:num116117:operatorTelecom;1",
-      "@type": "Object",
-      "fields": [
-        {
-          "name": "mobile",
-          "schema": "string"
-        },
-        {
-          "name": "email",
-          "schema": "string"
         }
       ]
     },

@@ -3,6 +3,7 @@
  */
 
 import fhirParser.FHIRAmbulanceResource;
+import fhirParser.FHIROperatorResource;
 import fhirParser.FHIRParser;
 import fhirParser.FHIRPatientResource;
 import org.junit.Test;
@@ -24,6 +25,13 @@ public class FHIRResourceTest {
                 TestDataValue.AMBULANCE_DT_MODEL);
         System.out.println(ambulance);
         assertTrue(FHIRParser.inputJSONResourceIsCorrect(ambulance));
+    }
+
+    @Test
+    public void testCreateOperatorResource() {
+        String operator = FHIROperatorResource.createFHIRResource(TestDataValue.OPERATOR_DT_MODEL);
+        System.out.println(operator);
+        assertTrue(FHIRParser.inputJSONResourceIsCorrect(operator));
     }
 
 }

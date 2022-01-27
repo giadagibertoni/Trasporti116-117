@@ -2,9 +2,10 @@ import dtModel.*;
 import dtModel.patient.*;
 import dtModel.transport.TransportLocation;
 import dtModel.vehicle.ambulance.AmbulanceDtModel;
-import dtModel.vehicle.ambulance.AmbulanceId;
 import dtModel.vehicle.ambulance.AmbulanceState;
 import dtModel.vehicle.ambulance.GPSCoordinates;
+import dtModel.vehicle.operator.OperatorDtModel;
+import dtModel.vehicle.operator.OperatorPersonalData;
 import dtModel.vehicle.operator.OperatorResidence;
 
 import java.time.LocalDate;
@@ -13,10 +14,11 @@ public final class TestDataValue {
 
     private TestDataValue() { }
     //Ambulance
-    public static final AmbulanceId AMBULANCE_ID = new AmbulanceId().setId("Ambulance1111");
+    public static final String AMBULANCE_ID = "Ambulance1111";
     public static final GPSCoordinates AMBULANCE_COORDINATES = new GPSCoordinates().setLongitude(1.11).setLatitude(1.11);
     public static final String AMBULANCE_RESOURCE = "{\"resourceType\":\"Device\",\"contained\":[{\"resourceType\":\"Location\",\"id\":\"1\",\"physicalType\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"897293009\"}]},\"position\":{\"longitude\":1.11,\"latitude\":1.11}}],\"identifier\":[{\"value\":\"Ambulance1111\"}],\"status\":\"inactive\",\"type\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"465341007\"}]}}\n";
     public static final AmbulanceDtModel AMBULANCE_DT_MODEL = new AmbulanceDtModel().setId(AMBULANCE_ID).setState(AmbulanceState.FREE).setCoordinates(AMBULANCE_COORDINATES);
+
     //Patient
     public static final PatientFiscalCode PATIENT_FISCAL_CODE = new PatientFiscalCode().setFiscalCode("patientTest");
     public static final String PATIENT_NAME = "namePatient";
@@ -56,6 +58,13 @@ public final class TestDataValue {
             .setCity(OPERATOR_CITY)
             .setDistrict(OPERATOR_DISTRICT)
             .setPostalCode(OPERATOR_POSTAL_CODE);
+    public static final OperatorPersonalData OPERATOR_PERSONALDATA = new OperatorPersonalData()
+            .setName(OPERATOR_NAME)
+            .setSurname(OPERATOR_SURNAME)
+            .setBirthDate(OPERATOR_BIRTHDAY)
+            .setResidence(OPERATOR_RESIDENCE);
+    public static final OperatorDtModel OPERATOR_DT_MODEL = new OperatorDtModel().setPersonalData(OPERATOR_PERSONALDATA).setOperatorId(OPERATOR_ID);
+    public static final String OPERATOR_RESOURCE = "{\"resourceType\":\"Practitioner\",\"contained\":[{\"resourceType\":\"PractitionerRole\",\"id\":\"1\",\"specialty\":[{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"159738005\"}]}]}],\"identifier\":[{\"value\":\"operatorTest\"}],\"name\":[{\"family\":\"surnameOperator\",\"given\":[\"nameOperator\"]}],\"address\":[{\"line\":[\"Corso Cavour, 1\"],\"city\":\"Gambettola\",\"district\":\"FC\",\"postalCode\":\"47521\"}],\"birthDate\":\"1990-07-05\"}";
 
     //Transport
     public static final Address DEPARTURE_ADDRESS = new Address().setAddress("IV Settembre");

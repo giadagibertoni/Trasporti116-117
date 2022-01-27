@@ -65,6 +65,11 @@ public final class Constants {
      */
     public static final String GPS_CODE = "897293009";
 
+    /**
+     * PractitionerRole AmbulanceMan code in SNOMED
+     */
+    public static final String PRACTITIONER_ROLE_CODE = "159738005";
+
 
 }
 

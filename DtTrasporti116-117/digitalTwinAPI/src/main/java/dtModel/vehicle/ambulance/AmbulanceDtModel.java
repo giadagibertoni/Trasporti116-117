@@ -4,12 +4,18 @@
 
 package dtModel.vehicle.ambulance;
 
+import com.azure.digitaltwins.core.models.DigitalTwinsJsonPropertyNames;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Class for serializing and deserializing a ambulance digital twin.
  */
 public class AmbulanceDtModel {
-    private AmbulanceId id;
+    @JsonProperty(value = DigitalTwinsJsonPropertyNames.DIGITAL_TWIN_ID, required = true)
+    private String id;
+    @JsonProperty(value = "state")
     private AmbulanceState state;
+    @JsonProperty(value = "coordinates")
     private GPSCoordinates coordinates;
 
     /**
@@ -17,7 +23,7 @@ public class AmbulanceDtModel {
      *
      * @return ambulance id
      */
-    public AmbulanceId getId() {
+    public String getId() {
         return id;
     }
 
@@ -44,7 +50,7 @@ public class AmbulanceDtModel {
      *
      * @return AmbulanceDtModel
      */
-    public AmbulanceDtModel setId(AmbulanceId id) {
+    public AmbulanceDtModel setId(String id) {
         this.id = id;
         return this;
     }

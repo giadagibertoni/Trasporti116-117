@@ -4,12 +4,17 @@
 
 package dtModel.vehicle.operator;
 
+import com.azure.digitaltwins.core.models.DigitalTwinsJsonPropertyNames;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Class for serializing and deserializing a operator digital twin.
  */
 public class OperatorDtModel {
+    @JsonProperty(value = "personalData")
     private OperatorPersonalData personalData;
-    private OperatorId operatorId;
+    @JsonProperty(value = DigitalTwinsJsonPropertyNames.DIGITAL_TWIN_ID, required = true)
+    private String $dtId;
 
     /**
      * Return the operator's personal data
@@ -35,17 +40,17 @@ public class OperatorDtModel {
      *
      * @return operator id
      */
-    public OperatorId getOperatorId() {
-        return operatorId;
+    public String getOperatorId() {
+        return $dtId;
     }
 
     /**
-     * @param operatorId of operator
+     * @param $dtId of operator
      *
      * @return OperatorDtModel
      */
-    public OperatorDtModel setOperatorId(OperatorId operatorId) {
-        this.operatorId = operatorId;
+    public OperatorDtModel setOperatorId(String $dtId) {
+        this.$dtId = $dtId;
         return this;
     }
 }

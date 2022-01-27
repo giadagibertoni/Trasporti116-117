@@ -15,7 +15,7 @@ public class FHIRAmbulanceResource {
         // Create a resource instance
         System.out.println("DTModel ");
         Device ambulance = new Device();
-        ambulance.addIdentifier(new Identifier().setValue(dt.getId().getid()));
+        ambulance.addIdentifier(new Identifier().setValue(dt.getId()));
         System.out.println("DTModel " + dt.getState().getValue());
         switch (dt.getState()){
             case BUSY -> ambulance.setStatus(Device.FHIRDeviceStatus.ACTIVE);

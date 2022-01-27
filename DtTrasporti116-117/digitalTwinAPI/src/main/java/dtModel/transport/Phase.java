@@ -4,35 +4,46 @@
 
 package dtModel.transport;
 
+import com.azure.core.annotation.Fluent;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+@Fluent
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public enum Phase {
     /**
      * Transport is scheduled
      */
-    SCHEDULED(1),
+    @JsonProperty(value = "scheduled")
+    SCHEDULED("scheduled"),
     /**
      * Transport is in progress
      */
-    IN_PROGRESS(2),
+    @JsonProperty(value = "InProgress")
+    IN_PROGRESS("InProgress"),
     /**
      * Transport is completed
      */
-    COMPLETED(3);
+    @JsonProperty(value = "completed")
+    COMPLETED("completed");
 
-    private final int value;
+    private final String value;
 
     /**
      * Transport's phase
      *
      * @param v phase
      */
-    Phase(final int v) {
+    Phase(final String v) {
         this.value = v;
     }
 
     /**
      * @return transport's phase
      */
-    public int getValue() {
+    @JsonValue
+    public String getValue() {
         return this.value;
     }
 
