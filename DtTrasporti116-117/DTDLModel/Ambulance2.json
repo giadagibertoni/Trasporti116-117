@@ -1,5 +1,5 @@
 {
-  "@id": "dtmi:num116117:ambulance;1",
+  "@id": "dtmi:num116117:ambulance;2",
   "@type": "Interface",
   "@context": [
     "dtmi:dtdl:context;2"
@@ -9,43 +9,47 @@
     {
       "@type": "Property",
       "name": "id",
-      "schema": "dtmi:num116117:ambulanceId;1"
+      "schema": "dtmi:num116117:ambulanceId;2"
     },
     {
       "@type": "Property",
       "name": "state",
-      "schema": "dtmi:num116117:veichleState;1"
+      "schema": "dtmi:num116117:veichleState;2"
     },
     {
       "@type": "Property",
       "name": "coordinates",
-      "schema": "dtmi:num116117:coordinates;1"
+      "schema": "dtmi:num116117:coordinates;2"
     }],
   "schemas": [
     {
-      "@id": "dtmi:num116117:veichleState;1",
+      "@id": "dtmi:num116117:veichleState;2",
       "@type": "Enum",
       "valueSchema": "string",
       "enumValues": [
         {
           "name": "busy",
+          "displayName": "Busy",
           "enumValue": "busy"
         },
         {
           "name": "free",
+          "displayName": "Free",
           "enumValue": "free"
         },
         {
           "name": "underMaintenance",
+          "displayName": "UnderMaintenance",
           "enumValue": "underMaintenance"
         },
         {
           "name": "disused",
+          "displayName": "Disused",
           "enumValue": "disused"
         }]
     },
     {
-      "@id": "dtmi:num116117:coordinates;1",
+      "@id": "dtmi:num116117:coordinates;2",
       "@type": "Object",
       "fields": [
         {
@@ -59,7 +63,7 @@
       ]
     },
     {
-      "@id": "dtmi:num116117:ambulanceId;1",
+      "@id": "dtmi:num116117:ambulanceId;2",
       "@type": "Object",
       "fields": [
         {

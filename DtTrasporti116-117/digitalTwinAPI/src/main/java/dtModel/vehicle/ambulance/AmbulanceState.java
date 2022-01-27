@@ -3,48 +3,54 @@
  */
 
 package dtModel.vehicle.ambulance;
-
+import com.azure.core.annotation.Fluent;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
+@Fluent
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public enum AmbulanceState {
     /**
      * Ambulance is busy
      */
+    @JsonProperty(value = "busy")
+    BUSY("busy"),
 
-    BUSY(1),
     /**
      * Ambulance is free
      */
+    @JsonProperty(value = "free")
+    FREE("free"),
 
-    FREE(2),
     /**
      * Ambulance is under maintenance
      */
+    @JsonProperty(value = "underMaintenance")
+    UNDER_MAINTENANCE("underMaintenance"),
 
-    UNDER_MAINTENANCE(3),
     /*
      * Ambulance is disused
      */
+    @JsonProperty(value = "disused")
+    DISUSED("disused");
 
-    DISUSED(4);
+    private final String value;
 
-    private int value;
-
-    AmbulanceState(){
-    }
     /**
      * Ambulance's state
      *
      * @param v state
      */
-    AmbulanceState(final int v) {
+    AmbulanceState(final String v) {
         this.value = v;
     }
 
     /**
      * @return ambulance's state
      */
-    public int getValue() {
+    @JsonValue
+    public String getValue() {
         return this.value;
     }
 

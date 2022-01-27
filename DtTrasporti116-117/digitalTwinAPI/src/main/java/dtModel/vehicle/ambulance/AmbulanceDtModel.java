@@ -4,33 +4,13 @@
 
 package dtModel.vehicle.ambulance;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import static com.fasterxml.jackson.annotation.JsonCreator.Mode.DEFAULT;
-
 /**
- * Class for deserializing a ambulance digital twin.
+ * Class for serializing and deserializing a ambulance digital twin.
  */
 public class AmbulanceDtModel {
     private AmbulanceId id;
     private AmbulanceState state;
     private GPSCoordinates coordinates;
-
-    public AmbulanceDtModel() {super();}
-
-    /**
-     * Ambulance's Digital Twin model
-     *
-     * @param i ambulance id
-     * @param s ambulance state
-     * @param c gps coordinates
-     */
-
-    public AmbulanceDtModel(AmbulanceId i, AmbulanceState s, GPSCoordinates c) {
-        this.id = i;
-        this.state = s;
-        this.coordinates = c;
-    }
 
     /**
      * Return the ambulance id
@@ -57,6 +37,36 @@ public class AmbulanceDtModel {
      */
     public GPSCoordinates getCoordinates() {
         return coordinates;
+    }
+
+    /**
+     * @param id of ambulance
+     *
+     * @return AmbulanceDtModel
+     */
+    public AmbulanceDtModel setId(AmbulanceId id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * @param state of ambulance
+     *
+     * @return AmbulanceDtModel
+     */
+    public AmbulanceDtModel setState(AmbulanceState state) {
+        this.state = state;
+        return this;
+    }
+
+    /**
+     * @param coordinates of ambulance
+     *
+     * @return AmbulanceDtModel
+     */
+    public AmbulanceDtModel setCoordinates(GPSCoordinates coordinates) {
+        this.coordinates = coordinates;
+        return this;
     }
 
 }

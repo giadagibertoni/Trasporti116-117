@@ -4,28 +4,29 @@
 
 package dtModel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Class that represents postal code number
  */
 public class PostalCode {
+    @JsonProperty(value = "postalCode")
     private int postalCode;
-
-    public PostalCode(){
-        super();
-    }
-    /**
-     * Create a new postal code number
-     *
-     * @param pC postal code number
-     */
-    public PostalCode(final int pC) {
-        this.postalCode = pC;
-    }
 
     /**
      * @return postal code number
      */
     public int getPostalCode() {
         return this.postalCode;
+    }
+
+    /**
+     * @param postalCode of patient residence
+     *
+     * @return PostalCode
+     */
+    public PostalCode setPostalCode(int postalCode) {
+        this.postalCode = postalCode;
+        return this;
     }
 }

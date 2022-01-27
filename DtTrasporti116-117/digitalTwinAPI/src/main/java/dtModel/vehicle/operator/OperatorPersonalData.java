@@ -5,34 +5,26 @@
 package dtModel.vehicle.operator;
 
 
+import com.azure.core.annotation.Fluent;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 /**
  * Class that represents the operator personal data
  */
+@Fluent
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OperatorPersonalData {
-    private final String name;
-    private final String surname;
-    private final LocalDate birthDate;
-    private final OperatorResidence residence;
-    private final OperatorTelecom telecom;
-
-    /**
-     * Create operator personal data
-     *
-     * @param n operator name
-     * @param s operator surname
-     * @param bd operator birth date
-     * @param r operator residence
-     */
-    public OperatorPersonalData(final String n, final String s, final LocalDate bd, final OperatorResidence r, final OperatorTelecom t) {
-        this.name = n;
-        this.surname = s;
-        this.birthDate = bd;
-        this.residence = r;
-        this.telecom = t;
-    }
-
+    @JsonProperty(value = "name")
+    private String name;
+    @JsonProperty(value = "surname")
+    private String surname;
+    @JsonProperty(value = "birthDate")
+    private LocalDate birthDate;
+    @JsonProperty(value = "residence")
+    private OperatorResidence residence;
     /**
      * @return operator name
      */
@@ -62,9 +54,46 @@ public class OperatorPersonalData {
     }
 
     /**
-     * @return operator telecom
+     *
+     * @param name of operator
+     *
+     * @return OperatorPersonalData
      */
-    public OperatorTelecom getTelecom() {
-        return telecom;
+    public OperatorPersonalData setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     *
+     * @param surname of operator
+     *
+     * @return OperatorPersonalData
+     */
+    public OperatorPersonalData setSurname(String surname) {
+        this.surname = surname;
+        return this;
+    }
+
+    /**
+     *
+     * @param birthDate of operator
+     *
+     * @return OperatorPersonalData
+     */
+    public OperatorPersonalData setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+        return this;
+    }
+
+    /**
+     *
+     * @param residence of operator
+     *
+     * @return OperatorPersonalData
+     */
+    public OperatorPersonalData setResidence(OperatorResidence residence) {
+        this.residence = residence;
+        return this;
     }
 }

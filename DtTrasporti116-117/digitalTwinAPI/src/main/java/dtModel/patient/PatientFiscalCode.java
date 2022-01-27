@@ -4,24 +4,18 @@
 
 package dtModel.patient;
 
+import com.azure.core.annotation.Fluent;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents the patient's fiscal code
  */
+@Fluent
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientFiscalCode {
-
+    @JsonProperty(value = "fiscalCode")
     private String fiscalCode;
-
-    public PatientFiscalCode(){
-        super();
-    }
-    /**
-     * Patient's fiscal code
-     *
-     * @param fc fiscal code
-     */
-    public PatientFiscalCode(final String fc) {
-        this.fiscalCode = fc;
-    }
 
     /**
      * Return the patient's fiscal code
@@ -30,5 +24,15 @@ public class PatientFiscalCode {
      */
     public String getFiscalCode() {
         return this.fiscalCode;
+    }
+
+    /**
+     *
+     * @param fiscalCode of patient
+     * @return PatientFiscalCode
+     */
+    public PatientFiscalCode setFiscalCode(String fiscalCode) {
+        this.fiscalCode = fiscalCode;
+        return this;
     }
 }

@@ -4,30 +4,30 @@
 
 package dtModel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Class that represents an address
  */
 public class Address {
+    @JsonProperty(value = "address")
     private String address;
-
-    public Address() {
-        super();
-    }
-
-    /**
-     * Create address
-     *
-     * @param a location address
-     */
-    public Address(final String a) {
-        this.address = a;
-    }
 
     /**
      * @return address string
      */
     public String getAddress() {
         return this.address;
+    }
+
+    /**
+     * @param address of patient residence
+     *
+     * @return Address
+     */
+    public Address setAddress(String address) {
+        this.address = address;
+        return this;
     }
 }
 

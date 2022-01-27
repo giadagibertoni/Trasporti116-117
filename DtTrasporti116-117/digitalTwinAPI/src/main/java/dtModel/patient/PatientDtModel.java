@@ -5,24 +5,12 @@
 package dtModel.patient;
 
 /**
- * Class for deserializing a patient digital twin.
+ * Class for serializing and deserializing a patient digital twin.
  */
 public class PatientDtModel {
     private PatientPersonalData personalData;
+
     private PatientCondition condition;
-
-    public PatientDtModel(){ super(); }
-
-    /**
-     * Patient's Digital Twin model
-     *
-     * @param c patient condition
-     * @param pd patient personal data
-     */
-    public PatientDtModel(PatientCondition c, PatientPersonalData pd) {
-        this.personalData = pd;
-        this.condition = c;
-    }
 
     /**
      * Return the patient's personal data
@@ -41,4 +29,25 @@ public class PatientDtModel {
     public PatientCondition getCondition() {
         return condition;
     }
+
+    /**
+     * @param personalData of patient
+     *
+     * @return PatientDtModel
+     */
+    public PatientDtModel setPersonalData(PatientPersonalData personalData) {
+        this.personalData = personalData;
+        return this;
+    }
+
+    /**
+     * @param condition of patient
+     *
+     * @return PatientDtModel
+     */
+    public PatientDtModel setCondition(PatientCondition condition) {
+        this.condition = condition;
+        return this;
+    }
+
 }

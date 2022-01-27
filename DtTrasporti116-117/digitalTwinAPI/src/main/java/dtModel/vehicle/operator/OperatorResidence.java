@@ -5,31 +5,25 @@
 package dtModel.vehicle.operator;
 
 
+import com.azure.core.annotation.Fluent;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import dtModel.*;
 
 /**
  * Class that represents the operator residence
  */
+@Fluent
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OperatorResidence {
-
-    private final Address address;
-    private final City city;
-    private final District district;
-    private final PostalCode postalCode;
-
-    /**
-     * Create operator residence
-     * @param a operator residence address
-     * @param c operator residence city
-     * @param d operator residence district
-     * @param pc operator residence postal code
-     */
-    public OperatorResidence(final Address a, final City c, final District d, final PostalCode pc) {
-        this.address = a;
-        this.city = c;
-        this.district = d;
-        this.postalCode = pc;
-    }
+    @JsonProperty(value = "address")
+    private Address address;
+    @JsonProperty(value = "city")
+    private City city;
+    @JsonProperty(value = "district")
+    private District district;
+    @JsonProperty(value = "postalCode")
+    private PostalCode postalCode;
 
     /**
      * @return address
@@ -58,5 +52,51 @@ public class OperatorResidence {
     public PostalCode getPostalCode() {
         return postalCode;
     }
+
+    /**
+     *
+     * @param address of operator
+     *
+     * @return OperatorResidence
+     */
+    public OperatorResidence setAddress(Address address) {
+        this.address = address;
+        return this;
+    }
+
+    /**
+     *
+     * @param city of operator
+     *
+     * @return OperatorResidence
+     */
+    public OperatorResidence setCity(City city) {
+        this.city = city;
+        return this;
+    }
+
+    /**
+     *
+     * @param district of operator
+     *
+     * @return OperatorResidence
+     */
+    public OperatorResidence setDistrict(District district) {
+        this.district = district;
+        return this;
+    }
+
+    /**
+     *
+     * @param postalCode of operator
+     *
+     * @return OperatorResidence
+     */
+    public OperatorResidence setPostalCode(PostalCode postalCode) {
+        this.postalCode = postalCode;
+        return this;
+    }
+
+
 }
 

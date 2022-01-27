@@ -29,20 +29,32 @@ public class AmbulanceDigitalTwin {
      */
     public static String createAmbulance(String resource) {
         Device ambulance = FHIRAmbulanceResource.parseFHIRResource(resource);
-        AmbulanceId id = new AmbulanceId(ambulance.getIdentifierFirstRep().getValue());
+        AmbulanceId id = new AmbulanceId().setId(ambulance.getIdentifierFirstRep().getValue());
 
         AmbulanceState state;
+        //System.out.println("IN CREATE DT ");
         switch(ambulance.getStatus()){
-            case ACTIVE -> state = AmbulanceState.BUSY;
-            case INACTIVE -> state = AmbulanceState.FREE;
-            case ENTEREDINERROR -> state = AmbulanceState.UNDER_MAINTENANCE;
-            default -> state = AmbulanceState.DISUSED;
+            case ACTIVE -> {state = AmbulanceState.BUSY;
+                //System.out.println("BUSY");
+            }
+            case INACTIVE -> {
+                state = AmbulanceState.FREE;
+             //   System.out.println("FREE");
+            }
+            case ENTEREDINERROR -> {
+                state = AmbulanceState.UNDER_MAINTENANCE;
+              //  System.out.println("UNDERMAN");
+            }
+            default -> {
+                state = AmbulanceState.DISUSED;
+                //System.out.println("DISUSED");
+            }
         }
 
         Location location = (Location) ambulance.getContained().get(0);
-        GPSCoordinates coordinates =  new GPSCoordinates(
-                location.getPosition().getLongitude().doubleValue(),
-                location.getPosition().getLatitude().doubleValue());
+        GPSCoordinates coordinates =  new GPSCoordinates()
+                .setLongitude(location.getPosition().getLongitude().doubleValue())
+                .setLatitude(location.getPosition().getLatitude().doubleValue());
 
         BasicDigitalTwin ambulanceDT = new BasicDigitalTwin(id.getid())
                 .setMetadata(
@@ -67,9 +79,11 @@ public class AmbulanceDigitalTwin {
         List<String> ambulances = new ArrayList<>();
         String query = "SELECT * FROM DIGITALTWINS WHERE IS_OF_MODEL('" + Constants.AMBULANCE_MODEL_ID + "')";
         PagedIterable<AmbulanceDtModel> pageableResponse = Client.getClient().query(query, AmbulanceDtModel.class);
-
-        pageableResponse.forEach(dt -> ambulances.add(FHIRAmbulanceResource.createFHIRResource(dt)));
-
+       // System.out.println("GET ABULANCE");
+        pageableResponse.forEach(dt -> {
+            //System.out.println("DT--> " + dt.getState().getValue());
+            ambulances.add(FHIRAmbulanceResource.createFHIRResource(dt));
+        });
         return ambulances;
     }
 }

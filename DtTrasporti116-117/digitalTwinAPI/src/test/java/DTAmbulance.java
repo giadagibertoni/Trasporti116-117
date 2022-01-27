@@ -10,9 +10,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DTAmbulance {
 
@@ -30,10 +30,9 @@ public class DTAmbulance {
     @Test
     public void getAmbulances() {
         AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_RESOURCE);
-        System.out.println(Client.getClient().getDigitalTwin(TestDataValue.AMBULANCE_ID.getid(), JSONObject.class));
+
         List<String> ambulances = AmbulanceDigitalTwin.getAmbulance();
-        ambulances.forEach(System.out::println);
-        System.out.println(TestDataValue.AMBULANCE_RESOURCE);
-        assertTrue(ambulances.contains(TestDataValue.AMBULANCE_RESOURCE));
+
+        assertTrue(ambulances.stream().anyMatch(s -> s.contains(TestDataValue.AMBULANCE_ID.getid())));
     }
 }

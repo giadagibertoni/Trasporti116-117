@@ -4,29 +4,29 @@
 
 package dtModel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Class that represents a district
  */
 public class District {
+    @JsonProperty(value = "district")
     private String district;
-
-    public District() {
-        super();
-    }
-
-    /**
-     * Create new district
-     *
-     * @param d address district
-     */
-    public District(final String d) {
-        this.district = d;
-    }
 
     /**
      * @return district name
      */
     public String getDistrict() {
         return this.district;
+    }
+
+    /**
+     * @param district of patient residence
+     *
+     * @return District
+     */
+    public District setDistrict(String district) {
+        this.district = district;
+        return this;
     }
 }

@@ -35,7 +35,7 @@ public class DTPatient {
     public void getPatient() {
         PatientDigitalTwin.createPatient(TestDataValue.PATIENT_RESOURCE);
         List<String> patients = PatientDigitalTwin.getPatients();
-        assertTrue(patients.contains(TestDataValue.PATIENT_RESOURCE));
+        assertTrue(patients.stream().anyMatch(s -> s.contains(TestDataValue.PATIENT_FISCAL_CODE.getFiscalCode())));
     }
 
 }

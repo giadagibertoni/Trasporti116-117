@@ -4,24 +4,20 @@
 
 package dtModel.transport;
 
+import com.azure.core.annotation.Fluent;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Class that represent the transport route
  */
+@Fluent
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransportRoute {
-
-    private final TransportLocation departure;
-    private final TransportLocation destination;
-
-    /**
-     * Create transport route
-     *
-     * @param dep location of departure
-     * @param dest location of destination
-     */
-    public TransportRoute(final TransportLocation dep, final TransportLocation dest) {
-        this.departure = dep;
-        this.destination = dest;
-    }
+    @JsonProperty(value = "departure")
+    private TransportLocation departure;
+    @JsonProperty(value = "destination")
+    private TransportLocation destination;
 
     /**
      * @return departure location
@@ -35,6 +31,28 @@ public class TransportRoute {
      */
     public TransportLocation getDestination() {
         return this.destination;
+    }
+
+    /**
+     *
+     * @param departure of transport
+     *
+     * @return TransportRoute
+     */
+    public TransportRoute setDeparture(TransportLocation departure) {
+        this.departure = departure;
+        return this;
+    }
+
+    /**
+     *
+     * @param destination of transport
+     *
+     * @return TransportRoute
+     */
+    public TransportRoute setDestination(TransportLocation destination) {
+        this.destination = destination;
+        return this;
     }
 }
 

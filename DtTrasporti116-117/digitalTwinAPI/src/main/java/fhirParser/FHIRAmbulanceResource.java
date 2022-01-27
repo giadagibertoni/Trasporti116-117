@@ -13,6 +13,7 @@ public class FHIRAmbulanceResource {
 
     public static String createFHIRResource(@NotNull AmbulanceDtModel dt){
         // Create a resource instance
+        System.out.println("DTModel ");
         Device ambulance = new Device();
         ambulance.addIdentifier(new Identifier().setValue(dt.getId().getid()));
         System.out.println("DTModel " + dt.getState().getValue());

@@ -4,19 +4,19 @@
 
 package dtModel.vehicle.ambulance;
 
+import com.azure.core.annotation.Fluent;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
- * Represents the earth's coordinates
+ * Represents the id of ambulance
  * */
+
+@Fluent
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AmbulanceId {
+    @JsonProperty(value = "id")
     private String id;
-
-    public AmbulanceId() {
-        super();
-    }
-
-    public AmbulanceId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return id
@@ -25,5 +25,14 @@ public class AmbulanceId {
         return id;
     }
 
+    /**
+     * @param id of ambulance
+     *
+     * @return AmbulanceId
+     */
+    public AmbulanceId setId(String id) {
+        this.id = id;
+        return this;
+    }
 
 }

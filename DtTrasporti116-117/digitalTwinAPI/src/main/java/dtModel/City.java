@@ -4,29 +4,29 @@
 
 package dtModel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Class that represents a city
  */
 public class City {
+    @JsonProperty(value = "city")
     private String city;
-
-    public City() {
-        super();
-    }
-
-    /**
-     * Create new DTDLCity
-     *
-     * @param name city name
-     */
-    public City(final String name) {
-        this.city = name;
-    }
 
     /**
      * @return city name
      */
     public String getCity() {
         return this.city;
+    }
+
+    /**
+     * @param city of patient residence
+     *
+     * @return City
+     */
+    public City setCity(String city) {
+        this.city = city;
+        return this;
     }
 }

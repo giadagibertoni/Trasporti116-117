@@ -36,27 +36,26 @@ public final class PatientDigitalTwin {
     public static String createPatient(String resource) {
         Patient patient = FHIRPatientResource.parseFHIRResource(resource);
 
-        PatientFiscalCode fs = new PatientFiscalCode(patient.getIdentifierFirstRep().getValue());
+        PatientFiscalCode fs = new PatientFiscalCode().setFiscalCode(patient.getIdentifierFirstRep().getValue());
 
-        PatientResidence residence = new PatientResidence(
-                new Address(patient.getAddressFirstRep().getLine().get(0).toString()),
-                new City(patient.getAddressFirstRep().getCity()),
-                new District(patient.getAddressFirstRep().getDistrict()),
-                new PostalCode(Integer.parseInt(patient.getAddressFirstRep().getPostalCode()))
-        );
+        PatientResidence residence = new PatientResidence()
+                .setAddress(new Address().setAddress(patient.getAddressFirstRep().getLine().get(0).toString()))
+                .setCity(new City().setCity(patient.getAddressFirstRep().getCity()))
+                .setDistrict(new District().setDistrict(patient.getAddressFirstRep().getDistrict()))
+                .setPostalCode(new PostalCode().setPostalCode(Integer.parseInt(patient.getAddressFirstRep().getPostalCode())));
 
-        PatientPersonalData patientPersonalData = new PatientPersonalData(
-                fs,
-                patient.getNameFirstRep().getGivenAsSingleString(),
-                patient.getNameFirstRep().getFamily(),
-                patient.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-                residence
-        );
+        PatientPersonalData patientPersonalData = new PatientPersonalData()
+                .setFiscalCode(fs)
+                .setName(patient.getNameFirstRep().getGivenAsSingleString())
+                .setSurname(patient.getNameFirstRep().getFamily())
+                .setBirthDate(patient.getBirthDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                .setResidence(residence);
+
         Condition fhirCondition = (Condition) patient.getContained().get(0);
 
-        PatientCondition condition = new PatientCondition(
-                Integer.parseInt(fhirCondition.getCode().getCodingFirstRep().getCode()),
-                fhirCondition.getCode().getCodingFirstRep().getSystem());
+        PatientCondition condition = new PatientCondition()
+                .setCode(Integer.parseInt(fhirCondition.getCode().getCodingFirstRep().getCode()))
+                .setSystem(fhirCondition.getCode().getCodingFirstRep().getSystem());
 
         BasicDigitalTwin patientDT = new BasicDigitalTwin(patient.getIdentifierFirstRep().toString())
                 .setMetadata(
