@@ -29,9 +29,9 @@ jobs:
         with:
           java-version: ${{ matrix.java_version }}
           distribution: 'adopt'
-      - name: Gradle check
+      - name: Gradle build
         working-directory: ./DtTrasporti116-117
         run: |
           chmod +x ./gradlew
-          ./gradlew check
+          ./gradlew build
 
