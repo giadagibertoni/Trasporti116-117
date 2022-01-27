@@ -30,7 +30,7 @@ jobs:
           java-version: ${{ matrix.java_version }}
           distribution: 'adopt'
       - name: Gradle check
-        working-directory: ./Trasporti116-117
+        working-directory: ./DtTrasporti116-117
         run: |
           chmod +x ./gradlew
           ./gradlew check
