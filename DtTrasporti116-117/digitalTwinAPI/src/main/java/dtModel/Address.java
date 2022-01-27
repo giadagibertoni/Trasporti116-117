@@ -14,7 +14,7 @@ public class Address {
     private String address;
 
     /**
-     * @return address 
+     * @return address
      */
     public String getAddress() {
         return this.address;
