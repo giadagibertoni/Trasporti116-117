@@ -15,6 +15,18 @@
       "@type": "Property",
       "name": "coordinates",
       "schema": "dtmi:num116117:coordinates;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "driveBy",
+      "target": "dtmi:num116117:ambulanceOperator;1",
+      "properties": [
+        {
+          "@type": "Property",
+          "name": "workDate",
+          "schema": "date"
+        }
+      ]
     }],
   "schemas": [
     {

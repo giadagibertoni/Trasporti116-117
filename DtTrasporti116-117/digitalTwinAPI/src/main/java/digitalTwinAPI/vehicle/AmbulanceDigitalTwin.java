@@ -7,6 +7,7 @@ package digitalTwinAPI.vehicle;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
+import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwinAPI.connection.Client;
 import dtModel.vehicle.ambulance.AmbulanceDtModel;
 import dtModel.vehicle.ambulance.AmbulanceState;
@@ -16,11 +17,11 @@ import org.hl7.fhir.r4.model.Device;
 import org.hl7.fhir.r4.model.Location;
 import utils.Constants;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AmbulanceDigitalTwin {
-
     /**
      * Create a ambulance digital twin
      *
@@ -57,6 +58,21 @@ public class AmbulanceDigitalTwin {
         return basicTwinResponse.getId();
     }
 
+    public static void addOperatorWorkDay(String ambulanceId, String operatorId, LocalDate date){
+        String relationshipId = ambulanceId + "DriveBy" + operatorId;
+        Client.getClient().createOrReplaceRelationship(
+                ambulanceId,
+                relationshipId,
+                new BasicRelationship(
+                        relationshipId,
+                        ambulanceId,
+                        operatorId,
+                        Constants.AMBULANCE_OPERATOR_REL
+                )
+                .addProperty("workDate", date),
+                BasicRelationship.class
+        );
+    }
 
     /**
      * Get all ambulance

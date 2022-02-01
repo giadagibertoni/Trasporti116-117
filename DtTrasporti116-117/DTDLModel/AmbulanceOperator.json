@@ -10,11 +10,6 @@
       "@type": "Property",
       "name": "personalData",
       "schema": "dtmi:num116117:operatorPersonalData;1"
-    },
-    {
-      "@type": "Relationship",
-      "name": "drive",
-      "target": "dtmi:num116117:ambulance;1"
     }
   ],
   "schemas": [
