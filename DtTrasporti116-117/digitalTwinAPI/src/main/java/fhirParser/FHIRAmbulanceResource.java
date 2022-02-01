@@ -23,7 +23,6 @@ public class FHIRAmbulanceResource {
             case DISUSED -> ambulance.setStatus(Device.FHIRDeviceStatus.UNKNOWN);
         }
 
-        System.out.println("Resource " +  ambulance.getStatus().toCode());
         ambulance.setType(new CodeableConcept()
                 .addCoding(new Coding()
                         .setSystem(Constants.SNOMED_SYSTEMS)

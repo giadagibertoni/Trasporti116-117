@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 public class FHIRTransportResource {
-    public static String createTransportAppointmentFHIRResource(@NotNull TransportDtModel dtTransport, @NotNull AmbulanceDtModel dtAmbulance, @NotNull PatientDtModel dtPatient) {
+    public static String createTransportAppointmentFHIRResource(@NotNull TransportDtModel dtTransport, @NotNull String ambulanceId, @NotNull String patientId) {
         DomainResource transport = new Appointment()
                 .addIdentifier(new Identifier().setValue(dtTransport.getId() + Constants.APPOINTMENT))
                 .addServiceCategory(getServiceCategory())
@@ -26,39 +26,39 @@ public class FHIRTransportResource {
                 .setStart(Date.from(dtTransport.getStartDateTime().atZone(ZoneId.systemDefault()).toInstant()))
                 .setParticipant(List.of(
                         new Appointment.AppointmentParticipantComponent()
-                                .setActor(getPatientRef(dtPatient))
+                                .setActor(getPatientRef(patientId))
                                 .setStatus(Appointment.ParticipationStatus.ACCEPTED),
                         new Appointment.AppointmentParticipantComponent()
-                                .setActor(getAmbulanceReference(dtAmbulance))
+                                .setActor(getAmbulanceReference(ambulanceId))
                                 .setStatus(Appointment.ParticipationStatus.ACCEPTED)))
                 .setContained(List.of(getDepartureRoute(dtTransport.getRoute()), getDestinationRoute(dtTransport.getRoute())));
 
         return FHIRParser.getParser().encodeResourceToString(transport);
     }
 
-    public static String createTransportEncounterFHIRResource(@NotNull TransportDtModel dtTransport, @NotNull AmbulanceDtModel dtAmbulance, @NotNull PatientDtModel dtPatient, @NotNull OperatorDtModel dtOperator) {
+    public static String createTransportEncounterFHIRResource(@NotNull TransportDtModel dtTransport, @NotNull String ambulanceId, @NotNull String patientId, @NotNull String operatorId) {
         Procedure transportProcedure = new Procedure()
                 .addIdentifier(new Identifier().setValue(dtTransport.getId() + Constants.PROCEDURE))
 
                 .setCode(getProcedureCode())
-                .setSubject(getPatientRef(dtPatient))
+                .setSubject(getPatientRef(patientId))
                 .setPerformer(List.of(
-                        new Procedure.ProcedurePerformerComponent().setActor(getOperatorReference(dtOperator)),
-                        new Procedure.ProcedurePerformerComponent().setActor(getAmbulanceReference(dtAmbulance))))
+                        new Procedure.ProcedurePerformerComponent().setActor(getOperatorReference(operatorId)),
+                        new Procedure.ProcedurePerformerComponent().setActor(getAmbulanceReference(ambulanceId))))
                 .setEncounter(new Reference().setReference(dtTransport.getId() + Constants.ENCOUNTER));
 
         Encounter transportEncounter = new Encounter()
                 .addIdentifier(new Identifier().setValue(dtTransport.getId() + Constants.ENCOUNTER))
                 .setClass_(new Coding().setCode(Constants.ENCOUNTER_ACT_CODE).setSystem(Constants.HL7_SYSTEMS_ACT_CODE))
-                .setSubject(getPatientRef(dtPatient))
+                .setSubject(getPatientRef(patientId))
                 .setServiceType(getServiceType())
                 .setParticipant(List.of(
                         new Encounter.EncounterParticipantComponent()
                                 .addType(getOperatorParticipationType())
-                                .setIndividual(getOperatorReference(dtOperator)),
+                                .setIndividual(getOperatorReference(operatorId)),
                         new Encounter.EncounterParticipantComponent()
                                 .addType(getAmbulanceParticipationType())
-                                .setIndividual(getAmbulanceReference(dtAmbulance))))
+                                .setIndividual(getAmbulanceReference(ambulanceId))))
                 .addAppointment(new Reference().setReference(dtTransport.getId() + Constants.APPOINTMENT))
                 .setPeriod(new Period().setStart(Date.from(dtTransport.getStartDateTime().atZone(ZoneId.systemDefault()).toInstant())))
                 .setLocation(List.of(
@@ -75,7 +75,7 @@ public class FHIRTransportResource {
                 transportEncounter.setStatus(Encounter.EncounterStatus.FINISHED);
             }
             case SCHEDULED -> {
-                return createTransportAppointmentFHIRResource(dtTransport, dtAmbulance, dtPatient);
+                return createTransportAppointmentFHIRResource(dtTransport, ambulanceId, patientId);
             }
         }
 
@@ -91,18 +91,16 @@ public class FHIRTransportResource {
         return FHIRParser.getParser().parseResource(Encounter.class, jsonResource);
     }
 
-    private static Reference getPatientRef(@NotNull PatientDtModel dtPatient){
-        return new Reference().setReference(Constants.PATIENT_REF + dtPatient.getPersonalData().getFiscalCode().getFiscalCode())
-                .setDisplay(dtPatient.getPersonalData().getName() + " " + dtPatient.getPersonalData().getSurname());
+    private static Reference getPatientRef(@NotNull String patientId){
+        return new Reference().setReference(Constants.PATIENT_REF + patientId);
     }
 
-    private static Reference getOperatorReference(@NotNull OperatorDtModel dtOperator){
-        return new Reference().setReference(Constants.PRACTITIONER_REF + dtOperator.getOperatorId())
-                .setDisplay(dtOperator.getPersonalData().getName() + " " + dtOperator.getPersonalData().getSurname());
+    private static Reference getOperatorReference(@NotNull String operatorId){
+        return new Reference().setReference(Constants.PRACTITIONER_REF + operatorId);
     }
 
-    private static Reference getAmbulanceReference(@NotNull AmbulanceDtModel dtAmbulance){
-        return new Reference().setReference(Constants.DEVICE_REF + dtAmbulance.getId());
+    private static Reference getAmbulanceReference(@NotNull String ambulanceId){
+        return new Reference().setReference(Constants.DEVICE_REF + ambulanceId);
     }
 
     private static CodeableConcept getProcedureCode(){

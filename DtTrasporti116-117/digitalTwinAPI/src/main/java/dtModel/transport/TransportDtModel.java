@@ -16,11 +16,11 @@ import java.time.LocalDateTime;
 public class TransportDtModel {
     @JsonProperty(value = DigitalTwinsJsonPropertyNames.DIGITAL_TWIN_ID, required = true)
     private String $dtId;
-    @JsonProperty(value = "phase")
+    @JsonProperty(value = "phase", required = true)
     private Phase phase;
-    @JsonProperty(value = "route")
+    @JsonProperty(value = "route", required = true)
     private TransportRoute route;
-    @JsonProperty(value = "startDateTime")
+    @JsonProperty(value = "startDateTime", required = true)
     private LocalDateTime startDateTime;
     @JsonProperty(value = "endDateTime")
     private LocalDateTime endDateTime;
@@ -109,5 +109,4 @@ public class TransportDtModel {
         this.endDateTime = endDateTime;
         return this;
     }
-
 }

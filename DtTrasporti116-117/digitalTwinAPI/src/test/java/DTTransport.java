@@ -11,7 +11,10 @@ import digitalTwinAPI.vehicle.OperatorDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DTTransport {
 
@@ -27,5 +30,14 @@ public class DTTransport {
     public void createTransport() {
         TransportDigitalTwin.createTransport(TestDataValue.TRANSPORT_SCHEDULED_RESURCE);
         assertEquals(TestDataValue.EQUALS_DT, Client.getClient().getDigitalTwin(TestDataValue.TRANSPORT_ID, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+    }
+
+    @Test
+    public void getScheduledTransports(){
+        TransportDigitalTwin.createTransport(TestDataValue.TRANSPORT_SCHEDULED_RESURCE);
+        List<String> transports = TransportDigitalTwin.getScheduledTransports();
+        assertTrue(transports.stream().anyMatch(s -> s.contains(TestDataValue.TRANSPORT_ID)
+                        && s.contains(TestDataValue.AMBULANCE_ID)
+                        && s.contains(TestDataValue.PATIENT_FISCAL_CODE.getFiscalCode())));
     }
 }

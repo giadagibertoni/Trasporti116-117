@@ -4,6 +4,7 @@
 
 package digitalTwinAPI.transport;
 
+import com.azure.core.http.rest.PagedIterable;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
@@ -12,13 +13,12 @@ import dtModel.Address;
 import dtModel.City;
 import dtModel.District;
 import dtModel.PostalCode;
-import dtModel.transport.Phase;
-import dtModel.transport.TransportDtModel;
-import dtModel.transport.TransportLocation;
-import dtModel.transport.TransportRoute;
+import dtModel.transport.*;
+import dtModel.vehicle.ambulance.AmbulanceDtModel;
 import fhirParser.FHIRTransportResource;
 import org.hl7.fhir.r4.model.Appointment;
 import org.hl7.fhir.r4.model.Location;
+import org.json.simple.JSONObject;
 import utils.Constants;
 
 import java.time.ZoneId;
@@ -40,8 +40,6 @@ public class TransportDigitalTwin {
             throw new IllegalStateException();
         }
         String id = transport.getIdentifierFirstRep().getValue().replace(Constants.APPOINTMENT, "");
-
-        System.out.println(id);
 
         Location departure = (Location) transport.getContained().get(0);
         Location destination = (Location) transport.getContained().get(1);
@@ -80,12 +78,33 @@ public class TransportDigitalTwin {
     }
 
     /**
-     * Get all transport
+     * Get all scheduled transport
      *
      * @return List of transport resource
      */
-    public static List<String> getTransports() {
+    public static List<String> getScheduledTransports() {
         List<String> transports = new ArrayList<>();
+        String query = "SELECT * FROM DIGITALTWINS T WHERE IS_OF_MODEL('" + Constants.TRANSPORT_MODEL_ID + "') " +
+                "AND T.phase = 'scheduled'";
+        PagedIterable<TransportDtModel> pageableResponse = Client.getClient().query(query, TransportDtModel.class);
+        pageableResponse.forEach(dtTransport -> {
+            String relAmbulanceQuery = "SELECT A.$dtId FROM DIGITALTWINS T JOIN A RELATED T.use WHERE T.$dtId = '"+ dtTransport.getId() +"'";
+            PagedIterable<JSONObject> transportAmbulanceRelationship = Client.getClient().query(relAmbulanceQuery, JSONObject.class);
+
+            String relPatientQuery = "SELECT P.$dtId FROM DIGITALTWINS T JOIN P RELATED T.transport WHERE T.$dtId = '"+ dtTransport.getId() +"'";
+            PagedIterable<JSONObject> transportPatientRelationship = Client.getClient().query(relPatientQuery, JSONObject.class);
+
+            String ambulanceId;
+            String patientId;
+            if (transportAmbulanceRelationship.stream().findFirst().isPresent() &&
+                    transportPatientRelationship.stream().findFirst().isPresent()) {
+                ambulanceId = transportAmbulanceRelationship.stream().findFirst().get().get("$dtId").toString();
+                patientId = transportPatientRelationship.stream().findFirst().get().get("$dtId").toString();
+            } else
+                throw new IllegalStateException();
+
+            transports.add(FHIRTransportResource.createTransportAppointmentFHIRResource(dtTransport, ambulanceId, patientId));
+        });
 
         return transports;
     }

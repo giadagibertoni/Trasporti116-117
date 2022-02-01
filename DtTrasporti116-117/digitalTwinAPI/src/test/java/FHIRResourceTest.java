@@ -33,18 +33,18 @@ public class FHIRResourceTest {
 
     @Test
     public void testCreateTransportScheduledResource() {
-        String transport = FHIRTransportResource.createTransportAppointmentFHIRResource(TestDataValue.TRANSPORT_DT_MODEL_SCHEDULED, TestDataValue.AMBULANCE_DT_MODEL, TestDataValue.PATIENT_DT_MODEL);
+        String transport = FHIRTransportResource.createTransportAppointmentFHIRResource(TestDataValue.TRANSPORT_DT_MODEL_SCHEDULED, TestDataValue.AMBULANCE_ID, TestDataValue.PATIENT_FISCAL_CODE.getFiscalCode());
         System.out.println(transport);
         assertTrue(FHIRParser.inputJSONResourceIsCorrect(transport));
         assertTrue(transport.contains("\"resourceType\":\"Appointment\""));
-        transport = FHIRTransportResource.createTransportEncounterFHIRResource(TestDataValue.TRANSPORT_DT_MODEL_SCHEDULED, TestDataValue.AMBULANCE_DT_MODEL, TestDataValue.PATIENT_DT_MODEL, TestDataValue.OPERATOR_DT_MODEL);
+        transport = FHIRTransportResource.createTransportEncounterFHIRResource(TestDataValue.TRANSPORT_DT_MODEL_SCHEDULED, TestDataValue.AMBULANCE_ID, TestDataValue.PATIENT_FISCAL_CODE.getFiscalCode(), TestDataValue.OPERATOR_ID);
         assertTrue(FHIRParser.inputJSONResourceIsCorrect(transport));
         assertTrue(transport.contains("\"resourceType\":\"Appointment\""));
     }
 
     @Test
     public void testCreateTransportInProgressResource() {
-        String transport = FHIRTransportResource.createTransportEncounterFHIRResource(TestDataValue.TRANSPORT_DT_MODEL_IN_PROGRESS, TestDataValue.AMBULANCE_DT_MODEL, TestDataValue.PATIENT_DT_MODEL, TestDataValue.OPERATOR_DT_MODEL);
+        String transport = FHIRTransportResource.createTransportEncounterFHIRResource(TestDataValue.TRANSPORT_DT_MODEL_IN_PROGRESS, TestDataValue.AMBULANCE_ID, TestDataValue.PATIENT_FISCAL_CODE.getFiscalCode(), TestDataValue.OPERATOR_ID);
         System.out.println(transport);
         assertTrue(FHIRParser.inputJSONResourceIsCorrect(transport));
         assertTrue(transport.contains("\"status\":\"in-progress\""));
@@ -52,7 +52,7 @@ public class FHIRResourceTest {
 
     @Test
     public void testCreateTransportCompletedResource() {
-        String transport = FHIRTransportResource.createTransportEncounterFHIRResource(TestDataValue.TRANSPORT_DT_MODEL_COMPLETED, TestDataValue.AMBULANCE_DT_MODEL, TestDataValue.PATIENT_DT_MODEL, TestDataValue.OPERATOR_DT_MODEL);
+        String transport = FHIRTransportResource.createTransportEncounterFHIRResource(TestDataValue.TRANSPORT_DT_MODEL_COMPLETED, TestDataValue.AMBULANCE_ID, TestDataValue.PATIENT_FISCAL_CODE.getFiscalCode(), TestDataValue.OPERATOR_ID);
         System.out.println(transport);
         assertTrue(FHIRParser.inputJSONResourceIsCorrect(transport));
         assertTrue(transport.contains("\"status\":\"finished\""));
