@@ -31,6 +31,15 @@ public final class Constants {
     public static final String CLIENT_SECRET = "n5_i0mRm8TD6x725E~k2jgtTunx.f-lGzc";
 
     /**
+     * IoT hub connection string
+     */
+    public static final String IOT_HUB_CONNECTION_STRING = "HostName=IoTHub116117.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=ajHdtr2d6QRliDGnpSe/FR/RVUWrM8fKjE5P12DpcaY=";
+
+    /**
+     * regisrty manager num max devices
+     */
+    public static final Integer MAX_DEVICES = 10000;
+    /**
      * Ambulance model identifier
      */
     public static final String AMBULANCE_MODEL_ID = "dtmi:num116117:ambulance;1";

@@ -15,7 +15,7 @@ import dtModel.PostalCode;
 import dtModel.vehicle.operator.OperatorDtModel;
 import dtModel.vehicle.operator.OperatorPersonalData;
 import dtModel.vehicle.operator.OperatorResidence;
-import fhirParser.FHIROperatorResource;
+import fhirSerializer.FHIROperatorResource;
 import org.hl7.fhir.r4.model.Practitioner;
 import utils.Constants;
 

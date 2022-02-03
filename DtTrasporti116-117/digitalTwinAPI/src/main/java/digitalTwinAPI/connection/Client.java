@@ -17,7 +17,6 @@ public final class Client {
     private static DigitalTwinsClient dtClient = null;
 
     private static void createClient() {
-        // Create client connection
         dtClient = new DigitalTwinsClientBuilder()
                 .credential(
                         new ClientSecretCredentialBuilder()
@@ -28,6 +27,7 @@ public final class Client {
                 )
                 .endpoint(Constants.ENDPOINT)
                 .buildClient();
+
     }
 
     /**

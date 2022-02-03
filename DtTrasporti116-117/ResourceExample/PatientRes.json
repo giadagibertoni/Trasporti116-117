@@ -1,0 +1,42 @@
+{
+  "resourceType": "Patient",
+  "contained": [
+    {
+      "resourceType": "Condition",
+      "id": "1",
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "60245001"
+          }
+        ]
+      }
+    }
+  ],
+  "identifier": [
+    {
+      "value": "BNCFNC67H01C573J"
+    }
+  ],
+  "name": [
+    {
+      "use": "official",
+      "family": "Bianchi",
+      "given": [
+        "Francesco"
+      ]
+    }
+  ],
+  "birthDate": "1967-06-01",
+  "address": [
+    {
+      "line": [
+        "Via Ferrari"
+      ],
+      "city": "Forlì",
+      "district": "FC",
+      "postalCode": "47722"
+    }
+  ]
+}

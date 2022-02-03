@@ -2,4 +2,4 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package fhirParser;
+package fhirSerializer;

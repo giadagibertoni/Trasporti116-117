@@ -2,13 +2,10 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package fhirParser;
+package fhirSerializer;
 
-import dtModel.patient.PatientDtModel;
 import dtModel.transport.TransportDtModel;
 import dtModel.transport.TransportRoute;
-import dtModel.vehicle.ambulance.AmbulanceDtModel;
-import dtModel.vehicle.operator.OperatorDtModel;
 import org.hl7.fhir.r4.model.*;
 import org.jetbrains.annotations.NotNull;
 import utils.Constants;

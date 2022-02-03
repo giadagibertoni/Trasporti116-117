@@ -2,7 +2,7 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-import fhirParser.*;
+import fhirSerializer.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

@@ -2,7 +2,7 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-package fhirParser;
+package fhirSerializer;
 
 import dtModel.vehicle.ambulance.AmbulanceDtModel;
 import org.hl7.fhir.r4.model.*;

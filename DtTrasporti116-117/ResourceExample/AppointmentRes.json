@@ -1,0 +1,73 @@
+{
+  "resourceType": "Appointment",
+  "contained": [
+    {
+      "resourceType": "Location",
+      "id": "1",
+      "name": "departure",
+      "address": {
+        "line": [
+          "IV Settembre"
+        ],
+        "city": "Cesena",
+        "district": "FC",
+        "postalCode": "47521"
+      }
+    },
+    {
+      "resourceType": "Location",
+      "id": "2",
+      "name": "destination",
+      "address": {
+        "line": [
+          "Via Vicoli"
+        ],
+        "city": "Ravenna",
+        "district": "RA",
+        "postalCode": "48124"
+      }
+    }
+  ],
+  "identifier": [
+    {
+      "value": "Transport1111-appointment"
+    }
+  ],
+  "serviceCategory": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/service-category",
+          "code": "33",
+          "display": "Transport"
+        }
+      ]
+    }
+  ],
+  "serviceType": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/service-type",
+          "code": "230",
+          "display": "Patient Transport"
+        }
+      ]
+    }
+  ],
+  "start": "2022-02-10T15:00:00.000+01:00",
+  "participant": [
+    {
+      "actor": {
+        "reference": "Patient/BNCFNC67H01C573J"
+      },
+      "status": "accepted"
+    },
+    {
+      "actor": {
+        "reference": "Device/Ambulance1111"
+      },
+      "status": "accepted"
+    }
+  ]
+}

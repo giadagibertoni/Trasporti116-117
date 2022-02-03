@@ -30,7 +30,7 @@ public class DTAmbulance {
     @Test
     public void getAmbulances() {
         AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_RESOURCE);
-        List<String> ambulances = AmbulanceDigitalTwin.getAmbulance();
+        List<String> ambulances = AmbulanceDigitalTwin.getAmbulances();
         assertTrue(ambulances.stream().anyMatch(s -> s.contains(TestDataValue.AMBULANCE_ID)));
     }
 

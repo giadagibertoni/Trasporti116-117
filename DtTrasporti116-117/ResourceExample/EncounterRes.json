@@ -1,0 +1,104 @@
+{
+  "resourceType": "Encounter",
+  "contained": [
+    {
+      "resourceType": "Procedure",
+      "id": "1",
+      "identifier": [
+        {
+          "value": "Transport1111-procedure"
+        }
+      ],
+      "status": "in-progress",
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "715537001",
+            "display": "Transportation by ambulance (procedure)"
+          }
+        ]
+      },
+      "subject": {
+        "reference": "Patient/BNCFNC67H01C573J"
+      },
+      "encounter": {
+        "reference": "Transport1111-encounter"
+      },
+      "performer": [
+        {
+          "actor": {
+            "reference": "Practitioner/MarioRossi3"
+          }
+        },
+        {
+          "actor": {
+            "reference": "Device/Ambulance1111"
+          }
+        }
+      ]
+    }
+  ],
+  "identifier": [
+    {
+      "value": "Transport1111-encounter"
+    }
+  ],
+  "status": "in-progress",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB"
+  },
+  "serviceType": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/service-type",
+        "code": "230",
+        "display": "Patient Transport"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/BNCFNC67H01C573J"
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ESC"
+            }
+          ]
+        }
+      ],
+      "individual": {
+        "reference": "Practitioner/MarioRossi3"
+      }
+    },
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "DIR"
+            }
+          ]
+        }
+      ],
+      "individual": {
+        "reference": "Device/Ambulance1111"
+      }
+    }
+  ],
+  "appointment": [
+    {
+      "reference": "Transport1111-appointment"
+    }
+  ],
+  "period": {
+    "start": "2022-02-10T15:00:00+01:00"
+  }
+}

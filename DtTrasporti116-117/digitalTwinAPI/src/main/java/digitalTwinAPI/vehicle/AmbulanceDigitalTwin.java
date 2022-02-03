@@ -9,10 +9,11 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwinAPI.connection.Client;
+import digitalTwinAPI.connection.IoTHubDevice;
 import dtModel.vehicle.ambulance.AmbulanceDtModel;
 import dtModel.vehicle.ambulance.AmbulanceState;
 import dtModel.vehicle.ambulance.GPSCoordinates;
-import fhirParser.FHIRAmbulanceResource;
+import fhirSerializer.FHIRAmbulanceResource;
 import org.hl7.fhir.r4.model.Device;
 import org.hl7.fhir.r4.model.Location;
 import utils.Constants;
@@ -32,7 +33,6 @@ public class AmbulanceDigitalTwin {
         String id = ambulance.getIdentifierFirstRep().getValue();
 
         AmbulanceState state;
-        //System.out.println("IN CREATE DT ");
         switch(ambulance.getStatus()){
             case ACTIVE -> state = AmbulanceState.BUSY;
             case INACTIVE -> state = AmbulanceState.FREE;
@@ -53,7 +53,14 @@ public class AmbulanceDigitalTwin {
                 .addToContents("state", state.getValue())
                 .addToContents("coordinates", coordinates);
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(id, ambulanceDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse =
+                Client.getClient().createOrReplaceDigitalTwin(id, ambulanceDT, BasicDigitalTwin.class);
+
+        try {
+            IoTHubDevice.addAmbulanceGPSDevice(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return basicTwinResponse.getId();
     }
@@ -77,17 +84,18 @@ public class AmbulanceDigitalTwin {
     /**
      * Get all ambulance
      *
-     * @return List of ambulance resource
+     * @return List of ambulances resource
      */
-    public static List<String> getAmbulance() {
+    public static List<String> getAmbulances() {
         List<String> ambulances = new ArrayList<>();
-        String query = "SELECT * FROM DIGITALTWINS WHERE IS_OF_MODEL('" + Constants.AMBULANCE_MODEL_ID + "')";
-        PagedIterable<AmbulanceDtModel> pageableResponse = Client.getClient().query(query, AmbulanceDtModel.class);
-       // System.out.println("GET ABULANCE");
-        pageableResponse.forEach(dt -> {
-            //System.out.println("DT--> " + dt.getState().getValue());
-            ambulances.add(FHIRAmbulanceResource.createFHIRResource(dt));
-        });
+        String query = "SELECT * FROM DIGITALTWINS " +
+                "WHERE IS_OF_MODEL('"
+                + Constants.AMBULANCE_MODEL_ID + "')";
+        PagedIterable<AmbulanceDtModel> response =
+                Client.getClient()
+                        .query(query, AmbulanceDtModel.class);
+        response.forEach(dt -> ambulances.add(
+                FHIRAmbulanceResource.createFHIRResource(dt)));
         return ambulances;
     }
 }

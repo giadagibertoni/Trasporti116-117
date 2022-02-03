@@ -1,0 +1,43 @@
+{
+  "resourceType": "Practitioner",
+  "contained": [
+    {
+      "resourceType": "PractitionerRole",
+      "id": "1",
+      "specialty": [
+        {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "159738005"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "identifier": [
+    {
+      "value": "MarioRossi3"
+    }
+  ],
+  "name": [
+    {
+      "family": "Rossi",
+      "given": [
+        "Mario"
+      ]
+    }
+  ],
+  "address": [
+    {
+      "line": [
+        "Corso Cavour, 1"
+      ],
+      "city": "Cesena",
+      "district": "FC",
+      "postalCode": "47521"
+    }
+  ],
+  "birthDate": "1990-07-05"
+}

@@ -13,7 +13,7 @@ import dtModel.City;
 import dtModel.District;
 import dtModel.PostalCode;
 import dtModel.patient.*;
-import fhirParser.FHIRPatientResource;
+import fhirSerializer.FHIRPatientResource;
 import org.hl7.fhir.r4.model.Condition;
 import org.hl7.fhir.r4.model.Patient;
 import utils.Constants;
