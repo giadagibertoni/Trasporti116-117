@@ -93,19 +93,19 @@ public final class TestDataValue {
             .setPostalCode(DESTINATION_POSTAL_CODE);
     public static final TransportDtModel TRANSPORT_DT_MODEL_SCHEDULED = new TransportDtModel()
             .setId(TRANSPORT_ID)
-            .setStartDateTime(LocalDateTime.of(2022, 02,10,15, 00))
+            .setStartDateTime(LocalDateTime.of(2022, 02,10, 15,  00))
             .setPhase(Phase.SCHEDULED)
             .setRoute(new TransportRoute().setDeparture(DEPARTURE).setDestination(DESTINATION));
 
     public static final TransportDtModel TRANSPORT_DT_MODEL_IN_PROGRESS = new TransportDtModel()
             .setId(TRANSPORT_ID)
-            .setStartDateTime(LocalDateTime.of(2022, 02,10,15, 00))
+            .setStartDateTime(LocalDateTime.of(2022, 02, 10, 15, 00))
             .setPhase(Phase.IN_PROGRESS)
             .setRoute(new TransportRoute().setDeparture(DEPARTURE).setDestination(DESTINATION));
 
     public static final TransportDtModel TRANSPORT_DT_MODEL_COMPLETED = new TransportDtModel()
             .setId(TRANSPORT_ID)
-            .setStartDateTime(LocalDateTime.of(2022, 02,10,15, 00))
+            .setStartDateTime(LocalDateTime.of(2022, 02, 10, 15, 00))
             .setPhase(Phase.COMPLETED)
             .setRoute(new TransportRoute().setDeparture(DEPARTURE).setDestination(DESTINATION));
 

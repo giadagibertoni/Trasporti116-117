@@ -7,9 +7,12 @@ package dtmodel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Class that represents an address
+ * Class that represents an address.
  */
 public class Address {
+    /**
+     * Address
+     */
     @JsonProperty(value = "address")
     private String address;
 
@@ -25,7 +28,7 @@ public class Address {
      *
      * @return Address
      */
-    public Address setAddress(String address) {
+    public Address setAddress(final String address) {
         this.address = address;
         return this;
     }
