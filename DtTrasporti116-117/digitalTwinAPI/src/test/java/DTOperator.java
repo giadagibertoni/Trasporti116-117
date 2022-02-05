@@ -3,7 +3,7 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinAPI.connection.Client;
+import digitalTwinAPI.azureservice.Client;
 import digitalTwinAPI.vehicle.OperatorDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -4,7 +4,7 @@
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
-import digitalTwinAPI.connection.Client;
+import digitalTwinAPI.azureservice.Client;
 import digitalTwinAPI.vehicle.AmbulanceDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;

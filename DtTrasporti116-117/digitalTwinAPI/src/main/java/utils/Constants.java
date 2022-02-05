@@ -27,8 +27,10 @@ public final class Constants {
 
     /**
      * Client secret
-     */
+*/
     public static final String CLIENT_SECRET = "n5_i0mRm8TD6x725E~k2jgtTunx.f-lGzc";
+
+   // public static final String CLIENT_SECRET = "Eol7Q~2JIcYhwy6bTWEhar4ZeHzfbLEPgcI1Q";
 
     /**
      * IoT hub connection string

@@ -1,4 +1,7 @@
 version = project.version
+group = "org.trasporti116117"
+
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 plugins {
     jacoco //java code coverage
@@ -10,7 +13,10 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.0.9"
     checkstyle
     pmd
+    id("org.springframework.boot") version "2.6.3"
+    id("io.spring.dependency-management") version "0.6.1.RELEASE"
 }
+
 
 allprojects {
     repositories {
@@ -27,6 +33,10 @@ subprojects{
     apply(plugin = "checkstyle")
     apply(plugin = "pmd")
     apply(plugin = "java")
+    apply(plugin = "org.springframework.boot")
+    apply(plugin ="io.spring.dependency-management")
+
+    extra["azureVersion"] = "3.13.0"
 
     javafx {
         version = "17.0.1"
@@ -61,6 +71,10 @@ subprojects{
         dependencies {
             classpath("gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0")
         }
+    }
+
+    tasks.withType<Test> {
+        useJUnit()
     }
 
 }

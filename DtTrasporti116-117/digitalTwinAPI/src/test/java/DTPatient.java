@@ -7,7 +7,7 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinAPI.connection.Client;
+import digitalTwinAPI.azureservice.Client;
 import digitalTwinAPI.patient.PatientDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;

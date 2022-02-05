@@ -1,15 +1,15 @@
-import dtModel.*;
-import dtModel.patient.*;
-import dtModel.transport.Phase;
-import dtModel.transport.TransportDtModel;
-import dtModel.transport.TransportLocation;
-import dtModel.transport.TransportRoute;
-import dtModel.vehicle.ambulance.AmbulanceDtModel;
-import dtModel.vehicle.ambulance.AmbulanceState;
-import dtModel.vehicle.ambulance.GPSCoordinates;
-import dtModel.vehicle.operator.OperatorDtModel;
-import dtModel.vehicle.operator.OperatorPersonalData;
-import dtModel.vehicle.operator.OperatorResidence;
+import dtmodel.*;
+import dtmodel.patient.*;
+import dtmodel.transport.Phase;
+import dtmodel.transport.TransportDtModel;
+import dtmodel.transport.TransportLocation;
+import dtmodel.transport.TransportRoute;
+import dtmodel.vehicle.ambulance.AmbulanceDtModel;
+import dtmodel.vehicle.ambulance.AmbulanceState;
+import dtmodel.vehicle.ambulance.GPSCoordinates;
+import dtmodel.vehicle.operator.OperatorDtModel;
+import dtmodel.vehicle.operator.OperatorPersonalData;
+import dtmodel.vehicle.operator.OperatorResidence;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

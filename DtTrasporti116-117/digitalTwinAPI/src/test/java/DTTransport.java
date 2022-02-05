@@ -3,7 +3,7 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinAPI.connection.Client;
+import digitalTwinAPI.azureservice.Client;
 import digitalTwinAPI.patient.PatientDigitalTwin;
 import digitalTwinAPI.transport.TransportDigitalTwin;
 import digitalTwinAPI.vehicle.AmbulanceDigitalTwin;

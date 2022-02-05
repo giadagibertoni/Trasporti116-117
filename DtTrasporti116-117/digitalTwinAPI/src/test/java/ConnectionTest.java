@@ -3,7 +3,7 @@
  */
 
 import com.azure.digitaltwins.core.DigitalTwinsClient;
-import digitalTwinAPI.connection.Client;
+import digitalTwinAPI.azureservice.Client;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
