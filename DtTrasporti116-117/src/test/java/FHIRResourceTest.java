@@ -2,8 +2,12 @@
  * Copyright (c) 2022. Giada Gibertoni
  */
 
-import fhirserializer.*;
 import org.junit.Test;
+import patientbc.FHIRPatientResource;
+import sharedkernel.FHIRParser;
+import transportbc.FHIRTransportResource;
+import vehiclebc.FHIRAmbulanceResource;
+import vehiclebc.FHIROperatorResource;
 
 import static org.junit.Assert.assertTrue;
 

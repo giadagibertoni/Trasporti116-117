@@ -3,11 +3,11 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinAPI.azureservice.Client;
-import digitalTwinAPI.patient.PatientDigitalTwin;
-import digitalTwinAPI.transport.TransportDigitalTwin;
-import digitalTwinAPI.vehicle.AmbulanceDigitalTwin;
-import digitalTwinAPI.vehicle.OperatorDigitalTwin;
+import sharedkernel.azureservice.Client;
+import patientbc.PatientDigitalTwin;
+import transportbc.TransportDigitalTwin;
+import vehiclebc.AmbulanceDigitalTwin;
+import vehiclebc.OperatorDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

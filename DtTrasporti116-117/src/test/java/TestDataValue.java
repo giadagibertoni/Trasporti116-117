@@ -1,15 +1,16 @@
-import dtmodel.*;
-import dtmodel.patient.*;
-import dtmodel.transport.Phase;
-import dtmodel.transport.TransportDtModel;
-import dtmodel.transport.TransportLocation;
-import dtmodel.transport.TransportRoute;
-import dtmodel.vehicle.ambulance.AmbulanceDtModel;
-import dtmodel.vehicle.ambulance.AmbulanceState;
-import dtmodel.vehicle.ambulance.GPSCoordinates;
-import dtmodel.vehicle.operator.OperatorDtModel;
-import dtmodel.vehicle.operator.OperatorPersonalData;
-import dtmodel.vehicle.operator.OperatorResidence;
+
+import transportbc.dtmodel.*;
+import vehiclebc.dtmodel.operator.OperatorAddress;
+import vehiclebc.dtmodel.operator.OperatorCity;
+import vehiclebc.dtmodel.operator.OperatorDistrict;
+import vehiclebc.dtmodel.operator.OperatorPostalCode;
+import vehiclebc.dtmodel.ambulance.AmbulanceDtModel;
+import vehiclebc.dtmodel.ambulance.AmbulanceState;
+import vehiclebc.dtmodel.ambulance.GPSCoordinates;
+import vehiclebc.dtmodel.operator.OperatorDtModel;
+import vehiclebc.dtmodel.operator.OperatorPersonalData;
+import vehiclebc.dtmodel.operator.OperatorResidence;
+import patientbc.dtmodel.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,10 +23,10 @@ public final class TestDataValue {
     public static final String PATIENT_NAME = "namePatient";
     public static final String PATIENT_SURNAME = "surnamePatient";
     public static final LocalDate PATIENT_BIRTHDAY = LocalDate.of(1970, 7, 5);
-    public static final Address PATIENT_ADDRESS = new Address().setAddress("Ferrari");
-    public static final City PATIENT_CITY = new City().setCity("Forlì");
-    public static final District PATIENT_DISTRICT = new District().setDistrict("FC");
-    public static final PostalCode PATIENT_POSTAL_CODE = new PostalCode().setPostalCode(47722);
+    public static final PatientAddress PATIENT_ADDRESS = new PatientAddress().setAddress("Ferrari");
+    public static final PatientCity PATIENT_CITY = new PatientCity().setCity("Forlì");
+    public static final PatientDistrict PATIENT_DISTRICT = new PatientDistrict().setDistrict("FC");
+    public static final PatientPostalCode PATIENT_POSTAL_CODE = new PatientPostalCode().setPostalCode(47722);
     public static final PatientResidence PATIENT_RESIDENCE = new PatientResidence()
         .setAddress(PATIENT_ADDRESS)
         .setCity(PATIENT_CITY)
@@ -47,10 +48,10 @@ public final class TestDataValue {
     public static final String OPERATOR_NAME = "nameOperator";
     public static final String OPERATOR_SURNAME = "surnameOperator";
     public static final LocalDate OPERATOR_BIRTHDAY = LocalDate.of(1990, 7, 5);
-    public static final Address OPERATOR_ADDRESS = new Address().setAddress("Corso Cavour, 1");
-    public static final City OPERATOR_CITY = new City().setCity("Gambettola");
-    public static final District OPERATOR_DISTRICT = new District().setDistrict("FC");
-    public static final PostalCode OPERATOR_POSTAL_CODE = new PostalCode().setPostalCode(47521);
+    public static final OperatorAddress OPERATOR_ADDRESS = new OperatorAddress().setAddress("Corso Cavour, 1");
+    public static final OperatorCity OPERATOR_CITY = new OperatorCity().setCity("Gambettola");
+    public static final OperatorDistrict OPERATOR_DISTRICT = new OperatorDistrict().setDistrict("FC");
+    public static final OperatorPostalCode OPERATOR_POSTAL_CODE = new OperatorPostalCode().setPostalCode(47521);
     public static final OperatorResidence OPERATOR_RESIDENCE = new OperatorResidence()
             .setAddress(OPERATOR_ADDRESS)
             .setCity(OPERATOR_CITY)
@@ -73,14 +74,14 @@ public final class TestDataValue {
 
     //Transport
     public static final String TRANSPORT_ID = "Transport1111";
-    public static final Address DEPARTURE_ADDRESS = new Address().setAddress("IV Settembre");
-    public static final City DEPARTURE_CITY = new City().setCity("Cesena");
-    public static final District DEPARTURE_DISTRICT = new District().setDistrict("FC");
-    public static final PostalCode DEPARTURE_POSTAL_CODE = new PostalCode().setPostalCode(47521);
-    public static final Address DESTINATION_ADDRESS = new Address().setAddress("Giovanni Bovio");
-    public static final City DESTINATION_CITY = new City().setCity("Ravenna");
-    public static final District DESTINATION_DISTRICT = new District().setDistrict("FC");
-    public static final PostalCode DESTINATION_POSTAL_CODE = new PostalCode().setPostalCode(47521);
+    public static final TransportAddress DEPARTURE_ADDRESS = new TransportAddress().setAddress("IV Settembre");
+    public static final TransportCity DEPARTURE_CITY = new TransportCity().setCity("Cesena");
+    public static final TransportDistrict DEPARTURE_DISTRICT = new TransportDistrict().setDistrict("FC");
+    public static final TransportPostalCode DEPARTURE_POSTAL_CODE = new TransportPostalCode().setPostalCode(47521);
+    public static final TransportAddress DESTINATION_ADDRESS = new TransportAddress().setAddress("Giovanni Bovio");
+    public static final TransportCity DESTINATION_CITY = new TransportCity().setCity("Ravenna");
+    public static final TransportDistrict DESTINATION_DISTRICT = new TransportDistrict().setDistrict("FC");
+    public static final TransportPostalCode DESTINATION_POSTAL_CODE = new TransportPostalCode().setPostalCode(47521);
     public static final TransportLocation DEPARTURE = new TransportLocation()
             .setAddress(DEPARTURE_ADDRESS)
             .setCity(DEPARTURE_CITY)
@@ -119,10 +120,10 @@ public final class TestDataValue {
     public static final String DISTRICT_VALUE = "FC";
     public static final int POSTAL_CODE_VALUE = 47521;
 
-    public static final Address ADDRESS = new Address().setAddress(ADDRESS_VALUE);
-    public static final City CITY = new City().setCity(CITY_VALUE);
-    public static final District DISTRICT = new District().setDistrict(DISTRICT_VALUE);
-    public static final PostalCode POSTAL_CODE = new PostalCode().setPostalCode(POSTAL_CODE_VALUE);
+    public static final PatientAddress ADDRESS = new PatientAddress().setAddress(ADDRESS_VALUE);
+    public static final PatientCity CITY = new PatientCity().setCity(CITY_VALUE);
+    public static final PatientDistrict DISTRICT = new PatientDistrict().setDistrict(DISTRICT_VALUE);
+    public static final PatientPostalCode POSTAL_CODE = new PatientPostalCode().setPostalCode(POSTAL_CODE_VALUE);
 
     //Assert messagge
     public static final String NOT_EQUALS_VALUE = "recovered value is not equal to the past one";

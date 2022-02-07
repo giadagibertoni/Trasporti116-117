@@ -3,7 +3,6 @@ plugins {
     java
     id("java")
     id("pl.droidsonroids.jacoco.testkit") version "1.0.8"
-    kotlin("jvm") version "1.4.10"
     id("org.springframework.boot") version "2.6.3"
     id("io.spring.dependency-management") version "0.6.1.RELEASE"
 }
@@ -32,10 +31,6 @@ repositories {
 version = project.version
 
 extra["azureVersion"] = "3.13.0"
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>{
-    kotlinOptions.allWarningsAsErrors = true
-}
 
 buildscript {
     repositories {

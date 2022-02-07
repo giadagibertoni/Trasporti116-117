@@ -3,8 +3,8 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinAPI.azureservice.Client;
-import digitalTwinAPI.vehicle.OperatorDigitalTwin;
+import sharedkernel.azureservice.Client;
+import vehiclebc.OperatorDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
