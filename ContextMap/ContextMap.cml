@@ -4,15 +4,21 @@ ContextMap Trasporti116117 {
 	
 	contains CallCenterContext, PatientContext, TransportContext, VehicleContext
 
-	VehicleContext [P] <-> [P]TransportContext
+	VehicleContext [SK] <-> [SK] TransportContext
 
-	PatientContext [P] <-> [P] TransportContext
+	PatientContext [SK] <-> [SK] TransportContext
 	
-	CallCenterContext [D,C] <- [U,S] TransportContext 
+	CallCenterContext [D] <- [U, OHS, PL] TransportContext {
+		implementationTechnology = "RESTful HTTP"
+	}
+
+	CallCenterContext [D] <- [U, OHS, PL] PatientContext {
+		implementationTechnology = "RESTful HTTP"
+	}
 	
-	CallCenterContext [D,C] <- [U,S] PatientContext
-	
-	CallCenterContext [D,C] <- [U,S] VehicleContext
+	CallCenterContext [D] <- [U, OHS, PL] VehicleContext {
+		implementationTechnology = "RESTful HTTP"
+	}
 }
 
 BoundedContext CallCenterContext implements CallCenter{
@@ -28,61 +34,101 @@ BoundedContext PatientContext implements Patient{
 	
 	Aggregate Patient {
 		ValueObject PatientResidence{
-			String address
-			String number
-			String city
-			String district
-			Integer postalCode
+			-PatientAddress address
+			-PatientCity city
+			-PatientDistrict district
+			-PatientPostalCode postalCode
 		}
 		
 		ValueObject PatientPersonalData{
+			-PatientFiscalCode fiscalCode
 			String name
 			String surname
 			Date dateOfBirth
 			-PatientResidence residence
 		}
 	
-		ValueObject HealthState{
-			String description
+		ValueObject Condition{
+			String system
+			Integer code
 		}
 		
-		ValueObject Autonomy {
-			String description
+		ValueObject PatientFiscalCode {
+			String fiscalCode
+		}
+		
+		ValueObject PatientAddress {
+			String address
+		}
+		
+		ValueObject PatientCity {
+			String city
+		}
+		
+		ValueObject PatientDistrict {
+			String district
+		}
+		
+		ValueObject PatientPostalCode {
+			String postalCode
 		}
 		
     	Entity Patient {
       		aggregateRoot
-      		Integer idPatient
-      		String firstname
-      		String lastname
       		-PatientPersonalData personalData
-      		-HealthState healthState
-      		-Autonomy autonomy
+      		-Condition patientCondition
+      		Repository PatientDTRepository
     	}	
   	}
 }
 
 BoundedContext TransportContext implements Transport{
-	type = APPLICATION 
+	type = FEATURE 
 	domainVisionStatement = "Represents all stages of transport. The life cycle of the transport begins with the booking of the same and ends with the arrival at the destination."
 	knowledgeLevel = CONCRETE
 	
 	Aggregate Transport{
-		
 		enum Phase {
 			aggregateLifecycle
 			Scheduled, InProgress, Completed
 		}
 		
-		ValueObject Itinerary {
-			Float longitude
-			Float latitude 
+		ValueObject TransportRoute{
+			-Location departure
+			-Location destination
 		}
 		
-		Entity Tansport {
-			Integer idTransport
-			-Itinerary itinerary
+		ValueObject Location {
+			-TransportAddress address
+			-TransportCity city
+			-TransportDistrict district
+			-TransportPostalCode postalCode
+		}
+		
+		ValueObject TransportAddress {
+			String address
+		}
+		
+		ValueObject TransportCity {
+			String city
+		}
+		
+		ValueObject TransportDistrict {
+			String district
+		}
+		
+		ValueObject TransportPostalCode {
+			String postalCode
+		}
+		
+		Entity Transport {
+			aggregateRoot
+			String idTransport
+			-TransportRoute route
 			-Phase phase
+			Date startDateTime
+			Date endDateTime
+			Repository TransportDTRepository
 		}
 	}
 }
@@ -93,32 +139,47 @@ BoundedContext VehicleContext implements Transport{
 	knowledgeLevel = CONCRETE
 	
 	Aggregate Ambulance {
-		Entity GPS {
-			Integer idGPS
-			Float longitude
-			Float latitude
+		ValueObject Coordinates {
+			Double longitude
+			Double latitude
 		}
 		
-		enum VeichleState {
+		enum AmbulanceState {
 			aggregateLifecycle
 			Busy, Free, UnderMaintenance, Disused
 		}
 		
 		Entity Ambulance {
 			aggregateRoot
-			Integer idAmbulance
-			-GPS gps
-			-VeichleState vehicleState
+			String idAmbulance
+			-Coordinates coordinates
+			-AmbulanceState ambulanceState
+			Repository AmbulanceDTRepository
 		}
 	}
 	
 	Aggregate TransportOperator {
 		ValueObject TransportOperatorResidence{
+			-OperatorAddress address
+			-OperatorCity city
+			-OperatorDistrict district
+			-OperatorPostalCode postalCode
+		}
+		
+		ValueObject OperatorAddress {
 			String address
-			String number
+		}
+		
+		ValueObject OperatorCity {
 			String city
+		}
+		
+		ValueObject OperatorDistrict {
 			String district
-			Integer postalCode
+		}
+		
+		ValueObject OperatorPostalCode {
+			String postalCode
 		}
 		
 		ValueObject TransportOperatorPersonalData{
@@ -128,10 +189,16 @@ BoundedContext VehicleContext implements Transport{
 			-TransportOperatorResidence residence
 		}
 		
+		ValueObject IdTransportOperator {
+			String idTransportOperator
+		}
+		
 		Entity TransportOperator{
 			aggregateRoot
-			Integer idTransportOperator
+			String idTransportOperator
 			-TransportOperatorPersonalData personalData
+			
+			Repository TransportOperatorDTRepository
 		}
 
 	}
@@ -151,4 +218,3 @@ Domain Trasporti116117Domain{
 	}
 
 }
-
