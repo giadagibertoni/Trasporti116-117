@@ -27,7 +27,6 @@ public class PatientPersonalData {
     @JsonProperty(value = "residence")
     private PatientResidence residence;
 
-
     /**
      * @return name of patient
      */

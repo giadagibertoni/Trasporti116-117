@@ -20,6 +20,7 @@ import org.hl7.fhir.r4.model.Practitioner;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class OperatorDigitalTwin {
     /**
@@ -65,5 +66,21 @@ public class OperatorDigitalTwin {
         PagedIterable<OperatorDtModel> pageableResponse = Client.getClient().query(query, OperatorDtModel.class);
         pageableResponse.forEach(dt -> operators.add(FHIROperatorResource.createFHIRResource(dt)));
         return operators;
+    }
+
+    /**
+     * Get operator by id
+     *
+     * @return operator resource
+     */
+    public static Optional<String> getOperator(String id) {
+        String query = "SELECT * FROM DIGITALTWINS " +
+                "WHERE IS_OF_MODEL('"
+                + VehicleConstants.OPERATOR_MODEL_ID + "' )"
+                + "AND $dtId = '" + id + "'";
+
+        Optional<OperatorDtModel> dt = Client.getClient().query(query, OperatorDtModel.class).stream().findFirst();
+
+        return dt.map(FHIROperatorResource::createFHIRResource);
     }
 }

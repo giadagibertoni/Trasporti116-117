@@ -26,21 +26,18 @@ public final class Client {
                 )
                 .endpoint(Constants.ENDPOINT)
                 .buildClient();
-       /* dtClient = new DigitalTwinsClientBuilder()
-                .credential(
-                        new DefaultAzureCredentialBuilder()
-                                .build())
-                .endpoint(Constants.ENDPOINT)
-                .buildClient();*/
     }
 
     /**
      * @return the sync client
      */
     public static DigitalTwinsClient getClient() {
-        if (dtClient == null) {
+     /*  if (dtClient == null) {
             createClient();
         }
+
+      */
+        createClient();
         return dtClient;
     }
 

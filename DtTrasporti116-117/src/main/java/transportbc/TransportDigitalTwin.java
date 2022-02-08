@@ -5,6 +5,7 @@
 package transportbc;
 
 import com.azure.core.http.rest.PagedIterable;
+import com.azure.core.models.JsonPatchDocument;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
@@ -14,9 +15,12 @@ import org.hl7.fhir.r4.model.Location;
 import org.json.simple.JSONObject;
 import transportbc.dtmodel.*;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class TransportDigitalTwin {
 
@@ -70,16 +74,52 @@ public class TransportDigitalTwin {
         return basicTwinResponse.getId();
     }
 
+    public static void setTransportInProgress (String idTransport){
+        Client.getClient().updateDigitalTwin(idTransport,
+                new JsonPatchDocument().appendAdd("/phase", "inProgress"));
+    }
+
+    public static void setTransportCompleted (String idTransport){
+        Client.getClient().updateDigitalTwin(idTransport,
+                new JsonPatchDocument()
+                        .appendAdd("/phase", Phase.COMPLETED.getValue())
+                        .appendAdd("/endDateTime", LocalDateTime.now()));
+    }
+
     /**
      * Get all scheduled transport
      *
      * @return List of transport resource
      */
     public static List<String> getScheduledTransports() {
+        return getTransport(Phase.SCHEDULED);
+    }
+
+    /**
+     * Get all transport in process
+     *
+     * @return List of transport resource
+     */
+    public static List<String> getInProgressTransports() {
+        return getTransport(Phase.IN_PROGRESS);
+    }
+
+    /**
+     * Get all completed transport
+     *
+     * @return List of transport resource
+     */
+    public static List<String> getCompletedTransports() {
+        return getTransport(Phase.COMPLETED);
+    }
+
+    private static List<String> getTransport(Phase phase){
         List<String> transports = new ArrayList<>();
         String query = "SELECT * FROM DIGITALTWINS T WHERE IS_OF_MODEL('" + TransportConstants.TRANSPORT_MODEL_ID + "') " +
-                "AND T.phase = 'scheduled'";
+                "AND T.phase = '" + phase.getValue() + "'";
+
         PagedIterable<TransportDtModel> pageableResponse = Client.getClient().query(query, TransportDtModel.class);
+
         pageableResponse.forEach(dtTransport -> {
             String relAmbulanceQuery = "SELECT A.$dtId FROM DIGITALTWINS T JOIN A RELATED T.use WHERE T.$dtId = '"+ dtTransport.getId() +"'";
             PagedIterable<JSONObject> transportAmbulanceRelationship = Client.getClient().query(relAmbulanceQuery, JSONObject.class);
@@ -89,6 +129,7 @@ public class TransportDigitalTwin {
 
             String ambulanceId;
             String patientId;
+
             if (transportAmbulanceRelationship.stream().findFirst().isPresent() &&
                     transportPatientRelationship.stream().findFirst().isPresent()) {
                 ambulanceId = transportAmbulanceRelationship.stream().findFirst().get().get("$dtId").toString();
@@ -96,7 +137,18 @@ public class TransportDigitalTwin {
             } else
                 throw new IllegalStateException();
 
-            transports.add(FHIRTransportResource.createTransportAppointmentFHIRResource(dtTransport, ambulanceId, patientId));
+            if (phase.equals(Phase.SCHEDULED))
+                transports.add(FHIRTransportResource.createTransportAppointmentFHIRResource(dtTransport, ambulanceId, patientId));
+            else{
+                String relOperatorQuery = "SELECT P.$dtId FROM DIGITALTWINS T JOIN P RELATED T.driveBy WHERE T.$dtId = '"+ ambulanceId +"'";
+                Optional<JSONObject> operatorId = Client.getClient().query(relOperatorQuery, JSONObject.class).stream().findFirst();
+
+                if (operatorId.stream().findFirst().isPresent())
+                    transports.add(FHIRTransportResource
+                            .createTransportEncounterFHIRResource(dtTransport, ambulanceId, patientId, operatorId.get().get("$dtId").toString()));
+                else
+                    throw new IllegalStateException();
+            }
         });
 
         return transports;

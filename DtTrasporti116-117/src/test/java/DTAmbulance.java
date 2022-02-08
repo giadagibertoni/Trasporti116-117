@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -38,5 +39,13 @@ public class DTAmbulance {
     public void addAmbulanceWorkDay() {
         AmbulanceDigitalTwin.addOperatorWorkDay(TestDataValue.AMBULANCE_ID, TestDataValue.OPERATOR_ID, LocalDate.of(2022, 03, 01));
         assertEquals(TestDataValue.EQUALS_DT, Client.getClient().getRelationship(TestDataValue.AMBULANCE_ID, TestDataValue.REL_AMBULANCE_OPERATOR_ID, BasicRelationship.class).getClass(), BasicRelationship.class);
+    }
+
+    @Test
+    public void getAmbulance() {
+        AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_RESOURCE);
+        Optional<String> ambulance = AmbulanceDigitalTwin.getAmbulance(TestDataValue.AMBULANCE_ID);
+        assertTrue(ambulance.isPresent());
+        assertTrue(ambulance.get().contains(TestDataValue.AMBULANCE_ID));
     }
 }

@@ -6,6 +6,7 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import sharedkernel.azureservice.Client;
 import patientbc.PatientDigitalTwin;
 import transportbc.TransportDigitalTwin;
+import transportbc.dtmodel.Phase;
 import vehiclebc.AmbulanceDigitalTwin;
 import vehiclebc.OperatorDigitalTwin;
 import org.junit.BeforeClass;
@@ -33,11 +34,14 @@ public class DTTransport {
     }
 
     @Test
-    public void getScheduledTransports(){
+    public void getScheduledTransports() {
         TransportDigitalTwin.createTransport(TestDataValue.TRANSPORT_SCHEDULED_RESURCE);
+
         List<String> transports = TransportDigitalTwin.getScheduledTransports();
+
         assertTrue(transports.stream().anyMatch(s -> s.contains(TestDataValue.TRANSPORT_ID)
                         && s.contains(TestDataValue.AMBULANCE_ID)
-                        && s.contains(TestDataValue.PATIENT_FISCAL_CODE.getFiscalCode())));
+                        && s.contains(TestDataValue.PATIENT_FISCAL_CODE.getFiscalCode())
+                        && s.contains("Appointment")));
     }
 }

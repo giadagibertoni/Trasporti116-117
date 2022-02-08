@@ -21,7 +21,7 @@ public enum Phase {
      * Transport is in progress
      */
     @JsonProperty(value = "InProgress")
-    IN_PROGRESS("InProgress"),
+    IN_PROGRESS("inProgress"),
     /**
      * Transport is completed
      */

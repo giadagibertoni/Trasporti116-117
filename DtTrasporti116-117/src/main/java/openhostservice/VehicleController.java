@@ -1,9 +1,13 @@
 package openhostservice;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import vehiclebc.AmbulanceDigitalTwin;
 import vehiclebc.OperatorDigitalTwin;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,6 +24,12 @@ public class VehicleController {
         return OperatorDigitalTwin.createOperator(resource);
     }
 
+    @PostMapping("/API/Vehicle/addOperatorWorkDay")
+    @ResponseBody
+    public void addOperatorWorkDay(@RequestParam String ambulanceId, @RequestParam String operatorId, @RequestParam String date) {
+        AmbulanceDigitalTwin.addOperatorWorkDay(ambulanceId, operatorId, LocalDate.parse(date));
+    }
+
     @GetMapping("/API/Vehicle/getAmbulances")
     @ResponseBody
     public List<String> getAmbulances() {
@@ -32,5 +42,24 @@ public class VehicleController {
         return OperatorDigitalTwin.getOperators();
     }
 
+    @GetMapping("/API/Vehicle/getAmbulance")
+    @ResponseBody
+    public String getAmbulance(@RequestParam String id) {
+        if (AmbulanceDigitalTwin.getAmbulance(id).isEmpty())
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "ambulance not found"
+            );
+        return AmbulanceDigitalTwin.getAmbulance(id).get();
+    }
+
+    @GetMapping("/API/Vehicle/getOperator")
+    @ResponseBody
+    public String getOperator(@RequestParam String id) {
+        if (OperatorDigitalTwin.getOperator(id).isEmpty())
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "operator not found"
+            );
+        return OperatorDigitalTwin.getOperator(id).get();
+    }
 
 }

@@ -80,11 +80,11 @@ public class FHIRTransportResource {
         return FHIRParser.getParser().encodeResourceToString(transportEncounter);
     }
 
-    public static Appointment parseAppointmentFHIRResource(String jsonResource){
+    protected static Appointment parseAppointmentFHIRResource(String jsonResource){
         return FHIRParser.getParser().parseResource(Appointment.class, jsonResource);
     }
 
-    public static Encounter parseEncounterFHIRResource(String jsonResource){
+    protected static Encounter parseEncounterFHIRResource(String jsonResource){
         return FHIRParser.getParser().parseResource(Encounter.class, jsonResource);
     }
 

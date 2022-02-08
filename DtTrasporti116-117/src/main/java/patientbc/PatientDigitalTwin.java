@@ -11,9 +11,14 @@ import sharedkernel.azureservice.Client;
 import org.hl7.fhir.r4.model.Condition;
 import org.hl7.fhir.r4.model.Patient;
 import patientbc.dtmodel.*;
+import vehiclebc.FHIRAmbulanceResource;
+import vehiclebc.VehicleConstants;
+import vehiclebc.dtmodel.ambulance.AmbulanceDtModel;
+
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Contains create patient digital twin API
@@ -75,5 +80,21 @@ public final class PatientDigitalTwin {
         pageableResponse.forEach(dt -> patients.add(FHIRPatientResource.createFHIRResource(dt)));
 
         return patients;
+    }
+
+    /**
+     * Get patient by id
+     *
+     * @return patient resource
+     */
+    public static Optional<String> getPatient(String id) {
+        String query = "SELECT * FROM DIGITALTWINS " +
+                "WHERE IS_OF_MODEL('"
+                + PatientConstants.PATIENT_MODEL_ID + "' )"
+                + "AND $dtId = '" + id + "'";
+
+        Optional<PatientDtModel> dt = Client.getClient().query(query, PatientDtModel.class).stream().findFirst();
+
+        return dt.map(FHIRPatientResource::createFHIRResource);
     }
 }

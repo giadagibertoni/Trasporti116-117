@@ -59,7 +59,7 @@
   "participant": [
     {
       "actor": {
-        "reference": "Patient/BNCFNC67H01C573J"
+        "reference": "Patient/patientTest"
       },
       "status": "accepted"
     },
