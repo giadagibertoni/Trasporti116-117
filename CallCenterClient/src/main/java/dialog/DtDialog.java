@@ -16,12 +16,14 @@ abstract class DtDialog {
     public static final int INS_RIGHT = 150;
     public static final int INS_BOTTOM = 10;
     public static final int INS_LEFT = 10;
-    private static Dialog<ButtonType> dialog = new Dialog<>();
-    private static GridPane gridPane = new GridPane();
+    private static Dialog<ButtonType> dialog;
+    private static GridPane gridPane;
 
     abstract void createEntity();
 
     protected void initialize(final String title, final ButtonType... buttonsType) {
+        dialog = new Dialog<>();
+        gridPane = new GridPane();
         dialog.setTitle(title);
         dialog.getDialogPane().getButtonTypes().addAll(buttonsType);
         gridPane.setHgap(HGAP);

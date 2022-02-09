@@ -15,11 +15,27 @@ import java.util.stream.Collectors;
 public class Trasporti116117HttpRequest {
     private static final String HOST = "http://localhost:8080";
     private static final String CREATE_PATIENT = "/API/Patient/createPatient";
+    private static final String CREATE_OPERATOR = "/API/Vehicle/createOperator";
+    private static final String CREATE_AMBULANCE = "/API/Vehicle/createAmbulance";
+    private static final String CREATE_TRANSPORT = "/API/Transport/createTransport";
     private static final String GET_PATIENT = "/API/Patient/getPatient";
+
     private static final HttpClient client = HttpClient.newHttpClient();
 
-    public static String createPatient(String patientResource) throws IOException, InterruptedException {
-        return sendPOSTRequestWithJSONBody(HOST + CREATE_PATIENT, patientResource);
+    public static String createPatient(String resource) throws IOException, InterruptedException {
+        return sendPOSTRequestWithJSONBody(HOST + CREATE_PATIENT, resource);
+    }
+
+    public static String createOperator(String resource) throws IOException, InterruptedException {
+        return sendPOSTRequestWithJSONBody(HOST + CREATE_OPERATOR, resource);
+    }
+
+    public static String createAmbulance(String resource) throws IOException, InterruptedException {
+        return sendPOSTRequestWithJSONBody(HOST + CREATE_AMBULANCE, resource);
+    }
+
+    public static String createTransport(String resource) throws IOException, InterruptedException {
+        return sendPOSTRequestWithJSONBody(HOST + CREATE_TRANSPORT, resource);
     }
 
     public static String getPatient(String id) throws IOException, InterruptedException {
@@ -63,5 +79,6 @@ public class Trasporti116117HttpRequest {
 
         return response.body();
     }
+
 
 }

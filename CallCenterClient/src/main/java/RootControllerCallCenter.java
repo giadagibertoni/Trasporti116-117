@@ -25,5 +25,7 @@ public final class RootControllerCallCenter implements Initializable {
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
         addPatient.setOnAction(event -> new PatientDialog().createEntity());
+        addOperator.setOnAction(event -> new OperatorDialog().createEntity());
+        addAmbulance.setOnAction(event -> new AmbulanceDialog().createEntity());
     }
 }
