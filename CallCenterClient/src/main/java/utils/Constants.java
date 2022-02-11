@@ -1,2 +1,5 @@
-package utils;public class Constants {
+package utils;
+
+public class Constants {
+
 }

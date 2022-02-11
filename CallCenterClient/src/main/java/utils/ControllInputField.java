@@ -20,6 +20,7 @@ public final class ControllInputField {
     public static final String TEXT_FIELD_ERROR = "Errore nell'inserimento dei campi";
     public static final String BOOKING_DELETED = "Prenotazione cancellata correttamente";
     public static final String AMBULANCE_DELETED = "L'ambulanza è stata dismessa correttamente";
+    public static final String AMBULANCE_NOT_FOUND = "L'ambulanza non trovata";
 
     public static final Pattern HOUR_PATTERN = Pattern.compile("([01]?[0-9]|2[0-3]):[0-5][0-9]");
 

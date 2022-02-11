@@ -29,7 +29,7 @@
             <Button fx:id="addAmbulance" text="Aggiungi Ambulanza" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
             <Button fx:id="addPatient" text="Aggiungi Paziente" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
             <Button fx:id="addOperator" text="Aggiungi Operatore" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
-            <Button fx:id="addBookingTransport" text="Prenota Trasporto" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="addTransport" text="Prenota Trasporto" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
         </VBox>
     </left>
 

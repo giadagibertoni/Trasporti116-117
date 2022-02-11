@@ -1,2 +1,7 @@
-package httprequest;public class ResourceNotFoundException {
+package httprequest;
+
+public class ResourceNotFoundException extends Exception  {
+    public ResourceNotFoundException() {
+        super("Resource not found");
+    }
 }

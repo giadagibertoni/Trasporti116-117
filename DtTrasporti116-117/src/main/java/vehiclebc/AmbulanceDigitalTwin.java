@@ -121,14 +121,13 @@ public class AmbulanceDigitalTwin {
 
         Optional<AmbulanceDtModel> ambulance = Client.getClient().query(getAmbulance, AmbulanceDtModel.class).stream().filter(a -> {
 
-            String getFreeAmbulance = "SELECT A.$dtId FROM DIGITALTWINS T JOIN A RELATED T.use " +
+            String getFreeAmbulance = "SELECT T FROM DIGITALTWINS T JOIN A RELATED T.use " +
                     "WHERE A.$dtId= '" + a.getId() + "' " +
-                    "AND NOT ((T.startDateTime >= '" + startDateTime +
+                    "AND ((T.startDateTime >= '" + startDateTime +
                     "' AND T.startDateTime <= '" + endDateTime +
                     "') OR (T.endDateTime >= '" + startDateTime +
                     "' AND T.endDateTime <= '" + endDateTime + "'))";
-
-            return Client.getClient().query(getFreeAmbulance, AmbulanceDtModel.class).stream().count() > 0;
+            return Client.getClient().query(getFreeAmbulance, AmbulanceDtModel.class).stream().count() == 0;
         }).findFirst();
 
         return ambulance.map(FHIRAmbulanceResource::createFHIRResource);

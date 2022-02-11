@@ -17,6 +17,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     implementation("com.sothawo:mapjfx:2.15.3")
 
+    implementation("org.apache.clerezza.ext:org.json.simple:0.4")
     implementation("ca.uhn.hapi.fhir:hapi-fhir:5.6.2")
     implementation("ca.uhn.hapi.fhir:hapi-fhir-base:5.6.2")
     implementation("ca.uhn.hapi.fhir:hapi-fhir-structures-r4:5.6.2")

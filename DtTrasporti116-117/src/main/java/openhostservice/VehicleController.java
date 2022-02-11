@@ -32,11 +32,15 @@ public class VehicleController {
         AmbulanceDigitalTwin.addOperatorWorkDay(ambulanceId, operatorId, LocalDate.parse(date));
     }
 
-    @PostMapping("/API/Vehicle/getFreeAmbulance")
+    @GetMapping("/API/Vehicle/getFreeAmbulance")
     @ResponseBody
     public String getFreeAmbulance(@RequestParam String startDateTime, @RequestParam String endDateTime) {
         Optional<String> ambulance = AmbulanceDigitalTwin.getFreeAmbulance(LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime));
-        return ambulance.orElse("Ambulanza non disponibile");
+        if (ambulance.isEmpty())
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Ambulance not found"
+            );
+        return ambulance.get();
     }
 
     @GetMapping("/API/Vehicle/getAmbulances")
