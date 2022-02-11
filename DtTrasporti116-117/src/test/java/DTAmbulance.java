@@ -4,6 +4,7 @@
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
+import patientbc.PatientDigitalTwin;
 import sharedkernel.azureservice.Client;
 import transportbc.FHIRTransportResource;
 import transportbc.TransportDigitalTwin;
@@ -55,20 +56,24 @@ public class DTAmbulance {
 
     @Test
     public void getFreeAmbulance() {
+        PatientDigitalTwin.createPatient(TestDataValue.PATIENT_RESOURCE);
         AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_RESOURCE);
+        TransportDigitalTwin.createTransport(TestDataValue.TRANSPORT_SCHEDULED_RESURCE);
+
         assertTrue(AmbulanceDigitalTwin.getFreeAmbulance(
                 LocalDateTime.of(2022, 2, 10, 13, 0),
-                LocalDateTime.of(2022, 2, 10, 14, 0))
-                .get().contains("Ambulance1111"));
+                LocalDateTime.of(2022, 2, 10, 14, 0)).isPresent());
 
         assertTrue(AmbulanceDigitalTwin.getFreeAmbulance(
                 LocalDateTime.of(2022, 2, 10, 16, 30),
-                LocalDateTime.of(2022, 2, 10, 18, 0))
-                .get().contains("Ambulance1111"));
+                LocalDateTime.of(2022, 2, 10, 18, 0)).isPresent());
     }
     @Test
     public void getBusyAmbulance(){
+        PatientDigitalTwin.createPatient(TestDataValue.PATIENT_RESOURCE);
         AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_RESOURCE);
+        TransportDigitalTwin.createTransport(TestDataValue.TRANSPORT_SCHEDULED_RESURCE);
+
         Optional<String> ambulance = AmbulanceDigitalTwin.getFreeAmbulance(
                 LocalDateTime.of(2022, 2, 10, 15, 00),
                 LocalDateTime.of(2022, 2, 10, 16, 30));

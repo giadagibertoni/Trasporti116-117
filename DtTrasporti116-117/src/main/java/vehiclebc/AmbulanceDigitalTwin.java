@@ -10,6 +10,8 @@ import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import sharedkernel.azureservice.Client;
 import sharedkernel.azureservice.IoTHubDevice;
+import transportbc.dtmodel.Phase;
+import transportbc.dtmodel.TransportDtModel;
 import vehiclebc.dtmodel.ambulance.AmbulanceDtModel;
 import vehiclebc.dtmodel.ambulance.AmbulanceState;
 import vehiclebc.dtmodel.ambulance.GPSCoordinates;
@@ -37,8 +39,7 @@ public class AmbulanceDigitalTwin {
         switch(ambulance.getStatus()){
             case ACTIVE -> state = AmbulanceState.BUSY;
             case INACTIVE -> state = AmbulanceState.FREE;
-            case ENTEREDINERROR ->
-                state = AmbulanceState.UNDER_MAINTENANCE;
+            case ENTEREDINERROR -> state = AmbulanceState.UNDER_MAINTENANCE;
             default -> state = AmbulanceState.DISUSED;
         }
 
@@ -126,7 +127,8 @@ public class AmbulanceDigitalTwin {
                     "AND ((T.startDateTime >= '" + startDateTime +
                     "' AND T.startDateTime <= '" + endDateTime +
                     "') OR (T.endDateTime >= '" + startDateTime +
-                    "' AND T.endDateTime <= '" + endDateTime + "'))";
+                    "' AND T.endDateTime <= '" + endDateTime + "'))" ;
+
             return Client.getClient().query(getFreeAmbulance, AmbulanceDtModel.class).stream().count() == 0;
         }).findFirst();
 

@@ -18,7 +18,6 @@ import transportbc.dtmodel.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,6 +87,11 @@ public class TransportDigitalTwin {
                         .appendAdd("/endDateTime", LocalDateTime.now()));
     }
 
+    public static void setTransportDeleted (String idTransport){
+        Client.getClient().updateDigitalTwin(idTransport,
+                new JsonPatchDocument().appendAdd("/phase", Phase.CANCELLED.getValue()));
+    }
+
     /**
      * Get all scheduled transport
      *
@@ -95,6 +99,15 @@ public class TransportDigitalTwin {
      */
     public static List<String> getScheduledTransports() {
         return getTransport(Phase.SCHEDULED);
+    }
+
+    /**
+     * Get all cancelled transport
+     *
+     * @return List of transport resource
+     */
+    public static List<String> getCancelledTransports() {
+        return getTransport(Phase.CANCELLED);
     }
 
     /**
@@ -113,6 +126,15 @@ public class TransportDigitalTwin {
      */
     public static List<String> getCompletedTransports() {
         return getTransport(Phase.COMPLETED);
+    }
+
+    /**
+     * Get all completed transport
+     *
+     * @return List of transport resource
+     */
+    public static List<String> getDeletedTransports() {
+        return getTransport(Phase.CANCELLED);
     }
 
     private static List<String> getTransport(Phase phase){
@@ -139,7 +161,7 @@ public class TransportDigitalTwin {
             } else
                 throw new IllegalStateException();
 
-            if (phase.equals(Phase.SCHEDULED))
+            if (phase.equals(Phase.SCHEDULED) || phase.equals(Phase.CANCELLED))
                 transports.add(FHIRTransportResource.createTransportAppointmentFHIRResource(dtTransport, ambulanceId, patientId));
             else{
                 String relOperatorQuery = "SELECT P.$dtId FROM DIGITALTWINS T JOIN P RELATED T.driveBy WHERE T.$dtId = '"+ ambulanceId +"'";

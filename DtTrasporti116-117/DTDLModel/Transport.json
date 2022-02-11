@@ -57,6 +57,11 @@
           "name": "completed",
           "displayName": "Completed",
           "enumValue": "completed"
+        },
+        {
+          "name": "cancelled",
+          "displayName": "Cancelled",
+          "enumValue": "cancelled"
         }
       ]
     },

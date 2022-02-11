@@ -6,6 +6,7 @@ package httprequest;
 
 
 import fhir.FHIRParser;
+import org.hl7.fhir.r4.model.Appointment;
 import org.hl7.fhir.r4.model.Device;
 import org.hl7.fhir.r4.model.Patient;
 import org.json.simple.JSONArray;
@@ -30,6 +31,8 @@ public class Trasporti116117HttpRequest {
     private static final String CREATE_OPERATOR = "/API/Vehicle/createOperator";
     private static final String CREATE_AMBULANCE = "/API/Vehicle/createAmbulance";
     private static final String CREATE_TRANSPORT = "/API/Transport/createTransport";
+    private static final String GET_SCHEDULED_TRANSPORT = "/API/Transport/getScheduledTransports";
+    private static final String DELETE_TRANSPORT = "/API/Transport/setTransportDeleted";
     private static final String GET_PATIENT = "/API/Patient/getPatient";
     private static final String GET_PATIENTS = "/API/Patient/getPatients";
     private static final String GET_FREE_AMBULANCE = "/API/Vehicle/getFreeAmbulance";
@@ -51,6 +54,19 @@ public class Trasporti116117HttpRequest {
     public static String createTransport(String resource) throws IOException, InterruptedException {
         return sendPOSTRequestWithJSONBody(HOST + CREATE_TRANSPORT, resource);
     }
+
+    public static String deleteTransport(String id) throws IOException, InterruptedException {
+        return sendPOSTRequestWithJSONBody(HOST + DELETE_TRANSPORT, id);
+    }
+
+    public static List<Appointment> getScheduledTransport() throws IOException, InterruptedException, ParseException {
+        JSONParser parser = new JSONParser();
+        List<Appointment> transport = new ArrayList<>();
+        JSONArray jsonTransport = (JSONArray) parser.parse(sendGETRequest(HOST + GET_SCHEDULED_TRANSPORT));
+        jsonTransport.forEach(p -> transport.add(FHIRParser.getParser().parseResource(Appointment.class, p.toString())));
+        return transport;
+    }
+
 
     public static String getPatient(String id) throws IOException, InterruptedException {
         Map<String, String> params = new HashMap<>();

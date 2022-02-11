@@ -26,7 +26,13 @@ public enum Phase {
      * Transport is completed
      */
     @JsonProperty(value = "completed")
-    COMPLETED("completed");
+    COMPLETED("completed"),
+
+    /**
+     * Transport is cancelled
+     */
+    @JsonProperty(value = "cancelled")
+    CANCELLED("cancelled");
 
     private final String value;
 

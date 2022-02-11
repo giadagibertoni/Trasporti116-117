@@ -5,6 +5,7 @@
 package transportbc;
 
 import sharedkernel.FHIRParser;
+import transportbc.dtmodel.Phase;
 import transportbc.dtmodel.TransportDtModel;
 import transportbc.dtmodel.TransportRoute;
 import org.hl7.fhir.r4.model.*;
