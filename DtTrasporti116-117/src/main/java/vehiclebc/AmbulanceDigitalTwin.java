@@ -17,7 +17,9 @@ import org.hl7.fhir.r4.model.Device;
 import org.hl7.fhir.r4.model.Location;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -113,4 +115,24 @@ public class AmbulanceDigitalTwin {
                 FHIRAmbulanceResource.createFHIRResource(dt)));
         return ambulances;
     }
+
+    public static Optional<String> getFreeAmbulance(LocalDateTime startDateTime,  LocalDateTime endDateTime) {
+        String getAmbulance = "SELECT * FROM DIGITALTWINS " + "WHERE IS_OF_MODEL('" + VehicleConstants.AMBULANCE_MODEL_ID + "')";
+
+        Optional<AmbulanceDtModel> ambulance = Client.getClient().query(getAmbulance, AmbulanceDtModel.class).stream().filter(a -> {
+
+            String getFreeAmbulance = "SELECT A.$dtId FROM DIGITALTWINS T JOIN A RELATED T.use " +
+                    "WHERE A.$dtId= '" + a.getId() + "' " +
+                    "AND NOT ((T.startDateTime >= '" + startDateTime +
+                    "' AND T.startDateTime <= '" + endDateTime +
+                    "') OR (T.endDateTime >= '" + startDateTime +
+                    "' AND T.endDateTime <= '" + endDateTime + "'))";
+
+            return Client.getClient().query(getFreeAmbulance, AmbulanceDtModel.class).stream().count() > 0;
+        }).findFirst();
+
+        return ambulance.map(FHIRAmbulanceResource::createFHIRResource);
+    }
+
+
 }

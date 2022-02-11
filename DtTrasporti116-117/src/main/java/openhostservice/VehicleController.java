@@ -7,8 +7,10 @@ import vehiclebc.OperatorDigitalTwin;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class VehicleController {
@@ -28,6 +30,13 @@ public class VehicleController {
     @ResponseBody
     public void addOperatorWorkDay(@RequestParam String ambulanceId, @RequestParam String operatorId, @RequestParam String date) {
         AmbulanceDigitalTwin.addOperatorWorkDay(ambulanceId, operatorId, LocalDate.parse(date));
+    }
+
+    @PostMapping("/API/Vehicle/getFreeAmbulance")
+    @ResponseBody
+    public String getFreeAmbulance(@RequestParam String startDateTime, @RequestParam String endDateTime) {
+        Optional<String> ambulance = AmbulanceDigitalTwin.getFreeAmbulance(LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime));
+        return ambulance.orElse("Ambulanza non disponibile");
     }
 
     @GetMapping("/API/Vehicle/getAmbulances")

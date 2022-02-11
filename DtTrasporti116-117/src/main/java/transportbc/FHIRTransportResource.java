@@ -15,12 +15,14 @@ import java.util.Date;
 import java.util.List;
 
 public class FHIRTransportResource {
+
     public static String createTransportAppointmentFHIRResource(@NotNull TransportDtModel dtTransport, @NotNull String ambulanceId, @NotNull String patientId) {
         DomainResource transport = new Appointment()
                 .addIdentifier(new Identifier().setValue(dtTransport.getId() + TransportConstants.APPOINTMENT))
                 .addServiceCategory(getServiceCategory())
                 .addServiceType(getServiceType())
                 .setStart(Date.from(dtTransport.getStartDateTime().atZone(ZoneId.systemDefault()).toInstant()))
+                .setEnd(Date.from(dtTransport.getEndDateTime().atZone(ZoneId.systemDefault()).toInstant()))
                 .setParticipant(List.of(
                         new Appointment.AppointmentParticipantComponent()
                                 .setActor(getPatientRef(patientId))
@@ -57,7 +59,9 @@ public class FHIRTransportResource {
                                 .addType(getAmbulanceParticipationType())
                                 .setIndividual(getAmbulanceReference(ambulanceId))))
                 .addAppointment(new Reference().setReference(dtTransport.getId() + TransportConstants.APPOINTMENT))
-                .setPeriod(new Period().setStart(Date.from(dtTransport.getStartDateTime().atZone(ZoneId.systemDefault()).toInstant())))
+                .setPeriod(new Period()
+                        .setStart(Date.from(dtTransport.getStartDateTime().atZone(ZoneId.systemDefault()).toInstant()))
+                        .setEnd(Date.from(dtTransport.getEndDateTime().atZone(ZoneId.systemDefault()).toInstant())))
                 .setLocation(List.of(
                         new Encounter.EncounterLocationComponent().setLocationTarget(getDepartureRoute(dtTransport.getRoute())),
                         new Encounter.EncounterLocationComponent().setLocationTarget(getDestinationRoute(dtTransport.getRoute()))));

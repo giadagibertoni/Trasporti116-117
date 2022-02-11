@@ -55,6 +55,7 @@ public class TransportDigitalTwin {
                                 .setPostalCode(new TransportPostalCode().setPostalCode(Integer.parseInt(destination.getAddress().getPostalCode())))))
                 .setId(id)
                 .setStartDateTime(transport.getStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
+                .setEndDateTime(transport.getEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
                 .setPhase(Phase.SCHEDULED);
 
         BasicDigitalTwin transportDT = new BasicDigitalTwin(dt.getId())
@@ -63,7 +64,8 @@ public class TransportDigitalTwin {
                 )
                 .addToContents("route", dt.getRoute())
                 .addToContents("phase", dt.getPhase())
-                .addToContents("startDateTime", dt.getStartDateTime());
+                .addToContents("startDateTime", dt.getStartDateTime())
+                .addToContents("endDateTime", dt.getEndDateTime());
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dt.getId(), transportDT, BasicDigitalTwin.class);
 

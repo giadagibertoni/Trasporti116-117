@@ -22,7 +22,7 @@ public class TransportDtModel {
     private TransportRoute route;
     @JsonProperty(value = "startDateTime", required = true)
     private LocalDateTime startDateTime;
-    @JsonProperty(value = "endDateTime")
+    @JsonProperty(value = "endDateTime", required = true)
     private LocalDateTime endDateTime;
 
     /**

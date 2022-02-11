@@ -5,11 +5,15 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import sharedkernel.azureservice.Client;
+import transportbc.FHIRTransportResource;
+import transportbc.TransportDigitalTwin;
 import vehiclebc.AmbulanceDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import vehiclebc.dtmodel.ambulance.AmbulanceDtModel;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,5 +51,49 @@ public class DTAmbulance {
         Optional<String> ambulance = AmbulanceDigitalTwin.getAmbulance(TestDataValue.AMBULANCE_ID);
         assertTrue(ambulance.isPresent());
         assertTrue(ambulance.get().contains(TestDataValue.AMBULANCE_ID));
+    }
+
+    @Test
+    public void getFreeAmbulance() {
+        AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_RESOURCE);
+        assertTrue(AmbulanceDigitalTwin.getFreeAmbulance(
+                LocalDateTime.of(2022, 2, 10, 13, 0),
+                LocalDateTime.of(2022, 2, 10, 14, 0))
+                .get().contains("Ambulance1111"));
+
+        assertTrue(AmbulanceDigitalTwin.getFreeAmbulance(
+                LocalDateTime.of(2022, 2, 10, 16, 30),
+                LocalDateTime.of(2022, 2, 10, 18, 0))
+                .get().contains("Ambulance1111"));
+    }
+    @Test
+    public void getBusyAmbulance(){
+        AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_RESOURCE);
+        Optional<String> ambulance = AmbulanceDigitalTwin.getFreeAmbulance(
+                LocalDateTime.of(2022, 2, 10, 15, 00),
+                LocalDateTime.of(2022, 2, 10, 16, 30));
+        if (ambulance.isPresent()){
+            assertFalse(ambulance.get().contains(TestDataValue.AMBULANCE_ID));
+        } else {
+            assertTrue(true);
+        }
+
+        ambulance = AmbulanceDigitalTwin.getFreeAmbulance(
+                LocalDateTime.of(2022, 2, 10, 14, 0),
+                LocalDateTime.of(2022, 2, 10, 15, 30));
+        if (ambulance.isPresent()){
+            assertFalse(ambulance.get().contains(TestDataValue.AMBULANCE_ID));
+        } else {
+            assertTrue(true);
+        }
+
+        ambulance = AmbulanceDigitalTwin.getFreeAmbulance(
+                LocalDateTime.of(2022, 2, 10, 14, 0),
+                LocalDateTime.of(2022, 2, 10, 17, 0));
+        if (ambulance.isPresent()){
+            assertFalse(ambulance.get().contains(TestDataValue.AMBULANCE_ID));
+        } else {
+            assertTrue(true);
+        }
     }
 }

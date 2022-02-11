@@ -1,12 +1,12 @@
 package openhostservice;
 
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import patientbc.PatientDigitalTwin;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class PatientController {
@@ -18,8 +18,17 @@ public class PatientController {
 
     @GetMapping("/API/Patient/getPatients")
     @ResponseBody
-    public List<String> getPatients() {
-        return PatientDigitalTwin.getPatients();
+    public JSONArray getPatients() {
+        JSONArray patients = new JSONArray();
+        JSONParser parser = new JSONParser();
+        PatientDigitalTwin.getPatients().forEach(p -> {
+            try {
+                patients.add(parser.parse(p));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+        return patients;
     }
 
     @GetMapping("/API/Patient/getPatient")
