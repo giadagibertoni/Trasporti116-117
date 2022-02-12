@@ -15,7 +15,7 @@ import java.util.List;
 public class AddOperatorWorkDayDialog extends DtDialog{
     @Override
     public void createEntity() {
-        initialize("Inserisci operatore", ButtonType.OK, ButtonType.CANCEL);
+        initialize("Inserisci operatore", ButtonType.OK, ButtonType.CLOSE);
 
         //--->OPERATORS
         ComboBox<String> operator = new ComboBox<>();
@@ -58,7 +58,7 @@ public class AddOperatorWorkDayDialog extends DtDialog{
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
                     try {
-                        new Alert(Alert.AlertType.CONFIRMATION, "Aggiunto turno lavorativo per l'operatore: " +
+                        new Alert(Alert.AlertType.INFORMATION, "Aggiunto turno lavorativo per l'operatore: " +
                                 Trasporti116117HttpRequest.addOperatorWorkDay(ambulance.getValue(), operator.getValue(), workDate.getValue())).show();
                     } catch (IOException | ResourceNotFoundException | InterruptedException e) {
                         new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

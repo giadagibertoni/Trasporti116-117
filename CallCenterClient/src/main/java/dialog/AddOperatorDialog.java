@@ -29,7 +29,7 @@ public final class AddOperatorDialog extends DtDialog {
 
     @Override
     public void createEntity() {
-        initialize("Inserisci operatore", ButtonType.OK, ButtonType.CANCEL);
+        initialize("Inserisci operatore", ButtonType.OK, ButtonType.CLOSE);
 
         TextField name = new TextField();
         name.setPromptText("Nome");

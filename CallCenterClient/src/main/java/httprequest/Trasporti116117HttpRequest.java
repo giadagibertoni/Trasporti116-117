@@ -41,27 +41,50 @@ public class Trasporti116117HttpRequest {
     private static final String GET_OPERATORS = "/API/Vehicle/getOperators";
     private static final String GET_PATIENTS = "/API/Patient/getPatients";
     private static final String GET_FREE_AMBULANCE = "/API/Vehicle/getFreeAmbulance";
-   private static final String ADD_OPERATOR_WORK_DAY = "/API/Vehicle/addOperatorWorkDay";
+    private static final String ADD_OPERATOR_WORK_DAY = "/API/Vehicle/addOperatorWorkDay";
+    private static final String SET_AMBULANCE_FREE = "/API/Vehicle/setAmbulanceFree";
+    private static final String SET_AMBULANCE_UNDER_MAINTENANCE = "/API/Vehicle/setAmbulanceUnderMaintenance";
+    private static final String SET_AMBULANCE_DISUSED = "/API/Vehicle/setAmbulanceDisused";
 
     private static final HttpClient client = HttpClient.newHttpClient();
     public static String createPatient(String resource) throws IOException, InterruptedException {
-        return sendPOSTRequestWithJSONBody(HOST + CREATE_PATIENT, resource);
+        try {
+            return sendPOSTRequestWithJSONBody(HOST + CREATE_PATIENT, resource);
+        } catch (ResourceNotFoundException e) {
+            return "resource not found";
+        }
     }
 
     public static String createOperator(String resource) throws IOException, InterruptedException {
-        return sendPOSTRequestWithJSONBody(HOST + CREATE_OPERATOR, resource);
+        try {
+            return sendPOSTRequestWithJSONBody(HOST + CREATE_OPERATOR, resource);
+        } catch (ResourceNotFoundException e) {
+            return "resource not found";
+        }
     }
 
     public static String createAmbulance(String resource) throws IOException, InterruptedException {
-        return sendPOSTRequestWithJSONBody(HOST + CREATE_AMBULANCE, resource);
+        try {
+            return sendPOSTRequestWithJSONBody(HOST + CREATE_AMBULANCE, resource);
+        } catch (ResourceNotFoundException e) {
+            return "resource not found";
+        }
     }
 
     public static String createTransport(String resource) throws IOException, InterruptedException {
-        return sendPOSTRequestWithJSONBody(HOST + CREATE_TRANSPORT, resource);
+        try {
+            return sendPOSTRequestWithJSONBody(HOST + CREATE_TRANSPORT, resource);
+        } catch (ResourceNotFoundException e) {
+            return "resource not found";
+        }
     }
 
     public static String deleteTransport(String id) throws IOException, InterruptedException {
-        return sendPOSTRequestWithJSONBody(HOST + DELETE_TRANSPORT, id);
+        try {
+            return sendPOSTRequestWithJSONBody(HOST + DELETE_TRANSPORT, id);
+        } catch (ResourceNotFoundException e) {
+            return "resource not found";
+        }
     }
 
     public static List<Appointment> getScheduledTransport() throws IOException, InterruptedException, ParseException {
@@ -71,7 +94,6 @@ public class Trasporti116117HttpRequest {
         jsonTransport.forEach(p -> transport.add(FHIRParser.getParser().parseResource(Appointment.class, p.toString())));
         return transport;
     }
-
 
     public static String getPatient(String id) throws IOException, InterruptedException {
         Map<String, String> params = new HashMap<>();
@@ -128,6 +150,30 @@ public class Trasporti116117HttpRequest {
         return sendPOSTRequestWithParams(HOST + ADD_OPERATOR_WORK_DAY, params);
     }
 
+    public static String setAmbulanceDisused(String ambulanceId) throws IOException, InterruptedException {
+        try {
+            return sendPOSTRequestWithJSONBody(HOST + SET_AMBULANCE_DISUSED, ambulanceId);
+        } catch (ResourceNotFoundException e) {
+            return "Ambualance not found";
+        }
+    }
+
+    public static String setAmbulanceUnderMaintenance(String ambulanceId) throws IOException, InterruptedException {
+        try {
+            return sendPOSTRequestWithJSONBody(HOST + SET_AMBULANCE_UNDER_MAINTENANCE, ambulanceId);
+        } catch (ResourceNotFoundException e) {
+            return "Ambualance not found";
+        }
+    }
+
+    public static String setAmbulanceFree(String ambulanceId) throws IOException, InterruptedException {
+        try {
+            return sendPOSTRequestWithJSONBody(HOST + SET_AMBULANCE_FREE, ambulanceId);
+        } catch (ResourceNotFoundException e) {
+            return "Ambualance not found";
+        }
+    }
+
     private static String sendGETRequestWithParams(String URL, Map<String, String> params) throws IOException, InterruptedException, ResourceNotFoundException {
         String formattedParams = params.keySet().stream().map(key -> key + "=" + params.get(key)).collect(Collectors.joining("&", "?", ""));
 
@@ -172,7 +218,7 @@ public class Trasporti116117HttpRequest {
         return response.body();
     }
 
-    private static String sendPOSTRequestWithJSONBody(String URL, String jsonBody) throws IOException, InterruptedException {
+    private static String sendPOSTRequestWithJSONBody(String URL, String jsonBody) throws IOException, InterruptedException, ResourceNotFoundException {
         HttpClient client = HttpClient.newHttpClient();
         java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
                 .uri(URI.create(URL))
@@ -181,6 +227,9 @@ public class Trasporti116117HttpRequest {
                 .build();
         HttpResponse<String> response = client.send(request,
                 HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 404)
+            throw new ResourceNotFoundException();
 
         return response.body();
     }

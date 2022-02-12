@@ -33,6 +33,30 @@ public class VehicleController {
         return AmbulanceDigitalTwin.addOperatorWorkDay(ambulanceId, operatorId, LocalDate.parse(date));
     }
 
+    @PostMapping("/API/Vehicle/setAmbulanceUnderMaintenance")
+    @ResponseBody
+    public String setAmbulanceUnderMaintenance(@RequestBody String id) {
+        return AmbulanceDigitalTwin.setAmbulanceUnderMaintenance(id);
+    }
+
+    @PostMapping("/API/Vehicle/setAmbulanceFree")
+    @ResponseBody
+    public String setAmbulanceFree(@RequestBody String id) {
+        return AmbulanceDigitalTwin.setAmbulanceFree(id);
+    }
+
+    @PostMapping("/API/Vehicle/setAmbulanceDisused")
+    @ResponseBody
+    public String setAmbulanceDisused(@RequestBody String id) {
+        return AmbulanceDigitalTwin.setAmbulanceDisused(id);
+    }
+
+    @PostMapping("/API/Vehicle/setAmbulanceBusy")
+    @ResponseBody
+    public String setAmbulanceBusy(@RequestBody String id) {
+        return AmbulanceDigitalTwin.setAmbulanceBusy(id);
+    }
+
     @GetMapping("/API/Vehicle/getFreeAmbulance")
     @ResponseBody
     public String getFreeAmbulance(@RequestParam String startDateTime, @RequestParam String endDateTime) {
@@ -93,5 +117,4 @@ public class VehicleController {
             );
         return OperatorDigitalTwin.getOperator(id).get();
     }
-
 }

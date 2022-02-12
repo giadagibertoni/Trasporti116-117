@@ -19,7 +19,7 @@ public class DeleteTransport extends DtDialog{
 
     @Override
     public void createEntity() {
-        initialize("Annulla trasporto", ButtonType.OK, ButtonType.CANCEL);
+        initialize("Annulla trasporto", ButtonType.OK, ButtonType.CLOSE);
 
         ListView<String> lv = new ListView<>();
 

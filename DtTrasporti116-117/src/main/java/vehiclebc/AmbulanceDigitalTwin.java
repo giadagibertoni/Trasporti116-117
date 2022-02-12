@@ -6,6 +6,7 @@ package vehiclebc;
 
 import com.azure.core.http.rest.Page;
 import com.azure.core.http.rest.PagedIterable;
+import com.azure.core.models.JsonPatchDocument;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
@@ -80,7 +81,7 @@ public class AmbulanceDigitalTwin {
                         operatorId,
                         VehicleConstants.AMBULANCE_OPERATOR_REL
                 )
-                .addProperty("workDate", date),
+                        .addProperty("workDate", date),
                 BasicRelationship.class
         );
         return operatorId;
@@ -143,5 +144,28 @@ public class AmbulanceDigitalTwin {
         return ambulance.map(FHIRAmbulanceResource::createFHIRResource);
     }
 
+    public static String setAmbulanceUnderMaintenance (String idAmbulance){
+        Client.getClient().updateDigitalTwin(idAmbulance,
+                new JsonPatchDocument().appendAdd("/state", AmbulanceState.UNDER_MAINTENANCE.getValue()));
+        return idAmbulance;
+    }
+
+    public static String setAmbulanceFree (String idAmbulance){
+        Client.getClient().updateDigitalTwin(idAmbulance,
+                new JsonPatchDocument().appendAdd("/state", AmbulanceState.FREE.getValue()));
+        return idAmbulance;
+    }
+
+    public static String setAmbulanceDisused (String idAmbulance){
+        Client.getClient().updateDigitalTwin(idAmbulance,
+                new JsonPatchDocument().appendAdd("/state", AmbulanceState.DISUSED.getValue()));
+        return idAmbulance;
+    }
+
+    public static String setAmbulanceBusy (String idAmbulance){
+        Client.getClient().updateDigitalTwin(idAmbulance,
+                new JsonPatchDocument().appendAdd("/state", AmbulanceState.BUSY.getValue()));
+        return idAmbulance;
+    }
 
 }

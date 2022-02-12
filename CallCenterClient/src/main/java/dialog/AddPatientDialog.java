@@ -17,7 +17,7 @@ import java.util.Date;
 public final class AddPatientDialog extends DtDialog {
     @Override
     public void createEntity() {
-        initialize("Aggiungi Paziente", ButtonType.OK, ButtonType.CANCEL);
+        initialize("Aggiungi Paziente", ButtonType.OK, ButtonType.CLOSE);
 
         TextField name = new TextField();
         name.setPromptText("Nome");

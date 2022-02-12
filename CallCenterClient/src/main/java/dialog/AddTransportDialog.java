@@ -70,7 +70,7 @@ public class AddTransportDialog extends DtDialog{
     public static final String POSTAL_CODE = "Cap";
 
     public void createEntity()  {
-        initialize("Richiesta di servizio", ButtonType.OK, ButtonType.CANCEL);
+        initialize("Richiesta di servizio", ButtonType.OK, ButtonType.CLOSE);
         getDtGridPane().add(new Label("Partenza"), 0, 1);
 
         TextField departureAddress = new TextField();
