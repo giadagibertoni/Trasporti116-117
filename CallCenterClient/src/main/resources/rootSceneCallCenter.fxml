@@ -47,7 +47,7 @@
                 <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
             </BorderPane.margin>
             <Button fx:id="trackAmbulance" text="Traccia Ambulanza" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
-            <Button fx:id="viewTransport" text="Visualizza Trasporti in corso" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="viewTransport" text="Visualizza tutti i trasporti" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
         </VBox>
     </right>
 </BorderPane>

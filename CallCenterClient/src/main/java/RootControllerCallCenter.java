@@ -40,5 +40,6 @@ public final class RootControllerCallCenter implements Initializable {
         deleteTransport.setOnAction(event -> new DeleteTransport().createEntity());
         addOperatorWorkDay.setOnAction(event -> new AddOperatorWorkDayDialog().createEntity());
         changeAmbulanceState.setOnAction(event -> new ChangeAmbulanceState().createEntity());
+        viewTransport.setOnAction(event -> new ViewTransportDialog().createEntity());
     }
 }

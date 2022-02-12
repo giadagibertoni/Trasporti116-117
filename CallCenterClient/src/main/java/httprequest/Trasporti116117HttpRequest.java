@@ -6,10 +6,7 @@ package httprequest;
 
 
 import fhir.FHIRParser;
-import org.hl7.fhir.r4.model.Appointment;
-import org.hl7.fhir.r4.model.Device;
-import org.hl7.fhir.r4.model.Patient;
-import org.hl7.fhir.r4.model.Practitioner;
+import org.hl7.fhir.r4.model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -35,6 +32,9 @@ public class Trasporti116117HttpRequest {
     private static final String CREATE_AMBULANCE = "/API/Vehicle/createAmbulance";
     private static final String CREATE_TRANSPORT = "/API/Transport/createTransport";
     private static final String GET_SCHEDULED_TRANSPORT = "/API/Transport/getScheduledTransports";
+    private static final String GET_INPROGRESS_TRANSPORT = "/API/Transport/getInProgressTransports";
+    private static final String GET_COMPLETED_TRANSPORT = "/API/Transport/getCompletedTransports";
+    private static final String GET_CANCELED_TRANSPORT = "/API/Transport/getCancelledTransports";
     private static final String DELETE_TRANSPORT = "/API/Transport/setTransportDeleted";
     private static final String GET_PATIENT = "/API/Patient/getPatient";
     private static final String GET_AMBULANCES = "/API/Vehicle/getAmbulances";
@@ -92,6 +92,30 @@ public class Trasporti116117HttpRequest {
         List<Appointment> transport = new ArrayList<>();
         JSONArray jsonTransport = (JSONArray) parser.parse(sendGETRequest(HOST + GET_SCHEDULED_TRANSPORT));
         jsonTransport.forEach(p -> transport.add(FHIRParser.getParser().parseResource(Appointment.class, p.toString())));
+        return transport;
+    }
+
+    public static List<Appointment> getCancelledTransport() throws IOException, InterruptedException, ParseException {
+        JSONParser parser = new JSONParser();
+        List<Appointment> transport = new ArrayList<>();
+        JSONArray jsonTransport = (JSONArray) parser.parse(sendGETRequest(HOST + GET_CANCELED_TRANSPORT));
+        jsonTransport.forEach(p -> transport.add(FHIRParser.getParser().parseResource(Appointment.class, p.toString())));
+        return transport;
+    }
+
+    public static List<Encounter> getInProgressTransport() throws IOException, InterruptedException, ParseException {
+        JSONParser parser = new JSONParser();
+        List<Encounter> transport = new ArrayList<>();
+        JSONArray jsonTransport = (JSONArray) parser.parse(sendGETRequest(HOST + GET_INPROGRESS_TRANSPORT));
+        jsonTransport.forEach(p -> transport.add(FHIRParser.getParser().parseResource(Encounter.class, p.toString())));
+        return transport;
+    }
+
+    public static List<Encounter> getCompletedTransport() throws IOException, InterruptedException, ParseException {
+        JSONParser parser = new JSONParser();
+        List<Encounter> transport = new ArrayList<>();
+        JSONArray jsonTransport = (JSONArray) parser.parse(sendGETRequest(HOST + GET_COMPLETED_TRANSPORT));
+        jsonTransport.forEach(p -> transport.add(FHIRParser.getParser().parseResource(Encounter.class, p.toString())));
         return transport;
     }
 

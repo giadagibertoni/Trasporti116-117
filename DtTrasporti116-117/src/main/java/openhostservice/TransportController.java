@@ -55,7 +55,7 @@ public class TransportController {
 
     @GetMapping("/API/Transport/getInProgressTransports")
     @ResponseBody
-    public List<String> getInProgressTransports() {
+    public JSONArray getInProgressTransports() {
         JSONArray transports = new JSONArray();
         JSONParser parser = new JSONParser();
         TransportDigitalTwin.getInProgressTransports().forEach(t -> {
@@ -70,7 +70,7 @@ public class TransportController {
 
     @GetMapping("/API/Transport/getCompletedTransports")
     @ResponseBody
-    public List<String> getCompletedTransports() {
+    public JSONArray getCompletedTransports() {
         JSONArray transports = new JSONArray();
         JSONParser parser = new JSONParser();
         TransportDigitalTwin.getCompletedTransports().forEach(t -> {
@@ -85,7 +85,7 @@ public class TransportController {
 
     @GetMapping("/API/Transport/getCancelledTransports")
     @ResponseBody
-    public List<String> getCancelledTransports() {
+    public JSONArray getCancelledTransports() {
         JSONArray transports = new JSONArray();
         JSONParser parser = new JSONParser();
         TransportDigitalTwin.getCancelledTransports().forEach(t -> {
