@@ -4,10 +4,12 @@
 
 package vehiclebc;
 
+import com.azure.core.http.rest.Page;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
+import org.json.simple.JSONObject;
 import sharedkernel.azureservice.Client;
 import sharedkernel.azureservice.IoTHubDevice;
 import transportbc.dtmodel.Phase;
@@ -121,15 +123,20 @@ public class AmbulanceDigitalTwin {
         String getAmbulance = "SELECT * FROM DIGITALTWINS " + "WHERE IS_OF_MODEL('" + VehicleConstants.AMBULANCE_MODEL_ID + "')";
 
         Optional<AmbulanceDtModel> ambulance = Client.getClient().query(getAmbulance, AmbulanceDtModel.class).stream().filter(a -> {
-
-            String getFreeAmbulance = "SELECT T FROM DIGITALTWINS T JOIN A RELATED T.use " +
+            /*
+             * returns the transports in a specific time frame for a specific ambulance
+             */
+            String getTransportForDateTime = "SELECT T.phase FROM DIGITALTWINS T JOIN A RELATED T.use " +
                     "WHERE A.$dtId= '" + a.getId() + "' " +
                     "AND ((T.startDateTime >= '" + startDateTime +
                     "' AND T.startDateTime <= '" + endDateTime +
                     "') OR (T.endDateTime >= '" + startDateTime +
-                    "' AND T.endDateTime <= '" + endDateTime + "'))" ;
+                    "' AND T.endDateTime <= '" + endDateTime + "'))";
 
-            return Client.getClient().query(getFreeAmbulance, AmbulanceDtModel.class).stream().count() == 0;
+            PagedIterable<JSONObject> transport = Client.getClient().query(getTransportForDateTime, JSONObject.class);
+            transport.forEach(t -> System.out.println("QUA " + t));
+
+            return transport.stream().filter(t -> ! t.containsValue(Phase.CANCELLED.getValue())).count() == 0;
         }).findFirst();
 
         return ambulance.map(FHIRAmbulanceResource::createFHIRResource);
