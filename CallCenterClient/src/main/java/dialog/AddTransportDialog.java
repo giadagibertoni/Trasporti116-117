@@ -9,13 +9,14 @@ import org.json.simple.parser.ParseException;
 import utils.ControllInputField;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
 
-public class TransportDialog extends DtDialog{
+public class AddTransportDialog extends DtDialog{
 
     /**
      * Coding system HL7 SYSTEMS SERVICE CATEGORY
@@ -176,6 +177,13 @@ public class TransportDialog extends DtDialog{
 
         DatePicker transportDate = new DatePicker();
         transportDate.setEditable(false);
+        transportDate.setDayCellFactory(param -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.compareTo(LocalDate.now()) < 0 );
+            }
+        });
         getDtGridPane().add(new Label("Data trasporto"), 0, 13);
         getDtGridPane().add(transportDate, 1, 13);
 

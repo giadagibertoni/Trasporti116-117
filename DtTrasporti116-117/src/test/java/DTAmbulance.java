@@ -4,6 +4,7 @@
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
+import org.json.simple.JSONObject;
 import patientbc.PatientDigitalTwin;
 import sharedkernel.azureservice.Client;
 import transportbc.FHIRTransportResource;
@@ -42,7 +43,9 @@ public class DTAmbulance {
 
     @Test
     public void addAmbulanceWorkDay() {
-        AmbulanceDigitalTwin.addOperatorWorkDay(TestDataValue.AMBULANCE_ID, TestDataValue.OPERATOR_ID, LocalDate.of(2022, 03, 01));
+        LocalDate date = LocalDate.of(2022, 03, 01);
+        AmbulanceDigitalTwin.addOperatorWorkDay(TestDataValue.AMBULANCE_ID, TestDataValue.OPERATOR_ID, date);
+        System.out.println(Client.getClient().getRelationship(TestDataValue.AMBULANCE_ID, TestDataValue.REL_AMBULANCE_OPERATOR_ID + date, JSONObject.class));
         assertEquals(TestDataValue.EQUALS_DT, Client.getClient().getRelationship(TestDataValue.AMBULANCE_ID, TestDataValue.REL_AMBULANCE_OPERATOR_ID, BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 

@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2022. Giada Gibertoni
  */
+
 package dialog;
 
 import fhir.FHIRParser;
@@ -8,33 +9,20 @@ import httprequest.Trasporti116117HttpRequest;
 import javafx.scene.control.*;
 import org.hl7.fhir.r4.model.*;
 import utils.ControllInputField;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-public final class OperatorDialog extends DtDialog {
-
-    /**
-     * PractitionerRole AmbulanceMan code in SNOMED
-     */
-    public static final String PRACTITIONER_ROLE_CODE = "159738005";
-
-    /**
-     * Coding system SNOMED
-     */
-    public static final String SNOMED_SYSTEMS = "http://snomed.info/sct";
-
-
+public final class AddPatientDialog extends DtDialog {
     @Override
     public void createEntity() {
-        initialize("Inserisci operatore", ButtonType.OK, ButtonType.CANCEL);
+        initialize("Aggiungi Paziente", ButtonType.OK, ButtonType.CANCEL);
 
         TextField name = new TextField();
         name.setPromptText("Nome");
         name.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue) { //when focus lost
+            if (!newValue) {
                 ControllInputField.validate(ControllInputField.STRING_PATTERN, name);
             }
         });
@@ -44,7 +32,7 @@ public final class OperatorDialog extends DtDialog {
         TextField surname = new TextField();
         surname.setPromptText("Cognome");
         surname.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue) { //when focus lost
+            if (!newValue) {
                 ControllInputField.validate(ControllInputField.STRING_PATTERN, surname);
             }
         });
@@ -69,7 +57,7 @@ public final class OperatorDialog extends DtDialog {
         TextField houseNumber = new TextField();
         houseNumber.setPromptText("Numero");
         houseNumber.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue) {
+            if (!newValue) { //when focus lost
                 ControllInputField.validate(ControllInputField.NUMBER_PATTERN, houseNumber);
             }
         });
@@ -79,7 +67,7 @@ public final class OperatorDialog extends DtDialog {
         TextField city = new TextField();
         city.setPromptText("Città");
         city.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue) {
+            if (!newValue) { //when focus lost
                 ControllInputField.validate(ControllInputField.CITY_PATTERN, city);
             }
         });
@@ -89,7 +77,7 @@ public final class OperatorDialog extends DtDialog {
         TextField district = new TextField();
         district.setPromptText("Provincia");
         district.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue) {
+            if (!newValue) { //when focus lost
                 ControllInputField.validate(ControllInputField.DISTRICT_PATTERN, district);
             }
         });
@@ -116,6 +104,24 @@ public final class OperatorDialog extends DtDialog {
         getDtGridPane().add(new Label("Codice fiscale"), 0, 8);
         getDtGridPane().add(fiscalCode, 1, 8);
 
+        TextField systemCondition = new TextField();
+        systemCondition.setPromptText("System");
+        TextField codeCondition = new TextField();
+        codeCondition.setPromptText("Codice FHIR");
+        getDtGridPane().add(new Label("Condizioni di salute"), 0, 9);
+        systemCondition.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) {
+                ControllInputField.validate(ControllInputField.STRING_PATTERN, systemCondition);
+            }
+        });
+        getDtGridPane().add(systemCondition, 1, 9);
+        systemCondition.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) {
+                ControllInputField.validate(ControllInputField.NUMBER_PATTERN, codeCondition);
+            }
+        });
+        getDtGridPane().add(codeCondition, 2, 9);
+
         getDtDialog().getDialogPane().setContent(getDtGridPane());
 
         getDtDialog().showAndWait()
@@ -128,34 +134,32 @@ public final class OperatorDialog extends DtDialog {
                             && ControllInputField.DISTRICT_PATTERN.matcher(district.getText()).matches()
                             && ControllInputField.POSTALCODE_NUMBER_PATTERN.matcher(postalCode.getText()).matches()
                             && ControllInputField.NUMBER_PATTERN.matcher(houseNumber.getText()).matches()
+                            && ControllInputField.FISCAL_CODE.matcher(fiscalCode.getText()).matches()
                     ) {
-                        Practitioner operator = new Practitioner();
-                        operator.addIdentifier(new Identifier().setValue(fiscalCode.getText()));
-                        operator.addName(new HumanName().setFamily(surname.getText()).addGiven(name.getText()));
-                        operator.setBirthDate(Date.from(
-                                LocalDate.of(birthday.getValue().getYear(), birthday.getValue().getMonth(), birthday.getValue().getDayOfMonth())
-                                        .atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                        Patient patient = new Patient();
+                        patient.addIdentifier(new Identifier().setValue(fiscalCode.getText()));
+                        patient.addName(new HumanName().setFamily(surname.getText()).addGiven(name.getText()).setUse(HumanName.NameUse.OFFICIAL));
+                        patient.setBirthDate(Date.from(LocalDate.of(birthday.getValue().getYear(), birthday.getValue().getMonth(), birthday.getValue().getDayOfMonth())
+                                .atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
-                        operator.addAddress(new Address()
+                        patient.addAddress(new Address()
                                 .setDistrict(district.getText())
                                 .setCity(city.getText())
                                 .addLine(address.getText() + ", " + houseNumber.getText())
                                 .setPostalCode(postalCode.getText()));
 
-                        operator.addContained(new PractitionerRole().addSpecialty(
-                                new CodeableConcept().addCoding(
-                                        new Coding()
-                                                .setCode(PRACTITIONER_ROLE_CODE)
-                                                .setSystem(SNOMED_SYSTEMS))));
+                        patient.addContained(new Condition().setCode(new CodeableConcept(
+                                new Coding().setCode(codeCondition.getText()).setSystem(systemCondition.getText()))));
 
                         try {
                             new Alert(Alert.AlertType.INFORMATION,
-                                    ControllInputField.OPERATOR_CONFIRM +
-                                            Trasporti116117HttpRequest.createOperator(FHIRParser.getParser().encodeResourceToString(operator)),
+                                    ControllInputField.PATIENT_CONFIRM +
+                                    Trasporti116117HttpRequest.createPatient(FHIRParser.getParser().encodeResourceToString(patient)),
                                     ButtonType.CLOSE).show();
                         } catch (IOException | InterruptedException e) {
                             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.CLOSE).show();
                         }
+
                     } else {
                         new Alert(Alert.AlertType.ERROR, ControllInputField.TEXT_FIELD_ERROR, ButtonType.CLOSE).show();
                     }

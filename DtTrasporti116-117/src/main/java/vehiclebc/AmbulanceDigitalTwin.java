@@ -69,8 +69,8 @@ public class AmbulanceDigitalTwin {
         return basicTwinResponse.getId();
     }
 
-    public static void addOperatorWorkDay(String ambulanceId, String operatorId, LocalDate date){
-        String relationshipId = ambulanceId + "DriveBy" + operatorId;
+    public static String addOperatorWorkDay(String ambulanceId, String operatorId, LocalDate date){
+        String relationshipId = ambulanceId + "DriveBy" + operatorId + date;
         Client.getClient().createOrReplaceRelationship(
                 ambulanceId,
                 relationshipId,
@@ -83,6 +83,7 @@ public class AmbulanceDigitalTwin {
                 .addProperty("workDate", date),
                 BasicRelationship.class
         );
+        return operatorId;
     }
 
     /**

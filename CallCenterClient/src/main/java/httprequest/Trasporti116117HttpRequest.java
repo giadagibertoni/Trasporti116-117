@@ -9,6 +9,7 @@ import fhir.FHIRParser;
 import org.hl7.fhir.r4.model.Appointment;
 import org.hl7.fhir.r4.model.Device;
 import org.hl7.fhir.r4.model.Patient;
+import org.hl7.fhir.r4.model.Practitioner;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,7 +18,9 @@ import utils.ControllInputField;
 import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,11 +37,13 @@ public class Trasporti116117HttpRequest {
     private static final String GET_SCHEDULED_TRANSPORT = "/API/Transport/getScheduledTransports";
     private static final String DELETE_TRANSPORT = "/API/Transport/setTransportDeleted";
     private static final String GET_PATIENT = "/API/Patient/getPatient";
+    private static final String GET_AMBULANCES = "/API/Vehicle/getAmbulances";
+    private static final String GET_OPERATORS = "/API/Vehicle/getOperators";
     private static final String GET_PATIENTS = "/API/Patient/getPatients";
     private static final String GET_FREE_AMBULANCE = "/API/Vehicle/getFreeAmbulance";
+   private static final String ADD_OPERATOR_WORK_DAY = "/API/Vehicle/addOperatorWorkDay";
 
     private static final HttpClient client = HttpClient.newHttpClient();
-
     public static String createPatient(String resource) throws IOException, InterruptedException {
         return sendPOSTRequestWithJSONBody(HOST + CREATE_PATIENT, resource);
     }
@@ -86,6 +91,22 @@ public class Trasporti116117HttpRequest {
         return patients;
     }
 
+    public static List<Device> getAmbulances() throws IOException, InterruptedException, ParseException {
+        JSONParser parser = new JSONParser();
+        List<Device> ambulances = new ArrayList<>();
+        JSONArray jsonAmbulances = (JSONArray) parser.parse(sendGETRequest(HOST + GET_AMBULANCES));
+        jsonAmbulances.forEach(a -> ambulances.add(FHIRParser.getParser().parseResource(Device.class, a.toString())));
+        return ambulances;
+    }
+
+    public static List<Practitioner> getOperators() throws IOException, InterruptedException, ParseException {
+        JSONParser parser = new JSONParser();
+        List<Practitioner> operators = new ArrayList<>();
+        JSONArray jsonOperators = (JSONArray) parser.parse(sendGETRequest(HOST + GET_OPERATORS));
+        jsonOperators.forEach(o -> operators.add(FHIRParser.getParser().parseResource(Practitioner.class, o.toString())));
+        return operators;
+    }
+
     public static String getFreeAmbulance(LocalDateTime startDateTime, LocalDateTime endDateTime) throws IOException, InterruptedException {
         Map<String, String> params = new HashMap<>();
         params.put("startDateTime", startDateTime.toString());
@@ -98,6 +119,15 @@ public class Trasporti116117HttpRequest {
         }
     }
 
+    public static String addOperatorWorkDay(String ambulanceId, String operatorId, LocalDate date) throws IOException, ResourceNotFoundException, InterruptedException {
+        Map<String, String> params = new HashMap<>();
+        params.put("ambulanceId", ambulanceId);
+        params.put("operatorId", operatorId);
+        params.put("date", date.toString());
+
+        return sendPOSTRequestWithParams(HOST + ADD_OPERATOR_WORK_DAY, params);
+    }
+
     private static String sendGETRequestWithParams(String URL, Map<String, String> params) throws IOException, InterruptedException, ResourceNotFoundException {
         String formattedParams = params.keySet().stream().map(key -> key + "=" + params.get(key)).collect(Collectors.joining("&", "?", ""));
 
@@ -105,6 +135,23 @@ public class Trasporti116117HttpRequest {
                 .uri(URI.create(URL + formattedParams))
                 .GET()
                 .build();
+        HttpResponse<String> response = client.send(request,
+                HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 404)
+            throw new ResourceNotFoundException();
+
+        return response.body();
+    }
+
+    private static String sendPOSTRequestWithParams(String URL, Map<String, String> params) throws IOException, InterruptedException, ResourceNotFoundException {
+        String formattedParams = params.keySet().stream().map(key -> key + "=" + params.get(key)).collect(Collectors.joining("&", "?", ""));
+
+        java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
+                .uri(URI.create(URL + formattedParams))
+                .POST(HttpRequest.BodyPublishers.ofString(""))
+                .build();
+
         HttpResponse<String> response = client.send(request,
                 HttpResponse.BodyHandlers.ofString());
 

@@ -11,7 +11,7 @@ import utils.ControllInputField;
 
 import java.io.IOException;
 
-public class AmbulanceDialog extends DtDialog{
+public class AddAmbulanceDialog extends DtDialog{
     /**
      * Coding system SNOMED
      */

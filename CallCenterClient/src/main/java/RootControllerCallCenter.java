@@ -23,16 +23,18 @@ public final class RootControllerCallCenter implements Initializable {
     private transient Button viewTransport;
     @FXML
     private transient Button addTransport;
-
+    @FXML
+    private transient  Button addOperatorWorkDay;
     @FXML
     private transient Button deleteTransport;
 
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
-        addPatient.setOnAction(event -> new PatientDialog().createEntity());
-        addOperator.setOnAction(event -> new OperatorDialog().createEntity());
-        addAmbulance.setOnAction(event -> new AmbulanceDialog().createEntity());
-        addTransport.setOnAction(event -> new TransportDialog().createEntity());
+        addPatient.setOnAction(event -> new AddPatientDialog().createEntity());
+        addOperator.setOnAction(event -> new AddOperatorDialog().createEntity());
+        addAmbulance.setOnAction(event -> new AddAmbulanceDialog().createEntity());
+        addTransport.setOnAction(event -> new AddTransportDialog().createEntity());
         deleteTransport.setOnAction(event -> new DeleteTransport().createEntity());
+        addOperatorWorkDay.setOnAction(event -> new AddOperatorWorkDayDialog().createEntity());
     }
 }

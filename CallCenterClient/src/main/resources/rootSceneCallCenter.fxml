@@ -36,6 +36,7 @@
         <VBox alignment="CENTER" spacing="10">
             <Button fx:id="addTransport" text="Prenota Trasporto" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
             <Button fx:id="deleteTransport" text="Anulla Trasporto" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="addOperatorWorkDay" text="Assegna operatore ad ambulanza" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
         </VBox>
     </center>
 

@@ -1,5 +1,8 @@
 package openhostservice;
 
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import vehiclebc.AmbulanceDigitalTwin;
@@ -8,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,8 +29,8 @@ public class VehicleController {
 
     @PostMapping("/API/Vehicle/addOperatorWorkDay")
     @ResponseBody
-    public void addOperatorWorkDay(@RequestParam String ambulanceId, @RequestParam String operatorId, @RequestParam String date) {
-        AmbulanceDigitalTwin.addOperatorWorkDay(ambulanceId, operatorId, LocalDate.parse(date));
+    public String addOperatorWorkDay(@RequestParam String ambulanceId, @RequestParam String operatorId, @RequestParam String date) throws ParseException {
+        return AmbulanceDigitalTwin.addOperatorWorkDay(ambulanceId, operatorId, LocalDate.parse(date));
     }
 
     @GetMapping("/API/Vehicle/getFreeAmbulance")
@@ -45,14 +46,32 @@ public class VehicleController {
 
     @GetMapping("/API/Vehicle/getAmbulances")
     @ResponseBody
-    public List<String> getAmbulances() {
-        return AmbulanceDigitalTwin.getAmbulances();
+    public JSONArray getAmbulances() {
+        JSONArray ambulances = new JSONArray();
+        JSONParser parser = new JSONParser();
+        AmbulanceDigitalTwin.getAmbulances().forEach(a -> {
+            try {
+                ambulances.add(parser.parse(a));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+        return ambulances;
     }
 
     @GetMapping("/API/Vehicle/getOperators")
     @ResponseBody
-    public List<String> getOperators() {
-        return OperatorDigitalTwin.getOperators();
+    public JSONArray getOperators() {
+        JSONArray operators = new JSONArray();
+        JSONParser parser = new JSONParser();
+        OperatorDigitalTwin.getOperators().forEach(o -> {
+            try {
+                operators.add(parser.parse(o));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
+        return operators;
     }
 
     @GetMapping("/API/Vehicle/getAmbulance")
