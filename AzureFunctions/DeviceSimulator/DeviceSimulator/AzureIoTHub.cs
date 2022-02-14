@@ -63,7 +63,7 @@ namespace DeviceSimulator
                 Console.WriteLine($"indirizzo:{deviceClient}");
                 Console.WriteLine($"{DateTime.Now} > Sending message: {messageString}");
                 
-                await Task.Delay(3000);
+                await Task.Delay(1000);
             }
         }
 

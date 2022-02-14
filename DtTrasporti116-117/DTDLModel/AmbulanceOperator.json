@@ -44,10 +44,6 @@
           "schema": "dtmi:num116117:operatorAddress;1"
         },
         {
-          "name": "houseNumber",
-          "schema": "dtmi:num116117:operatorHouseNumber;1"
-        },
-        {
           "name": "city",
           "schema": "dtmi:num116117:operatorCity;1"
         },

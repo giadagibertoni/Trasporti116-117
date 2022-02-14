@@ -14,19 +14,21 @@ import patientbc.dtmodel.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 public final class TestDataValue {
 
     private TestDataValue() { }
     //Patient
-    public static final PatientFiscalCode PATIENT_FISCAL_CODE = new PatientFiscalCode().setFiscalCode("patientTest");
-    public static final String PATIENT_NAME = "namePatient";
-    public static final String PATIENT_SURNAME = "surnamePatient";
+    public static final PatientFiscalCode PATIENT_FISCAL_CODE = new PatientFiscalCode().setFiscalCode("RSSMRA70H60G827I");
+    public static final String PATIENT_NAME = "Mario";
+    public static final String PATIENT_SURNAME = "Rossi";
     public static final LocalDate PATIENT_BIRTHDAY = LocalDate.of(1970, 7, 5);
-    public static final PatientAddress PATIENT_ADDRESS = new PatientAddress().setAddress("Ferrari");
-    public static final PatientCity PATIENT_CITY = new PatientCity().setCity("Forlì");
+    public static final PatientAddress PATIENT_ADDRESS = new PatientAddress().setAddress("via Ferrari");
+    public static final PatientCity PATIENT_CITY = new PatientCity().setCity("Gambettola");
     public static final PatientDistrict PATIENT_DISTRICT = new PatientDistrict().setDistrict("FC");
-    public static final PatientPostalCode PATIENT_POSTAL_CODE = new PatientPostalCode().setPostalCode(47722);
+    public static final PatientPostalCode PATIENT_POSTAL_CODE = new PatientPostalCode().setPostalCode(47035);
     public static final PatientResidence PATIENT_RESIDENCE = new PatientResidence()
         .setAddress(PATIENT_ADDRESS)
         .setCity(PATIENT_CITY)
@@ -40,16 +42,16 @@ public final class TestDataValue {
             .setSurname(PATIENT_SURNAME)
             .setBirthDate(PATIENT_BIRTHDAY)
             .setResidence(PATIENT_RESIDENCE);
-    public static final String PATIENT_RESOURCE = "{\"resourceType\":\"Patient\",\"contained\":[{\"resourceType\":\"Condition\",\"id\":\"1\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"160245001\"}]}}],\"identifier\":[{\"value\":\"patientTest\"}],\"name\":[{\"use\":\"official\",\"family\":\"surnamePatient\",\"given\":[\"namePatient\"]}],\"birthDate\":\"1970-07-05\",\"address\":[{\"line\":[\"Ferrari\"],\"city\":\"Forlì\",\"district\":\"FC\",\"postalCode\":\"47722\"}]}";
+    public static final String PATIENT_RESOURCE = "{\"resourceType\":\"Patient\",\"contained\":[{\"resourceType\":\"Condition\",\"id\":\"1\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"160245001\"}]}}],\"identifier\":[{\"value\":\"" + PATIENT_FISCAL_CODE.getFiscalCode() +"\"}],\"name\":[{\"use\":\"official\",\"family\":\"" + PATIENT_SURNAME + "\",\"given\":[\"" + PATIENT_NAME + "\"]}],\"birthDate\":\"" + PATIENT_BIRTHDAY + "\",\"address\":[{\"line\":[\"" + PATIENT_ADDRESS.getAddress() + "\"],\"city\":\"" + PATIENT_CITY.getCity() + "\",\"district\":\"" + PATIENT_DISTRICT.getDistrict() + "\",\"postalCode\":\"" + PATIENT_POSTAL_CODE.getPostalCode() + "\"}]}";
     public static final PatientDtModel PATIENT_DT_MODEL = new PatientDtModel().setCondition(PATIENT_CONDITION).setPersonalData(PATIENT_PERSONALDATA);
 
     //Operator
-    public static final String OPERATOR_ID = "operatorTest";
-    public static final String OPERATOR_NAME = "nameOperator";
-    public static final String OPERATOR_SURNAME = "surnameOperator";
+    public static final String OPERATOR_ID = "Operator3";
+    public static final String OPERATOR_NAME = "Francesco";
+    public static final String OPERATOR_SURNAME = "Bianchi";
     public static final LocalDate OPERATOR_BIRTHDAY = LocalDate.of(1990, 7, 5);
     public static final OperatorAddress OPERATOR_ADDRESS = new OperatorAddress().setAddress("Corso Cavour, 1");
-    public static final OperatorCity OPERATOR_CITY = new OperatorCity().setCity("Gambettola");
+    public static final OperatorCity OPERATOR_CITY = new OperatorCity().setCity("Cesena");
     public static final OperatorDistrict OPERATOR_DISTRICT = new OperatorDistrict().setDistrict("FC");
     public static final OperatorPostalCode OPERATOR_POSTAL_CODE = new OperatorPostalCode().setPostalCode(47521);
     public static final OperatorResidence OPERATOR_RESIDENCE = new OperatorResidence()
@@ -63,25 +65,26 @@ public final class TestDataValue {
             .setBirthDate(OPERATOR_BIRTHDAY)
             .setResidence(OPERATOR_RESIDENCE);
     public static final OperatorDtModel OPERATOR_DT_MODEL = new OperatorDtModel().setPersonalData(OPERATOR_PERSONALDATA).setOperatorId(OPERATOR_ID);
-    public static final String OPERATOR_RESOURCE = "{\"resourceType\":\"Practitioner\",\"contained\":[{\"resourceType\":\"PractitionerRole\",\"id\":\"1\",\"specialty\":[{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"159738005\"}]}]}],\"identifier\":[{\"value\":\"operatorTest\"}],\"name\":[{\"family\":\"surnameOperator\",\"given\":[\"nameOperator\"]}],\"address\":[{\"line\":[\"Corso Cavour, 1\"],\"city\":\"Gambettola\",\"district\":\"FC\",\"postalCode\":\"47521\"}],\"birthDate\":\"1990-07-05\"}";
+    public static final String OPERATOR_RESOURCE = "{\"resourceType\":\"Practitioner\",\"contained\":[{\"resourceType\":\"PractitionerRole\",\"id\":\"1\",\"specialty\":[{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"159738005\"}]}]}],\"identifier\":[{\"value\":\"" + OPERATOR_ID +"\"}],\"name\":[{\"family\":\"" + OPERATOR_SURNAME + "\",\"given\":[\"" + OPERATOR_NAME + "\"]}],\"address\":[{\"line\":[\"" + OPERATOR_ADDRESS.getAddress() + "\"],\"city\":\"" + OPERATOR_CITY.getCity() + "\",\"district\":\"" + OPERATOR_DISTRICT.getDistrict() + "\",\"postalCode\":\"" + OPERATOR_POSTAL_CODE.getPostalCode() + "\"}],\"birthDate\":\"" + OPERATOR_BIRTHDAY + "\"}";
 
     //Ambulance
     public static final String AMBULANCE_ID = "Ambulance1111";
     public static final GPSCoordinates AMBULANCE_COORDINATES = new GPSCoordinates().setLongitude(1.11).setLatitude(1.11);
     public static final String AMBULANCE_RESOURCE = "{\"resourceType\":\"Device\",\"contained\":[{\"resourceType\":\"Location\",\"id\":\"1\",\"physicalType\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"897293009\"}]},\"position\":{\"longitude\":1.11,\"latitude\":1.11}}],\"identifier\":[{\"value\":\""+ AMBULANCE_ID + "\"}],\"status\":\"inactive\",\"type\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"465341007\"}]}}\n";
+    public static final LocalDate WORK_DATE = LocalDate.of(2022, 3, 11);
     public static final AmbulanceDtModel AMBULANCE_DT_MODEL = new AmbulanceDtModel().setId(AMBULANCE_ID).setState(AmbulanceState.FREE).setCoordinates(AMBULANCE_COORDINATES);
-    public static final String REL_AMBULANCE_OPERATOR_ID = AMBULANCE_ID + "DriveBy" + OPERATOR_ID;
+    public static final String REL_AMBULANCE_OPERATOR_ID = AMBULANCE_ID + "DriveBy" + OPERATOR_ID + WORK_DATE;
 
     //Transport
     public static final String TRANSPORT_ID = "TransportTest";
-    public static final TransportAddress DEPARTURE_ADDRESS = new TransportAddress().setAddress("IV Settembre");
+    public static final TransportAddress DEPARTURE_ADDRESS = new TransportAddress().setAddress(" Viale Giovanni Ghirotti, 286");
     public static final TransportCity DEPARTURE_CITY = new TransportCity().setCity("Cesena");
     public static final TransportDistrict DEPARTURE_DISTRICT = new TransportDistrict().setDistrict("FC");
     public static final TransportPostalCode DEPARTURE_POSTAL_CODE = new TransportPostalCode().setPostalCode(47521);
-    public static final TransportAddress DESTINATION_ADDRESS = new TransportAddress().setAddress("Giovanni Bovio");
-    public static final TransportCity DESTINATION_CITY = new TransportCity().setCity("Ravenna");
+    public static final TransportAddress DESTINATION_ADDRESS = new TransportAddress().setAddress("Via Ferrari");
+    public static final TransportCity DESTINATION_CITY = new TransportCity().setCity("Gambettola");
     public static final TransportDistrict DESTINATION_DISTRICT = new TransportDistrict().setDistrict("FC");
-    public static final TransportPostalCode DESTINATION_POSTAL_CODE = new TransportPostalCode().setPostalCode(47521);
+    public static final TransportPostalCode DESTINATION_POSTAL_CODE = new TransportPostalCode().setPostalCode(47035);
     public static final TransportLocation DEPARTURE = new TransportLocation()
             .setAddress(DEPARTURE_ADDRESS)
             .setCity(DEPARTURE_CITY)
@@ -114,20 +117,7 @@ public final class TestDataValue {
             .setRoute(new TransportRoute().setDeparture(DEPARTURE).setDestination(DESTINATION));
 
 
-    public static final String TRANSPORT_SCHEDULED_RESURCE = "{\"resourceType\":\"Appointment\",\"contained\":[{\"resourceType\":\"Location\",\"id\":\"1\",\"name\":\"departure\",\"address\":{\"line\":[\"IV Settembre\"],\"city\":\"Cesena\",\"district\":\"FC\",\"postalCode\":\"47521\"}},{\"resourceType\":\"Location\",\"id\":\"2\",\"name\":\"destination\",\"address\":{\"line\":[\"IV Settembre\"],\"city\":\"Cesena\",\"district\":\"FC\",\"postalCode\":\"47521\"}}],\"identifier\":[{\"value\":\"" + TRANSPORT_ID + "-appointment\"}],\"serviceCategory\":[{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/service-category\",\"code\":\"33\",\"display\":\"Transport\"}]}],\"serviceType\":[{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/service-type\",\"code\":\"230\",\"display\":\"Patient Transport\"}]}],\"start\":\"2022-02-10T15:00:00.000+01:00\",\"end\":\"2022-02-10T16:00:00.000+01:00\",\"participant\":[{\"actor\":{\"reference\":\"Patient/patientTest\"},\"status\":\"accepted\"},{\"actor\":{\"reference\":\"Device/Ambulance1111\"},\"status\":\"accepted\"}]}";
-    public static final String TRANSPORT_IN_PROGRESS_RESURCE = "{\"resourceType\":\"Encounter\",\"contained\":[{\"resourceType\":\"Procedure\",\"id\":\"1\",\"identifier\":[{\"value\":\"Transport1111-procedure\"}],\"status\":\"in-progress\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"715537001\",\"display\":\"Transportation by ambulance (procedure)\"}]},\"subject\":{\"reference\":\"Patient/patientTest\",\"display\":\"namePatient surnamePatient\"},\"encounter\":{\"reference\":\"Transport1111-encounter\"},\"performer\":[{\"actor\":{\"reference\":\"Practitioner/operatorTest\",\"display\":\"nameOperator surnameOperator\"}},{\"actor\":{\"reference\":\"Device/Ambulance1111\"}}]}],\"identifier\":[{\"value\":\"Transport1111encounter\"}],\"status\":\"in-progress\",\"class\":{\"system\":\"http://terminology.hl7.org/CodeSystem/v3 -ActCode\",\"code\":\"AMB\"},\"serviceType\":{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/service-type\",\"code\":\"230\",\"display\":\"Patient Transport\"}]},\"subject\":{\"reference\":\"Patient/patientTest\",\"display\":\"namePatient surnamePatient\"},\"participant\":[{\"type\":[{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\"code\":\"ESC\"}]}],\"individual\":{\"reference\":\"Practitioner/operatorTest\",\"display\":\"nameOperator surnameOperator\"}},{\"type\":[{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\"code\":\"DIR\"}]}],\"individual\":{\"reference\":\"Device/Ambulance1111\"}}],\"appointment\":[{\"reference\":\"Transport1111appointment\"}],\"period\":{\"start\":\"2022-02-10T15:00:00+01:00\"}}";
-    public static final String TRANSPORT_COMPLETED_RESURCE = "{\"resourceType\":\"Encounter\",\"contained\":[{\"resourceType\":\"Procedure\",\"id\":\"1\",\"identifier\":[{\"value\":\"Transport1111-procedure\"}],\"status\":\"completed\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"715537001\",\"display\":\"Transportation by ambulance (procedure)\"}]},\"subject\":{\"reference\":\"Patient/patientTest\",\"display\":\"namePatient surnamePatient\"},\"encounter\":{\"reference\":\"Transport1111-encounter\"},\"performer\":[{\"actor\":{\"reference\":\"Practitioner/operatorTest\",\"display\":\"nameOperator surnameOperator\"}},{\"actor\":{\"reference\":\"Device/Ambulance1111\"}}]}],\"identifier\":[{\"value\":\"Transport1111-encounter\"}],\"status\":\"finished\",\"class\":{\"system\":\"http://terminology.hl7.org/CodeSystem/v3 -ActCode\",\"code\":\"AMB\"},\"serviceType\":{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/service-type\",\"code\":\"230\",\"display\":\"Patient Transport\"}]},\"subject\":{\"reference\":\"Patient/patientTest\",\"display\":\"namePatient surnamePatient\"},\"participant\":[{\"type\":[{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\"code\":\"ESC\"}]}],\"individual\":{\"reference\":\"Practitioner/operatorTest\",\"display\":\"nameOperator surnameOperator\"}},{\"type\":[{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\"code\":\"DIR\"}]}],\"individual\":{\"reference\":\"Device/Ambulance1111\"}}],\"appointment\":[{\"reference\":\"Transport1111-appointment\"}],\"period\":{\"start\":\"2022-02-10T15:00:00+01:00\"}}";
-
-    //General location
-    public static final String ADDRESS_VALUE = "Rossi";
-    public static final String CITY_VALUE = "Forlì";
-    public static final String DISTRICT_VALUE = "FC";
-    public static final int POSTAL_CODE_VALUE = 47521;
-
-    public static final PatientAddress ADDRESS = new PatientAddress().setAddress(ADDRESS_VALUE);
-    public static final PatientCity CITY = new PatientCity().setCity(CITY_VALUE);
-    public static final PatientDistrict DISTRICT = new PatientDistrict().setDistrict(DISTRICT_VALUE);
-    public static final PatientPostalCode POSTAL_CODE = new PatientPostalCode().setPostalCode(POSTAL_CODE_VALUE);
+    public static final String TRANSPORT_SCHEDULED_RESURCE = "{\"resourceType\":\"Appointment\",\"contained\":[{\"resourceType\":\"Location\",\"id\":\"1\",\"name\":\"departure\",\"address\":{\"line\":[\"" + DEPARTURE_ADDRESS.getAddress() + "\"],\"city\":\"" + DEPARTURE_CITY.getCity() + "\",\"district\":\""  + DEPARTURE_DISTRICT.getDistrict() + "\",\"postalCode\":\"" + DEPARTURE_POSTAL_CODE.getPostalCode() + "\"}},{\"resourceType\":\"Location\",\"id\":\"2\",\"name\":\"destination\",\"address\":{\"line\":[\"" + DESTINATION_ADDRESS.getAddress() +"\"],\"city\":\"" + DESTINATION_CITY.getCity() + "\",\"district\":\"" + DESTINATION_DISTRICT.getDistrict() +"\",\"postalCode\":\""+ DESTINATION_POSTAL_CODE.getPostalCode() +"\"}}],\"identifier\":[{\"value\":\"" + TRANSPORT_ID + "-appointment\"}],\"serviceCategory\":[{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/service-category\",\"code\":\"33\",\"display\":\"Transport\"}]}],\"serviceType\":[{\"coding\":[{\"system\":\"http://terminology.hl7.org/CodeSystem/service-type\",\"code\":\"230\",\"display\":\"Patient Transport\"}]}],\"start\":\"2022-02-10T14:00:00.000+01:00\",\"end\":\"2022-02-10T16:00:00.000+01:00\",\"participant\":[{\"actor\":{\"reference\":\"Patient/" + PATIENT_FISCAL_CODE.getFiscalCode() + "\"},\"status\":\"accepted\"},{\"actor\":{\"reference\":\"Device/" + AMBULANCE_ID + "\"},\"status\":\"accepted\"}]}";
 
     //Assert messagge
     public static final String NOT_EQUALS_VALUE = "recovered value is not equal to the past one";

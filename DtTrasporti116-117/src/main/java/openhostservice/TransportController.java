@@ -33,8 +33,6 @@ public class TransportController {
     @PostMapping("/API/Transport/setTransportDeleted")
     @ResponseBody
     public void setTransportDeleted(@RequestBody String id) {
-        System.out.println("quaaa");
-        System.out.println(id);
         TransportDigitalTwin.setTransportDeleted(id);
     }
 

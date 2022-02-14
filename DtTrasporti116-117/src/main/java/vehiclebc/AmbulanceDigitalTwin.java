@@ -122,8 +122,15 @@ public class AmbulanceDigitalTwin {
     }
 
     public static Optional<String> getFreeAmbulance(LocalDateTime startDateTime,  LocalDateTime endDateTime) {
-        String getAmbulance = "SELECT * FROM DIGITALTWINS " + "WHERE IS_OF_MODEL('" + VehicleConstants.AMBULANCE_MODEL_ID + "')";
+        String getAmbulance = "SELECT * FROM DIGITALTWINS " +
+                "WHERE IS_OF_MODEL('" + VehicleConstants.AMBULANCE_MODEL_ID + "')" +
+                " AND state = '"+ AmbulanceState.FREE.getValue() +  "'" +
+                " OR state = '" + AmbulanceState.BUSY.getValue() + "'";
 
+        System.out.println(
+                "QQQUUUUAA"
+        );
+        System.out.println(getAmbulance);
         Optional<AmbulanceDtModel> ambulance = Client.getClient().query(getAmbulance, AmbulanceDtModel.class).stream().filter(a -> {
             /*
              * returns the transports in a specific time frame for a specific ambulance

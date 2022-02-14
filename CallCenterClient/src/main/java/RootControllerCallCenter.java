@@ -10,15 +10,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public final class RootControllerCallCenter implements Initializable {
-
+    @FXML
+    public Button viewPatient;
     @FXML
     private transient Button addPatient;
     @FXML
     private transient Button addOperator;
     @FXML
     private transient Button addAmbulance;
-    @FXML
-    private transient Button trackAmbulance;
     @FXML
     private transient Button viewTransport;
     @FXML
@@ -41,5 +40,7 @@ public final class RootControllerCallCenter implements Initializable {
         addOperatorWorkDay.setOnAction(event -> new AddOperatorWorkDayDialog().createEntity());
         changeAmbulanceState.setOnAction(event -> new ChangeAmbulanceState().createEntity());
         viewTransport.setOnAction(event -> new ViewTransportDialog().createEntity());
+        viewPatient.setOnAction(event -> new ViewPatientDialog().createEntity());
+
     }
 }

@@ -88,10 +88,6 @@
           "schema": "dtmi:num116117:transportAddress;1"
         },
         {
-          "name": "houseNumber",
-          "schema": "dtmi:num116117:transportHouseNumber;1"
-        },
-        {
           "name": "city",
           "schema": "dtmi:num116117:transportCity;1"
         },
@@ -112,16 +108,6 @@
         {
           "name": "address",
           "schema": "string"
-        }
-      ]
-    },
-    {
-      "@id": "dtmi:num116117:transportHouseNumber;1",
-      "@type": "Object",
-      "fields": [
-        {
-          "name": "houseNumber",
-          "schema": "integer"
         }
       ]
     },

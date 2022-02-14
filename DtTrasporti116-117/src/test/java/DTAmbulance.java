@@ -43,9 +43,8 @@ public class DTAmbulance {
 
     @Test
     public void addAmbulanceWorkDay() {
-        LocalDate date = LocalDate.of(2022, 03, 01);
-        AmbulanceDigitalTwin.addOperatorWorkDay(TestDataValue.AMBULANCE_ID, TestDataValue.OPERATOR_ID, date);
-        System.out.println(Client.getClient().getRelationship(TestDataValue.AMBULANCE_ID, TestDataValue.REL_AMBULANCE_OPERATOR_ID + date, JSONObject.class));
+        AmbulanceDigitalTwin.addOperatorWorkDay(TestDataValue.AMBULANCE_ID, TestDataValue.OPERATOR_ID, TestDataValue.WORK_DATE);
+        System.out.println(Client.getClient().getRelationship(TestDataValue.AMBULANCE_ID, TestDataValue.REL_AMBULANCE_OPERATOR_ID, JSONObject.class));
         assertEquals(TestDataValue.EQUALS_DT, Client.getClient().getRelationship(TestDataValue.AMBULANCE_ID, TestDataValue.REL_AMBULANCE_OPERATOR_ID, BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
@@ -72,7 +71,7 @@ public class DTAmbulance {
                 LocalDateTime.of(2022, 2, 10, 18, 0)).isPresent());
     }
     @Test
-    public void getBusyAmbulance(){
+    public void tryGetBusyAmbulance(){
         PatientDigitalTwin.createPatient(TestDataValue.PATIENT_RESOURCE);
         AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_RESOURCE);
         TransportDigitalTwin.createTransport(TestDataValue.TRANSPORT_SCHEDULED_RESURCE);

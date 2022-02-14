@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{7B5691EA-132C-4C13-8EDD-3AD7C57511D5}|Default">
+  <MonoDevelop.Ide.ItemProperties.DeviceSimulator PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="AzureIoTHub.cs">
+    <Files>
+      <File FileName="app.config" Line="1" Column="1" />
+      <File FileName="IotHubConnection.cs" Line="1" Column="1" />
+      <File FileName="Program.cs" Line="1" Column="1" />
+      <File FileName="AzureIoTHub.cs" Line="66" Column="38" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DeviceSimulator" expanded="True">
+            <Node name="DeviceSimulator" expanded="True">
+              <Node name="AzureIoTHub.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

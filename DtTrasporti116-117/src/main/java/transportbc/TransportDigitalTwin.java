@@ -77,7 +77,9 @@ public class TransportDigitalTwin {
 
     public static void setTransportInProgress (String idTransport){
         Client.getClient().updateDigitalTwin(idTransport,
-                new JsonPatchDocument().appendAdd("/phase", "inProgress"));
+                new JsonPatchDocument()
+                        .appendAdd("/phase", Phase.IN_PROGRESS.getValue())
+                        .appendAdd("/startDateTime", LocalDateTime.now()));
     }
 
     public static void setTransportCompleted (String idTransport){

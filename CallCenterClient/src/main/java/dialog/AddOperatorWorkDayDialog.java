@@ -15,7 +15,7 @@ import java.util.List;
 public class AddOperatorWorkDayDialog extends DtDialog{
     @Override
     public void createEntity() {
-        initialize("Inserisci operatore", ButtonType.OK, ButtonType.CLOSE);
+        initialize("Inserisci giorno lavorativo operatore", ButtonType.OK, ButtonType.CLOSE);
 
         //--->OPERATORS
         ComboBox<String> operator = new ComboBox<>();

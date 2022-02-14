@@ -1,14 +1,14 @@
 
 * {
 	/* Some general colors */
-	backgroundColor: rgb(147, 255, 246);
-	backgroundColorDark: derive(backgroundColor, -80%);
+	backgroundColor: rgb(112, 166, 240);
+	backgroundColorDark: derive(backgroundColor, -95%);
 
-	buttonColor: rgb(147, 255, 246);
+	buttonColor: rgb(112, 166, 240);
 	buttonColorHover: derive(buttonColor, +15%);
 	buttonColorPressed: derive(buttonColorHover, +15%);
 
-	textButtonColor: #0033ce;
+	textButtonColor: #0d3972;
 
 	progressColor: #4286f4;
 	darkTextColor: rgb(15,15,15);
@@ -24,7 +24,7 @@
     -fx-background-color: buttonColor;
     -fx-font-weight: bold;
     -fx-text-fill: textButtonColor;
-    -fx-width: 15px;
+    -fx-width: 20px;
 }
 
 .button:hover {
