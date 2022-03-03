@@ -18,7 +18,7 @@
     },
     {
       "@type": "Relationship",
-      "name": "driveBy",
+      "name": "drivenBy",
       "target": "dtmi:num116117:ambulanceOperator;1",
       "properties": [
         {

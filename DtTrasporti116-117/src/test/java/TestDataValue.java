@@ -73,7 +73,7 @@ public final class TestDataValue {
     public static final String AMBULANCE_RESOURCE = "{\"resourceType\":\"Device\",\"contained\":[{\"resourceType\":\"Location\",\"id\":\"1\",\"physicalType\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"897293009\"}]},\"position\":{\"longitude\":1.11,\"latitude\":1.11}}],\"identifier\":[{\"value\":\""+ AMBULANCE_ID + "\"}],\"status\":\"inactive\",\"type\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"465341007\"}]}}\n";
     public static final LocalDate WORK_DATE = LocalDate.of(2022, 3, 11);
     public static final AmbulanceDtModel AMBULANCE_DT_MODEL = new AmbulanceDtModel().setId(AMBULANCE_ID).setState(AmbulanceState.FREE).setCoordinates(AMBULANCE_COORDINATES);
-    public static final String REL_AMBULANCE_OPERATOR_ID = AMBULANCE_ID + "DriveBy" + OPERATOR_ID + WORK_DATE;
+    public static final String REL_AMBULANCE_OPERATOR_ID = AMBULANCE_ID + "DrivenBy" + OPERATOR_ID + WORK_DATE;
 
     //Transport
     public static final String TRANSPORT_ID = "TransportTest";

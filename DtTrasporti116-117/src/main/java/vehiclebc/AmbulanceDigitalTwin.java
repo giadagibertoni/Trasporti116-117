@@ -71,7 +71,7 @@ public class AmbulanceDigitalTwin {
     }
 
     public static String addOperatorWorkDay(String ambulanceId, String operatorId, LocalDate date){
-        String relationshipId = ambulanceId + "DriveBy" + operatorId + date;
+        String relationshipId = ambulanceId + "DrivenBy" + operatorId + date;
         Client.getClient().createOrReplaceRelationship(
                 ambulanceId,
                 relationshipId,

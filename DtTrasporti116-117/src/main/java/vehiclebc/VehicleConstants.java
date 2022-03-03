@@ -14,7 +14,7 @@ public class VehicleConstants {
     /**
      * Ambulance-Operator relationship
      */
-    public static final String AMBULANCE_OPERATOR_REL = "driveBy";
+    public static final String AMBULANCE_OPERATOR_REL = "drivenBy";
 
     /**
      * Coding system SNOMED

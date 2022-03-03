@@ -68,16 +68,6 @@
       ]
     },
     {
-      "@id": "dtmi:num116117:operatorHouseNumber;1",
-      "@type": "Object",
-      "fields": [
-        {
-          "name": "houseNumber",
-          "schema": "integer"
-        }
-      ]
-    },
-    {
       "@id": "dtmi:num116117:operatorCity;1",
       "@type": "Object",
       "fields": [
